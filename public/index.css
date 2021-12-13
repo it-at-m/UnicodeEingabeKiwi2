@@ -1,0 +1,42 @@
+
+/* @import url("node_modules/normalize.css/normalize.css"); */
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  min-height: 100vh;
+  background-color: #eeeeee;
+  font-family: sans-serif;
+}
+
+.errorhead {
+  color:red;
+  text-align: center;
+}
+
+.error, .error * {
+  color:red; 
+}
+
+div#footer {
+  width: 100%;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+div#footer > * {
+  vertical-align: middle;
+  display: inline-block;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#itmlogo {
+  width: auto;
+  height: 60px;
+}
+
+#lhmlogo {
+  width: auto;
+  height: 60px;
+}

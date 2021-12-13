@@ -1,0 +1,22 @@
+{
+  "name": "Kiwi",
+  "short_name": "Kiwi",
+  "description": "Eingabehilfe für diakritische Zeichen (Lateinische Zeichen in Unicode, DIN91379)",
+  "start_url": "/index.html",
+  "id": "/index.html",
+  "icons": [
+    {
+      "src": "manifest/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "manifest/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "#eeeeee",
+  "background_color": "#eeeeee"
+}

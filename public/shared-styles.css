@@ -1,0 +1,27 @@
+
+.nocap {
+    text-transform: none;
+}
+  
+.lhmline > .upper {
+    background-color: rgb(255, 204, 0);
+    width: 100%;
+    height: 3px;
+}
+
+.lhmline > .lower {
+    background-color: rgb(51, 51, 51);
+    width: 100%;
+    height: 3px;
+}
+
+.hyphen {
+    -webkit-hyphens: auto !important; 
+    hyphens: auto !important; 
+}
+
+/* Workaround to enable line-breaks for long button text */
+.v-btn__content { 
+    width: 100%; 
+    white-space: normal; 
+}
