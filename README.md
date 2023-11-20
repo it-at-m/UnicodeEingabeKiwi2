@@ -35,7 +35,7 @@ Wenn eine Weiterentwicklung angestrebt wird, dann empfehlen sich darüber hinaus
 
 ## TL;DR ##
 ### Testen ###
-Hier gibt es eine Demo, die kein offizieller Service der Stadt München ist, aber sich zum Ausprobieren trotzdem gut eignet: [https://it-at-m.github.io/KiwiDemo/](https://it-at-m.github.io/KiwiDemo/) Für eine professionelle Nutzung empfehlen wir eine Installation auf einem eigenen, dedizierten Server.
+Hier gibt es eine Demo, die kein offizieller Service der Stadt München ist, aber sich zum Ausprobieren trotzdem gut eignet: [kiwi.muenchen.de](https://kiwi.muenchen.de) Für eine professionelle Nutzung empfehlen wir eine Installation auf einem eigenen, dedizierten Server.
 
 
 ### Bauen zu Entwicklungszwecken oder zum Ansehen ##
