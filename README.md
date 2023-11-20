@@ -43,17 +43,16 @@ Hier gibt es eine Demo, die kein offizieller Service der Stadt München ist, abe
 
 Vorgehen:
 
-1. *mvn clean install* ausführen, damit die Dependencies aufgelöst werden (Das Build-Ergebnis wird aber nicht direkt verwendet.)
+1. *npm install* ausführen, damit die Dependencies aufgelöst werden (Das Build-Ergebnis wird aber nicht direkt verwendet.)
 2. *npm run serve* ausführen.
-3. (Web-)Browser mit der URL aufrufen, die auf der Kommandozeile angegeben wird.
 
 
 ### Für Deployment / Betrieb ###
 Vorgehen:
 
-1. *mvn clean install* ausführen.
-2. *jar xvf target/kiwi2-1.0.0-SNAPSHOT.jar* ausführen
-3. Im entpackten Verzeichnis *static* ist KIWI enthalten, das im *DocumentRoot* eines Web-Servers deployed werden kann.
+1. *npm install* ausführen.
+2. *npm run build* ausführen
+3. (Web-)Browser mit der URL aufrufen, die auf der Kommandozeile angegeben wird. Ein Webserver wird benötigt mit mod_deflate, mod_expires, mod_headers, mod_rewrite aktiviert, Option AllowOverride auf Einstellung All für Dokument-Root des Web-Servers.
 
 ## Bekannte Bugs ##
 * Auf *Apple Safari* (nur dort!) gibt es derzeit ein Problem mit dem Scroll-Verhalten der App-Bar, das aus einem derzeit offene *Vuetify-Bug* resultiert: [#12573](https://github.com/vuetifyjs/vuetify/issues/12573).
