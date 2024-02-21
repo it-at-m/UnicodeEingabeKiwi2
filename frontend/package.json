@@ -34,7 +34,6 @@
     "@babel/preset-env": "^7.15.6",
     "@mdi/font": "^6.1.95",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "@vue/cli-plugin-babel": "^4.5.13",
@@ -65,6 +64,10 @@
   },
   "engines": {
     "node": ">=12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/it-at-m/UnicodeEingabeKiwi2"
   },
   "postcss": {
     "plugins": {
