@@ -63,6 +63,9 @@
     "vuetify-loader": "^1.7.3",
     "webpack": "^4.46.0"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
