@@ -1,0 +1,46 @@
+spring:
+
+  # spring cloud gateway config
+  cloud:
+    gateway:
+      actuator:
+        verbose:
+          enabled: false
+      globalcors:
+        corsConfigurations:
+          # The cors configuration to allow frontend developers cross origin request via this api gateway
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:8082"
+              - "http://127.0.0.1:8082"
+              - ${ALLOWED_ORIGIN_1}
+              - ${ALLOWED_ORIGIN_2}
+              - ${ALLOWED_ORIGIN_3}
+              - ${ALLOWED_ORIGIN_4}
+              - ${ALLOWED_ORIGIN_5}
+              - ${ALLOWED_ORIGIN_6}
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: backend
+          uri: ${BACKEND_URI}
+          predicates:
+            - Path=${BACKEND_URI_PREDICATE}
+          filters:
+            - RewritePath=${BACKEND_URI_REWRITE_PATH}
+            - RemoveResponseHeader=WWW-Authenticate
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie
+        - RemoveRequestHeader=x-xsrf-token
+        - CustomTokenRelay=
+
+  http:
+    log-request-details: on
+
+server:
+  port: 8080
+config:
+  map5xxto400: true

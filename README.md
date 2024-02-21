@@ -58,7 +58,7 @@ Vorgehen:
 * Auf *Apple Safari* (nur dort!) gibt es derzeit ein Problem mit dem Scroll-Verhalten der App-Bar, das aus einem derzeit offene *Vuetify-Bug* resultiert: [#12573](https://github.com/vuetifyjs/vuetify/issues/12573).
 
 ## Lizenzierung und Copyright ##
-© Copyright 2019-2021 – it@M
+© Copyright 2019-2024 – it@M
 
 *Kiwi* ist lizenziert unter der [European Union Public Licence (EUPL)](https://de.wikipedia.org/wiki/European_Union_Public_Licence).
 
@@ -207,3 +207,41 @@ Die Anwendung wurde auf Barrierearmut getestet:
         * Zeichen ist normativ, d.h. normativ = true.
         * Zeichen hat gegebenes Basiszeichen, wobei der Typ des Basiszeichens (*pseudo* oder *real*) für diesen Schritt irrelevant ist. 
     * Die Zeichen, die als Treffermenge herausgefiltert wurden, werden mit einer Ausnahme gemäß Unicode-Sortierung sortiert: Das erste (linkeste) Zeichen ist gemäß Fachkonzept *immer*  das Basiszeichen.
+
+
+# Virtual Keyboard (KIWI V2.0)
+
+## Background
+KIWI (Easily Integrate Word Components) is an input aid for the comfortable and efficient input of characters from the Unicode Latin characters set. This includes characters with diacritics (e.g., Ẫ, D̂, Ģ, M̂) or those not of German origin (e.g., ð, ø, þ), which are typically not found on standard German keyboards. KIWI makes all characters from the Latin Characters in UNICODE set easily accessible and enterable. With KIWI, names containing diacritical marks can be easily entered using a standard keyboard and then transferred to any application via copy & paste. The Latin Characters in UNICODE set is particularly relevant for names of natural and legal persons as well as addresses.
+
+The Latin Characters in Unicode is a standard that was created by the Coordination Office for IT Standards (KOSIT) on behalf of the IT Planning Council. It defines what is understood by Unicode-compliant processing in German public administration. The IT Planning Council, in its 13th session, made a decision to support the Latin Characters in UNICODE set in IT procedures within the Federal Republic of Germany. This development was furthered by DIN SPEC 91379, which differs by having an enlarged character set and including non-normative characters (Greek and Cyrillic).
+
+## Prerequisites for the Build
+- Linux is preferred for development or building of the application, as some necessary tools are available through package management and do not need to be downloaded individually.
+- All tools must be accessible in the path (environment variable PATH). Under Windows, it is therefore recommended to initiate the build from the GIT shell.
+
+The following tools are necessary for a build:
+1. Installation of GIT
+2. Installation of Maven and Java
+3. Installation of Node.js LTS
+
+If further development is sought, then the following tools are additionally recommended:
+4. Installation of license-checker
+5. Installation of Google Chrome or Chromium for debugging.
+6. Installation of Python 3 for helper scripts.
+7. Installation of License Finder for checking licenses of used components.
+
+## Testing
+There is a demo, which is not an official service of the city of Munich, but well-suited for trying out. For professional use, installation on a dedicated server is recommended.
+
+## Building for Development Purposes or for Viewing
+For deployment, a real build is recommended as it automates further tasks.
+
+## For Deployment / Operation
+A web server is required with specific modules activated. Known bugs include an issue with the scrolling behavior of the app bar on Apple Safari.
+
+## Licensing and Copyright
+Copyright 2019-2024 by it@M. KIWI is licensed under the European Union Public Licence (EUPL).
+
+## Conclusion
+This document covers the background, prerequisites for building, testing, deployment, known bugs, and licensing information for KIWI V2.0, a virtual keyboard application.

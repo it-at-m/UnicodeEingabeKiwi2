@@ -1,423 +1,51 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.muenchen.uc</groupId>
-    <artifactId>kiwi2</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
+    <groupId>de.muenchen.kiwi</groupId>
+    <artifactId>frontend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>frontend</name>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <maven.exec.plugin>1.6.0</maven.exec.plugin>
-        <maven.clean.plugin>3.1.0</maven.clean.plugin>
-        <maven.resources.plugin>3.2.0</maven.resources.plugin>
-        <maven.antrun.plugin>1.8</maven.antrun.plugin>
-
-        <!-- 
-           Version and build timestamp due to inability to pin bower dependencies 
-          -->
-        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <appversion>2.0.0-SNAPSHOT</appversion>
-        <buildno>${maven.build.timestamp}</buildno>
+        <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
     </properties>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>dist</directory>
-                <targetPath>static</targetPath>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
 
+    <scm>
+        <connection>scm:git:https://git.muenchen.de/itm-km55/kiwi/buergeransicht.git</connection>
+        <developerConnection>scm:git:https://git.muenchen.de/itm-km55/kiwi/buergeransicht.git</developerConnection>
+        <url>https://git.muenchen.de/itm-km55/kiwi/buergeransicht</url>
+        <tag>HEAD</tag>
+    </scm>
+
+
+
+    <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${maven.exec.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>npm-install</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-
-                                <!-- No audit here, because we don't want audit of dev deps here. -->
-                                <argument>--audit</argument>
-                                <argument>false</argument>
-
-                                <argument>--legacy-peer-deps</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.10.0</version>
+                <configuration>
+                    <tag>RT-REL-${project.version}</tag>
+                </configuration>
             </plugin>
-                                
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven.antrun.plugin}</version>
-                <executions>
-                    <!-- 
-                        Check for production type vulnerabilities
-                        -->
-                    <execution>
-                        <id>audit-prod-deps</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target name="audit-prod-deps">
-                                <exec executable="npm" outputproperty="auditresult">
-                                    <arg value="run" />
-                                    <arg value="audit" />
-                                </exec>
-
-                                <echo message="${auditresult}" />
-                                <condition property="vulnerabilities">
-                                    <not>
-                                        <matches pattern='"vulnerabilities": \{\}"' string="${auditresult}"/>
-                                    </not>
-                                </condition>
-                                <fail unless="vulnerabilities">Auditing production dependencies failed -- see above.</fail>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>${maven.clean.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>clean-node_modules</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>node_modules</directory>
-                                    <followSymlinks>false</followSymlinks>
-                                </fileset>
-                            </filesets>
-                            <failOnError>false</failOnError>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- (Re-)Bind default goal to a later phase to make room for more phases -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven.resources.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>default-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>resources</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar.scanner.version}</version>
             </plugin>
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>with-build</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
 
-            <build>
-                <plugins>
-                    <!-- 
-                      Run build
-                      -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${maven.exec.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>npm-run-build</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>npm</executable>
-                                    <arguments>
-                                        <argument>run</argument>
-                                        <argument>build</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven.antrun.plugin}</version>
-                        <executions>
-                            <!-- 
-                               Postprocess build result
-                              -->
-                            <execution>
-                                <id>postprocess-build</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target name="postprocess-build">
-                                        <!-- 
-                                           Patch build-nos 
-                                          -->
-                                        <property name="myBuildno" value="${buildno}"/>
-                                        <property name="myAppversion" value="${appversion}"/>
-
-                                        <replace encoding="UTF-8">
-                                            <replacefilter token='%%appversion%%' value='${myBuildno}' />
-                                            <replacefilter token='%%buildno%%' value='${myAppversion}' />
-
-                                            <fileset dir="${basedir}/dist/js" casesensitive="yes">
-                                                <include name="**/*.js"/>
-                                            </fileset>
-                                        </replace>
-
-                                        <!-- 
-                                           Add normalize.css
-                                          -->
-                                        <copy todir="dist">
-                                            <fileset dir="node_modules/normalize.css" includes="normalize.css" />
-                                        </copy>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>ant-contrib</groupId>
-                                <artifactId>ant-contrib</artifactId>
-                                <version>1.0b3</version>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>ant</groupId>
-                                        <artifactId>ant</artifactId>
-                                    </exclusion>
-                                </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant-nodeps</artifactId>
-                                <version>1.8.1</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-
-                    <!-- 
-                       Remove previous build.
-                      -->
-                    <plugin>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>${maven.clean.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>clean-dist</id>
-                                <phase>clean</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                                <configuration>
-                                    <filesets>
-                                        <fileset>
-                                            <directory>dist</directory>
-                                            <followSymlinks>false</followSymlinks>
-                                        </fileset>
-                                    </filesets>
-                                    <failOnError>false</failOnError>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-           </build>
-        </profile>
-
-        <!-- 
-           Run unit-tests
-          -->
-        <profile>
-            <id>with-test</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${maven.exec.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>npm run test</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>npm</executable>
-                                    <arguments>
-                                        <argument>run</argument>
-                                        <argument>test:unit</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- 
-           Check if licenses are compatible with EUPL.
-          -->
-        <profile>
-            <id>with-check-license</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${maven.exec.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>license_finder action_items</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>license_finder</executable>
-                                    <arguments>
-                                        <argument>action_items</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-           Build for a different root 
-          -->
-        <profile>
-            <id>with-alt-root</id>
-
-            <activation>
-                <property>
-                    <name>publicPath</name>
-                </property>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven.antrun.plugin}</version>
-                        <executions>
-                            <execution>
-                                <id>alt-root</id>
-                                <phase>process-sources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target name="alt-root">
-                                        <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath" />
-                                        
-                                        <property name="myPublicPath" value="${publicPath}"/>
-
-                                        <macrodef name="fix_rootpath">
-                                            <attribute name="currentdir" />
-                                            <attribute name="finalpath" />
-                                            <sequential>
-                                                <replace file="@{currentdir}vue.config.js">
-                                                    <replacefilter token='publicPath: "/' value='publicPath: "/@{finalpath}' />
-                                                </replace>
-
-                                                <replace file="@{currentdir}public/manifest.json">
-                                                    <replacefilter token=': "/index.html"' value=': "/@{finalpath}/index.html"' />
-                                                </replace>
-
-                                                <replaceregexp file="@{currentdir}public/notfound.html" flags="m">
-                                                    <regexp pattern='"0;\s+URL=/"'/>
-                                                    <substitution expression='"0; URL=/@{finalpath}"' />
-                                                </replaceregexp>
-
-                                                <replaceregexp file="@{currentdir}public/index.html" flags="mg">
-                                                    <regexp pattern='&lt;base\s+href="/"\s*&gt;' />
-                                                    <substitution expression='&lt;base href="/@{finalpath}/"&gt;' />
-                                                </replaceregexp>
-
-                                                <replaceregexp file="@{currentdir}public/.htaccess" byline="true">
-                                                    <regexp pattern='ErrorDocument\s+(4..)\s+/src/' />
-                                                    <substitution expression='ErrorDocument \1 @{finalpath}src/' />
-                                                </replaceregexp>
-                                            </sequential>
-                                        </macrodef>
-
-                                        <if>
-                                            <not>
-                                                <equals arg1="${myPublicPath}" arg2="/" />
-                                            </not>
-                                            <then>
-                                                <echo>Setting root path to "${myPublicPath}"</echo>
-                                                <fix_rootpath currentdir="${basedir}/" finalpath="${myPublicPath}" />
-                                            </then>
-                                        </if>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>ant-contrib</groupId>
-                                <artifactId>ant-contrib</artifactId>
-                                <version>1.0b3</version>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>ant</groupId>
-                                        <artifactId>ant</artifactId>
-                                    </exclusion>
-                                </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant-nodeps</artifactId>
-                                <version>1.8.1</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <modules>
+        <module>frontend</module>
+        <module>apigateway</module>
+    </modules>
 
 </project>
