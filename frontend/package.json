@@ -6,7 +6,7 @@
   "description": "KIWI ist eine Tool, welches der komfortablen und effizienten Eingabe von Zeichen aus dem Zeichenvorrat 'Lateinische Zeichen in Unicode' dient.",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --port 8082 --host 0.0.0.0",
+    "serve": "vue-cli-service serve --port 8081 --host 0.0.0.0",
     "build": "vue-cli-service lint --fix && vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint --fix",
