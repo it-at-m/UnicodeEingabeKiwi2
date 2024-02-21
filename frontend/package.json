@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8081",
+    "check": "node --version",
     "build": "vue-cli-service lint --fix && vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint --fix",
