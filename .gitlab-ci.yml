@@ -1,5 +1,5 @@
 include:
-  - project: "kiwi/internal-pipeline"
+  - project: "$CICD_PROJECT"
     ref: "main"
     file:
-      - ".gitlab-ci-frontend.yaml"
+      - "$CICD_GITLAB_YML"
