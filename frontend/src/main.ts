@@ -5,8 +5,8 @@ import App from './App.vue';
 import Router from "vue-router";
 import moment from "moment";
 import VueI18n from 'vue-i18n';
-import { default as messages_de } from "../locale/de.json";
-import { default as messages_en } from "../locale/de.json";
+import { default as messagesDe } from "../locale/de.json";
+import { default as messagesEn } from "../locale/de.json";
 import { getModel } from './api/StringLatinModelService';
 import Main from './views/Main.vue';
 import History from './views/History.vue';
@@ -95,8 +95,8 @@ const i18n = new VueI18n({
     locale: 'de',
     fallbackLocale: 'de',
     messages: {
-        "de": messages_de,
-        "en": messages_en
+        "de": messagesDe,
+        "en": messagesEn
     }
 });
 

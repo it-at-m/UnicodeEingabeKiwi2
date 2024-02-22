@@ -153,7 +153,7 @@ export class StringLatinModelService {
             };
         });
 
-        chars.sort((a : any, b: any) => {
+        chars.sort((a: any, b: any) => {
             return this._collator.compare(a.name, b.name);
         });
 

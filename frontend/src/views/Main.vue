@@ -296,7 +296,7 @@
 
         private profiles: { seq: number; id: string; name: string; descr: string }[] = [];
 
-        readonly caseing: { seq: number; id: string; name: string; descr: string; }[] = [
+        readonly caseing: { seq: number; id: string; name: string; descr: string }[] = [
           { seq: 0, id: "s", name: this.$t('main.caseing_s').toString(), descr: this.$t('main.caseing_s_alt').toString() },
           { seq: 1, id: "g", name: this.$t('main.caseing_g').toString(), descr: this.$t('main.caseing_g_alt').toString() },
           { seq: 2, id: "k", name: this.$t('main.caseing_k').toString(), descr: this.$t('main.caseing_k_alt').toString() },
@@ -390,8 +390,8 @@
           const c = (e.target as HTMLInputElement).innerText;
           console.debug("Char " + c + " tapped.");
 
-          let selection = this.getBufferSelection();
-          let model = this.mainbuffer;
+          const selection = this.getBufferSelection();
+          const model = this.mainbuffer;
 
           if (this.replaceLastGraphme === true) {
             //
@@ -487,7 +487,7 @@
             // Here we rely on correct unicode processing of the browser: 
             // Selection needs to contain the basechar plus all combining chars... 
             //
-            let selectionText = this.mainbuffer.slice(selection.start, selection.end);
+            const selectionText = this.mainbuffer.slice(selection.start, selection.end);
             console.debug("getIntendedSearchChar(): selected text: \"" + selectionText + "\".");
 
             const graphemes = this.splitter.splitGraphemes(selectionText);
@@ -578,8 +578,8 @@
         }
 
       private getBufferSelection(): { start: number; end: number } {
-        let startIdx = this.mainBufferInputElem.selectionStart;
-        let endIdx = this.mainBufferInputElem.selectionEnd;
+        const startIdx = this.mainBufferInputElem.selectionStart;
+        const endIdx = this.mainBufferInputElem.selectionEnd;
       
         // Check if you've selected text
         if (startIdx === endIdx) {

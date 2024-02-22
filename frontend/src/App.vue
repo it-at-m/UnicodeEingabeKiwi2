@@ -347,25 +347,26 @@
         // Online help requested
         //
         helpRequested(): void { 
-          console.debug("helpRqeuested().");
-          const activeElem = this.findActiveElement();
-          let helpUrl = this.__mapActiveElement(activeElem);
-          helpUrl = helpUrl.replaceAll(new RegExp("%%lang%%","g"),this.language);
-  
-          this._openWindow(helpUrl, "help");
-        }
+        console.debug("helpRequested().");
+        const activeElem = this.findActiveElement();
+        let helpUrl = this.__mapActiveElement(activeElem);
+        // Using replace with a global flag
+        helpUrl = helpUrl.replace(/%%lang%%/g, this.language);
 
-        newsRequested(): void {
-          console.debug("newsRequested().");
-          this.$store.dispatch('config/updateNewsSeen', this.newsDialogDontAskAgain);
-          this.newsDialog = false;
+        this._openWindow(helpUrl, "help");
+      }
 
-          let helpUrl = this.helpMapping["special/prefix"] + this.helpMapping["App/news"];
-          // Add locale (ie. this.language) to URL: e.g. lang=de
-          helpUrl = helpUrl.replaceAll(new RegExp("%%lang%%","g"),this.language);
+      newsRequested(): void {
+        console.debug("newsRequested().");
+        this.$store.dispatch('config/updateNewsSeen', this.newsDialogDontAskAgain);
+        this.newsDialog = false;
 
-          this._openWindow(helpUrl, "help");
-        }
+        let helpUrl = this.helpMapping["special/prefix"] + this.helpMapping["App/news"];
+        // Using replace with a global flag
+        helpUrl = helpUrl.replace(/%%lang%%/g, this.language);
+
+        this._openWindow(helpUrl, "help");
+      }
 
         newsDenied(): void {
           console.debug("newsDenied().");
@@ -424,7 +425,7 @@
           }
         }
 
-        findActiveElement(): { component: string, id: string } {
+        findActiveElement(): { component: string; id: string } {
           const activeElemId = (document.activeElement) ? document.activeElement.id : "0";
           const component = "App";
           console.debug("Active element: component=\"" + component + "\", id=\"" + activeElemId + "\".");
@@ -437,7 +438,7 @@
         // 
         // Map active element to section identifier
         //
-        private __mapActiveElement(elem: { component: string, id: string }): string {
+        private __mapActiveElement(elem: { component: string; id: string }): string {
           if (elem === null) {
             return this.helpMapping["special/fallback"];
 
