@@ -130,7 +130,7 @@
         time: string | null = null;
         error = false;
         errorMessages = "";
-        dateFilled = (): string | boolean => this.checkBothFieldsFilled() || 'Datum und Zeit muss ausgefüllt werden'
+        dateFilled = (): string | boolean => this.checkBothFieldsFilled() || 'Datum und Zeit muss ausgefüllt werden';
 
 
         get validierungsRegeln(): { (v: string): string | boolean; } [] {  // eslint-disable-line

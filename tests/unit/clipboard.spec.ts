@@ -1,5 +1,5 @@
 
-import * as clipboard from "clipboard-polyfill/text";
+import * as clipboard from "clipboard-polyfill";
 
 describe('clipboard-test', () => {
 

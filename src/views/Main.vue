@@ -271,7 +271,7 @@
     import SaveLeaveMixin from "@/mixins/saveLeaveMixin";
     import YesNoDialog from "@/components/common/YesNoDialog.vue";
     import { StringLatinModelService } from "../api/StringLatinModelService";
-    import * as clipboard from "clipboard-polyfill/text";
+    import * as clipboard from "clipboard-polyfill";
     import Graphemer from "graphemer";
     import { Levels, KiwiError, ThreadErrorHandler } from "@/api/error";
     import FocusUtils from "@/api/FocusUtils";
