@@ -56,10 +56,10 @@
       -->
     <v-app-bar
       absolute
-      app
       flat
       clipped-right
       color="white"
+      style="flex: none;"
     >
       <v-btn
         id="home"

@@ -11,6 +11,7 @@ import { getModel } from './api/StringLatinModelService';
 import Main from './views/Main.vue';
 import History from './views/History.vue';
 import { Levels } from './api/error';
+import vuetify from "./plugins/vuetify";
 
 
 Vue.config.productionTip = false;
@@ -107,7 +108,7 @@ new Vue({
     i18n,
     router,
     store: store,
-    vuetify: Vuetify,
+    vuetify,
     render: (h): VNode => h(
         App,
         {
