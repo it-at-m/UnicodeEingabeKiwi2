@@ -2676,6 +2676,22 @@
         <basechar type="real" name="e" name-ci="e" />
     </char>
 
+    <char name="ḗ" normative="true" case="small">
+        <!-- cp 0113, LATIN SMALL LETTER E WITH MACRON AND ACUTE -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="e" name-ci="e" />
+    </char>
+
+    <char name="ē̍" normative="true" case="small">
+        <!-- cp 0113, LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="e" name-ci="e" />
+    </char>
+
     <char name="Ĕ" normative="true" case="capital">
         <!-- cp 0114, LATIN CAPITAL LETTER E WITH BREVE -->
 
@@ -3152,6 +3168,14 @@
 
     <char name="ō" normative="true" case="small">
         <!-- cp 014D, LATIN SMALL LETTER O WITH MACRON -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="o" name-ci="o" />
+    </char>
+
+    <char name="ō̍" normative="true" case="small">
+        <!-- cp 014D, LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE -->
 
         <profile ref="id1" />
         <profile ref="id0" />
