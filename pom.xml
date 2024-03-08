@@ -5,47 +5,148 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>de.muenchen.kiwi</groupId>
-    <artifactId>frontend</artifactId>
+    <groupId>de.muenchen.kiwi.application.frontend</groupId>
+    <artifactId>frontend-frontend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>frontend</name>
+    <packaging>jar</packaging>
+    <name>frontend_frontend</name>
+
+    <parent>
+        <groupId>de.muenchen.kiwi</groupId>
+        <artifactId>frontend</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <properties>
-        <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
+        <exec.maven.plugin>3.0.0</exec.maven.plugin>
+        <maven.clean.plugin>3.1.0</maven.clean.plugin>
+        <sonar.sources>src,public</sonar.sources>
+        <sonar.coverage.exclusions>src,public</sonar.coverage.exclusions>
     </properties>
 
 
-    <scm>
-        <connection>scm:git:https://git.muenchen.de/itm-km55/kiwi/buergeransicht.git</connection>
-        <developerConnection>scm:git:https://git.muenchen.de/itm-km55/kiwi/buergeransicht.git</developerConnection>
-        <url>https://git.muenchen.de/itm-km55/kiwi/buergeransicht</url>
-        <tag>HEAD</tag>
-    </scm>
+<profiles>
+    <profile>
+        <id>gitlab-cicd</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven.clean.plugin}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>dist</directory>
+                                <includes>
+                                    <include>**/*</include>
+                                </includes>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+            </plugins>
+            <resources>
+                <resource>
+                    <directory>dist</directory>
+                    <targetPath>static</targetPath>
+                </resource>
+            </resources>
+        </build>
+
+    </profile>
 
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>1.10.0</version>
-                <configuration>
-                    <tag>RT-REL-${project.version}</tag>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar.scanner.version}</version>
-            </plugin>
-        </plugins>
-    </build>
+    <profile>
+        <id>develop</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
 
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec.maven.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>npm install</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>npm</executable>
+                                <arguments>
+                                    <argument>install</argument>
+                                    <!--<argument>primevue</argument>-->
+                                    <!--<argument>primeicons</argument>-->
+                                    <!--<argument>sass-loader</argument>-->
+                                    <!--<argument>node-sass</argument>-->
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>npm run build</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>npm</executable>
+                                <arguments>
+                                    <argument>run</argument>
+                                    <argument>build</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>npm run test</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>npm</executable>
+                                <arguments>
+                                    <argument>run</argument>
+                                    <argument>test:unit</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
 
-    <modules>
-        <module>frontend</module>
-        <module>apigateway</module>
-    </modules>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven.clean.plugin}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>dist</directory>
+                                <includes>
+                                    <include>**/*</include>
+                                </includes>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+
+            <resources>
+                <resource>
+                    <directory>dist</directory>
+                    <targetPath>static</targetPath>
+                </resource>
+            </resources>
+
+        </build>
+
+    </profile>
+</profiles>
 
 </project>
