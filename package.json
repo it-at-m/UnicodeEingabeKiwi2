@@ -2,7 +2,7 @@
   "name": "kiwi2",
   "version": "1.0.0",
   "author": "City of Munich",
-  "license": "EUPL-1.2",
+  "license": "MIT",
   "description": "KIWI ist eine Tool, welches der komfortablen und effizienten Eingabe von Zeichen aus dem Zeichenvorrat 'Lateinische Zeichen in Unicode' dient.",
   "private": true,
   "scripts": {
