@@ -63,7 +63,8 @@
     "leavedialog_text": "Do you really want to decard the input?",
 
     "clipboard_message": "Input in clipboard copied",
-    "clipboard_message_failure": "Error: Input could not be copied to clipboard."
+    "clipboard_message_failure": "Error: Input could not be copied to clipboard.",
+    "clipboard_message_too_old": "Error: Input could not be copied to clipboard, please update your browser version."
   },
 
   "history": {

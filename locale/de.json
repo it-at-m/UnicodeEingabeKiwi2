@@ -63,7 +63,8 @@
     "leavedialog_text": "Wollen Sie wirklich den eingegebenen Text verwerfen?",
 
     "clipboard_message_success": "Eingabe in Zwischenablage kopiert.",
-    "clipboard_message_failure": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden."
+    "clipboard_message_failure": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden.",
+    "clipboard_message_too_old": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden, bitte aktualisieren Sie Ihren Browser."
   },
 
   "history": {
