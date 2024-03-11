@@ -8,9 +8,9 @@
 -->
 
 <stringlatin name="DIN SPEC 91379:2022-08" dataversion="DINSpec-202208"
-             xmlns="http://muenchen.de/stringlatin/"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://muenchen.de/stringlatin/ stringlatin-v2.xsd">
+    xmlns="http://muenchen.de/stringlatin/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://muenchen.de/stringlatin/ stringlatin-v2.xsd">
 
     <char name="&#x9;" normative="false" case="undef">
         <!-- cp 0009, CHARACTER TABULATION -->
