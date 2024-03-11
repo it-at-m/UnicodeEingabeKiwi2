@@ -16,7 +16,7 @@ describe('StringLatinModelService-test', () => {
 
         fetchMock.mockResponse(
             `<?xml version="1.0" encoding="UTF-8"?>
-            <stringlatin name="DIN SPEC 91379:2019-03" dataversion="DINSpec-202110" xmlns="http://muenchen.de/stringlatin/">
+            <stringlatin name="DIN SPEC 91379:2022-08" dataversion="DINSpec-202110" xmlns="http://muenchen.de/stringlatin/">
 
                 <char name="A" normative="true" case="capital">
                     <profile ref="id0" />
@@ -56,7 +56,7 @@ describe('StringLatinModelService-test', () => {
 
         return getModel().getModelProperties().then((props) => {
 
-            expect(props.name).toEqual("DIN SPEC 91379:2019-03");
+            expect(props.name).toEqual("DIN SPEC 91379:2022-08");
 
             expect(props.dataversion).toEqual("DINSpec-202110");
         });
