@@ -89,12 +89,12 @@ Don't forget to give the project a star! Thanks again!
 
 ## Docker
 
-//todo @fabian.wilms
+`docker run ghcr.io/it-at-m/unicodeeingabekiwi2:main`
 
 ## Build it yourself
 
-1. *npm install*
-2. *npm run build*
+1. `npm install`
+2. `npm run build`
 3. Copy `/dist`-Folder to a webserver of your choice.
 
 ## Running ##
