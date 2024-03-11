@@ -89,7 +89,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## Docker
 
-`docker run ghcr.io/it-at-m/unicodeeingabekiwi2:main`
+`docker run --p 8081:8081 ghcr.io/it-at-m/unicodeeingabekiwi2:main`
 
 ## Build it yourself
 
