@@ -2,15 +2,15 @@
 
 <!--
     Design of chars presented to the user
-    * Based apon DIN SPEC 91379:2019-03 (not DIN 91379 draft!)
+    * Based apon DIN SPEC 91379:2022-08 (not DIN 91379 draft!)
     * Default present only normative chars, but make non-normative ones visible using profile "all"
     * Intended default profile is "Buchstaben"
 -->
 
-<stringlatin name="DIN SPEC 91379:2019-03" dataversion="DINSpec-202110"
-    xmlns="http://muenchen.de/stringlatin/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://muenchen.de/stringlatin/ stringlatin-v2.xsd">
+<stringlatin name="DIN SPEC 91379:2022-08" dataversion="DINSpec-202208"
+             xmlns="http://muenchen.de/stringlatin/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://muenchen.de/stringlatin/ stringlatin-v2.xsd">
 
     <char name="&#x9;" normative="false" case="undef">
         <!-- cp 0009, CHARACTER TABULATION -->
@@ -2676,6 +2676,22 @@
         <basechar type="real" name="e" name-ci="e" />
     </char>
 
+    <char name="ḗ" normative="true" case="small">
+        <!-- cp 0113, LATIN SMALL LETTER E WITH MACRON AND ACUTE -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="e" name-ci="e" />
+    </char>
+
+    <char name="ē̍" normative="true" case="small">
+        <!-- cp 0113, LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="e" name-ci="e" />
+    </char>
+
     <char name="Ĕ" normative="true" case="capital">
         <!-- cp 0114, LATIN CAPITAL LETTER E WITH BREVE -->
 
@@ -3152,6 +3168,14 @@
 
     <char name="ō" normative="true" case="small">
         <!-- cp 014D, LATIN SMALL LETTER O WITH MACRON -->
+
+        <profile ref="id1" />
+        <profile ref="id0" />
+        <basechar type="real" name="o" name-ci="o" />
+    </char>
+
+    <char name="ō̍" normative="true" case="small">
+        <!-- cp 014D, LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE -->
 
         <profile ref="id1" />
         <profile ref="id0" />
