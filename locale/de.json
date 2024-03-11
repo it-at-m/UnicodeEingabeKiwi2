@@ -1,0 +1,73 @@
+{
+  "appbar": {
+    "kiwilogo_alt": "Zurück zur Startseite",
+    "openhistory_alt": "Zur Historie [F8]",
+    "openhelp_alt": "Online-Hilfe öffnen [F1]",
+    "options_alt": "Optionen"
+  },
+  "sidebar": {
+    "appname_alt": "Version der Anwendung (Verweis: Lizenzweise)",
+    "appversion": "%%appversion%%",
+    "buildno": "%%buildno%%",
+    "dataname": "Zeichenvorrat",
+    "dataname_alt": "Unterstützter Zeichenvorrat",
+    "dataversion": "Datenstand",
+    "dataversion_alt": "Version des Datenstandes",
+    "compactview": "Kompakte Darstellung",
+    "compactview_alt": "Kompakte Darstellung",
+    "automaticfocus": "Automatisches Focus-Management",
+    "automaticfocus_alt": "Automatisches Focus-Management",
+    "displayserif": "Serifenschrift",
+    "displayserif_alt": "Serifenschrift",
+    "resetnotifications": "Benachrichtigungen rücksetzen",
+    "resetnotifications_alt": "Alle gespeicherten Entscheiduungen zu Benachrichtigungen rücksetzen"
+  }, 
+  "newsdialog": {
+    "title": "Möchten Sie wichtige Informationen lesen?",
+    "listitems": ["Starthilfe", "Liste mit freigegebenen Anwendungen", "Neue Funktionen" ],
+    "dontaskagain": "Nicht mehr fragen",
+    "nobutton": "Nein",
+    "yesbutton": "Ja"
+  },
+  "main": {
+    "bufferpanel_header": "Namen und Adressen zusammenstellen",
+    "mainbuffer_label": "Hier ganze Wörter eingeben, z.B. Namen oder Adressen",
+    "mainbuffer_alt": "Eingabe löschen",
+    "clipboard_copy_alt": "Eingabe in Zwischenablage kopieren [Strg-C]",
+    "search_char_alt": "Filtern nach Basiszeichen [⏎ oder Strg-Leerzeichen]",
+
+    "filterpanel_header": "Filter",
+    "filtercases": "Groß/klein",
+    "filtercases_alt": "Nach Groß- und Kleinschreibung filtern",
+    "filterregion": "Zeichengruppen",
+    "filterregion_alt": "Nach Zeichengruppen filtern",
+    "filterbasechar": "Basiszeichen",
+    "filterbasechar_alt": "Nach Basiszeichen filtern (Hinweis: Filter setzen über obiges editierbares Feld)",
+    "clearfilterbasecharbutton_alt": "Basiszeichen löschen",
+    "filterresetall": "Zurücksetzen",
+    "filterresetall_alt": "Filter zurücksetzen",
+
+    "caseing_s": "wie Suche",
+    "caseing_s_alt": "Groß/klein wie eingegebener Suchbuchstabe",
+    "caseing_g": "groß",
+    "caseing_g_alt": "Nur Großbuchstaben",
+    "caseing_k": "klein",
+    "caseing_k_alt": "Nur Kleinbuchstaben",
+    "caseing_gk": "beides",
+    "caseing_gk_alt": "Groß- und Kleinbuchstaben",
+
+    "keyboardpanel_header": "Suchergebnis",
+    "keyboardpanel_nochars": "Keine Zeichen",
+
+    "leavedialog_title": "Wirklich verlassen?",
+    "leavedialog_text": "Wollen Sie wirklich den eingegebenen Text verwerfen?",
+
+    "clipboard_message_success": "Eingabe in Zwischenablage kopiert.",
+    "clipboard_message_failure": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden.",
+    "clipboard_message_too_old": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden, bitte aktualisieren Sie Ihren Browser."
+  },
+
+  "history": {
+    "panel_header": "Historie"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "appbar": {
+    "kiwilogo_alt": "Back to start",
+    "openhistory_alt": "Open history [F8]",
+    "openhelp_alt": "Opne online-help [F1]",
+    "options_alt": "Options"
+  },
+  "sidebar": {
+    "appname_alt": "Version of application (Verweis: License statements)",
+    "appversion": "%%appversion%%",
+    "buildno": "%%buildno%%",
+    "dataname": "Charset",
+    "dataname_alt": "Supported charset",
+    "dataversion": "Data version",
+    "dataversion_alt": "Version of charset data",
+    "compactview": "Compact view",
+    "compactview_alt": "Compact view",
+    "automaticfocus": "Automatic focus management",
+    "automaticfocus_alt": "Automatic focus management",
+    "displayserif": "Serif font",
+    "displayserif_alt": "Serif font",
+    "resetnotifications": "Reset notifications",
+    "resetnotifications_alt": "Reset all persistent notification flags"
+  }, 
+  "newsdialog": {
+    "title": "Do you want to read important information?",
+    "listitems": ["Quickstart", "List of released apps", "New features" ],
+    "dontaskagain": "Don't ask again",
+    "nobutton": "No",
+    "yesbutton": "Yes"
+  },
+  "main": {
+    "bufferpanel_header": "Assemble names and addresses",
+    "mainbuffer_label": "Enter whole words here, e.g. names or addresses",
+    "mainbuffer_alt": "Clear input",
+    "clipboard_copy_alt": "Copy to clipboard [Cntrl-C]",
+    "search_char_alt": "Filter by basechar [⏎ or Cntrl-Space]",
+
+    "filterpanel_header": "Filter",
+    "filtercases": "Captital/small",
+    "filtercases_alt": "Filter for casing",
+    "filterregion": "Char groups",
+    "filterregion_alt": "Filter for character groups",
+    "filterbasechar": "Basechar",
+    "filterbasechar_alt": "Filter for basechar (Hint: Set filter using editable field above)",
+    "clearfilterbasecharbutton_alt": "Clear basechar",
+    "filterresetall": "Reset",
+    "filterresetall_alt": "Reset filters",
+
+    "caseing_s": "like search char",
+    "caseing_s_alt": "Captial/small like given search letter",
+    "caseing_g": "capital",
+    "caseing_g_alt": "Only captial letters",
+    "caseing_k": "small",
+    "caseing_k_alt": "Only small letters",
+    "caseing_gk": "both", 
+    "caseing_gk_alt": "Captial and small letters", 
+
+    "keyboardpanel_header": "Search result",
+    "keyboardpanel_nochars": "No char",
+
+    "leavedialog_title": "Really leave?",
+    "leavedialog_text": "Do you really want to decard the input?",
+
+    "clipboard_message": "Input in clipboard copied",
+    "clipboard_message_failure": "Error: Input could not be copied to clipboard.",
+    "clipboard_message_too_old": "Error: Input could not be copied to clipboard, please update your browser version."
+  },
+
+  "history": {
+    "panel_header": "History"
+  }
+}
