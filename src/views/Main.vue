@@ -731,6 +731,7 @@ h1 {
 
 button.key {
   width: 2.5em;
+
   /* Copy of styling from vuetify */
   -webkit-text-size-adjust: 100%;
   word-break: normal;
