@@ -739,7 +739,7 @@ button.key {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-box-direction: normal;
-  margin: 0;
+  margin: 4px;
   font: inherit;
   overflow: visible;
   color: black;
