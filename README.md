@@ -24,7 +24,7 @@ In KIWI, names with diacritical characters, for example, can be easily entered u
 *Latin characters in Unicode* is a standard created by the [Coordination Office for IT Standards (KOSIT)](https://www.xoev.de/) on behalf of the [IT Planning Council](https://www.it-planungsrat.de/).
 In summary, it defines what is understood by Unicode-compliant processing as a minimum for the German public administration.
 
-With [Decision 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html), the IT Planning Council at its 13th meeting defined the character set *Latin characters in UNICODE* that must be supported by IT processes in the Federal Republic of Germany.  The further development of this is [DIN SPEC 91379:2022-08](https://de.wikipedia.org/wiki/DIN_SPEC_91379), which differs in two points:
+With [Decision 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html), the IT Planning Council at its 13th meeting defined the character set *Latin characters in UNICODE* that must be supported by IT processes in the Federal Republic of Germany.  The further development of this is [DIN SPEC 91379:2019-03](https://de.wikipedia.org/wiki/DIN_SPEC_91379), which differs in two points:
 
 * Enlarged character set
 * Non-normative characters (Greek and Cyrillic)
@@ -40,7 +40,7 @@ In KIWI können mittels herkömmlicher Tastatur z.B. Namen mit diakritischen Zei
 *Lateinische Zeichen in Unicode* ist ein Standard, der von der [Koordinierungsstelle für IT-Standards (KOSIT)](https://www.xoev.de/) im Auftrag des [IT-Planungsrats](https://www.it-planungsrat.de/) erstellt wurde. 
 Zusammengefasst wird darin für die deutsche öffentliche Verwaltung verbindlich definiert, was unter Unicode-konformer Verarbeitung mindestens verstanden wird.
 
-Mit der [Entscheidung 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html) hat der IT-Planungsrat in seiner 13. Sitzung den Zeichensatz *Lateinische Zeichen in UNICODE* festgelegt, der von IT-Verfahren in der Bundesrepublik Deutschland unterstützt werden muss. Die Fortentwicklung davon ist die [DIN SPEC 91379:2022-08](https://de.wikipedia.org/wiki/DIN_SPEC_91379), welche sich durch zwei Punkte unterscheidet:
+Mit der [Entscheidung 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html) hat der IT-Planungsrat in seiner 13. Sitzung den Zeichensatz *Lateinische Zeichen in UNICODE* festgelegt, der von IT-Verfahren in der Bundesrepublik Deutschland unterstützt werden muss. Die Fortentwicklung davon ist die [DIN SPEC 91379:2019-03](https://de.wikipedia.org/wiki/DIN_SPEC_91379), welche sich durch zwei Punkte unterscheidet:
 
 * Vergrößerter Zeichenvorrat
 * Nicht-normative Zeichen (griechisch und kyrillisch)
