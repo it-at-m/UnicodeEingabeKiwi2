@@ -29,7 +29,7 @@ With [Decision 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_S
 * Enlarged character set
 * Non-normative characters (Greek and Cyrillic)
 
-In August 2022, DIN SPEC 91379 was replaced by DIN 91379:2022-08.
+In August 2022, DIN SPEC 91379 was replaced by [DIN 91379:2022-08](https://en.wikipedia.org/wiki/DIN_91379).
 
 
 ## :de: Hintergrund 
@@ -48,14 +48,14 @@ Mit der [Entscheidung 2014/04](http://www.it-planungsrat.de/DE/Entscheidungen/20
 * Vergrößerter Zeichenvorrat
 * Nicht-normative Zeichen (griechisch und kyrillisch)
 
-Im August 2022 wurde die DIN SPEC 91379 von der DIN 91379:2022-08 ersetzt.
+Im August 2022 wurde die DIN SPEC 91379 von der [DIN 91379:2022-08](https://de.wikipedia.org/wiki/DIN_91379) ersetzt.
 
 
 Siehe auch:
 
 * [Wikipedia](https://de.wikipedia.org/wiki/Lateinische_Zeichen_in_Unicode)
 * [KOSIT](https://www.xoev.de/detail.php?gsid=bremen83.c.4813)
-* [DIN 91379](https://de.wikipedia.org/wiki/DIN_91379)
+
 
 # Development
 
