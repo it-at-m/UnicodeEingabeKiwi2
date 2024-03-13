@@ -2,12 +2,12 @@
 
 <!--
     Design of chars presented to the user
-    * Based apon DIN SPEC 91379:2022-08 (not DIN 91379 draft!)
+    * Based apon DIN 91379:2022-08 (not DIN 91379 draft!)
     * Default present only normative chars, but make non-normative ones visible using profile "all"
     * Intended default profile is "Buchstaben"
 -->
 
-<stringlatin name="DIN SPEC 91379:2022-08" dataversion="DINSpec-202208"
+<stringlatin name="DIN 91379:2022-08" dataversion="DIN-202208"
     xmlns="http://muenchen.de/stringlatin/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://muenchen.de/stringlatin/ stringlatin-v2.xsd">
