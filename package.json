@@ -30,7 +30,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.24.0",
     "@mdi/font": "^5.1.45",
-    "@types/node": "^17.x",
+    "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@vue/babel-preset-app": "^5.0.8",
