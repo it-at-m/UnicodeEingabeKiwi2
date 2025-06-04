@@ -1,59 +1,25 @@
 <template>
   <v-snackbar
-    id="snackbar"
-    v-model="show"
-    :color="color"
-    :timeout="timeout"
+    v-model="themeStore.snackbar.show"
+    :color="themeStore.snackbar.level"
+    :timeout="themeStore.snackbar.timeout"
   >
-    {{ message }}
+    {{ themeStore.snackbar.message }}
+
+    <template #actions>
     <v-btn
-      v-if="color === 'error'"
-      color="primary"
-      text
-      @click="show = false"
+        color="white"
+      variant="text"
+        @click="themeStore.hideMessage()"
     >
-      Schließen
+        {{ $t('common.close') }}
     </v-btn>
+    </template>
   </v-snackbar>
 </template>
 
-<script lang="ts">
-  import { Component, Watch, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
+import { useThemeStore } from '@/stores/theme';
 
-  @Component
-  export default class TheSnackbar extends Vue {
-
-      static defaultTimeout = 5000;
-
-      show = false;
-      timeout: number = TheSnackbar.defaultTimeout;
-      message = '';
-      color = 'info';
-
-      @Watch('$store.state.snackbar.version')
-      setMessage(): void {
-          this.show = false;
-          setTimeout(() => {
-              this.show = true;
-              this.message = this.$store.state.snackbar.message;
-          }, 100);
-      }
-
-      @Watch('$store.state.snackbar.level')
-      setColor(): void {
-          this.color = this.$store.state.snackbar.level;
-          if (this.color === 'error') {
-              this.timeout = 0;
-          } else {
-              this.timeout = TheSnackbar.defaultTimeout;
-          }
-      }
-  }
+const themeStore = useThemeStore();
 </script>
-
-<style>
-  .v-snack__content {
-    color: black;
-  }
-</style>
-
