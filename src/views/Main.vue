@@ -348,6 +348,7 @@ const searchBaseChar = async (): Promise<void> => {
         // Reset search when input is empty
         currentFilters.basechar = '';
         currentFilters.searchChar = '';
+        replaceLastGraphme.value = false;
         await runSearch();
         return;
     }
@@ -358,6 +359,7 @@ const searchBaseChar = async (): Promise<void> => {
         // Reset search if no last character
         currentFilters.basechar = '';
         currentFilters.searchChar = '';
+        replaceLastGraphme.value = false;
         await runSearch();
         return;
     }
@@ -372,6 +374,7 @@ const searchBaseChar = async (): Promise<void> => {
         if (baseChars.length > 0) {
             // Use the first base character for filtering, but show all in the UI
             currentFilters.basechar = baseChars[0];
+            replaceLastGraphme.value = true;
             if (baseChars.length > 1) {
                 themeStore.showMessage({
                     message: t('main.multiple_base_chars_found', { chars: baseChars.join(', ') }),
@@ -386,6 +389,7 @@ const searchBaseChar = async (): Promise<void> => {
         // Reset search on error
         currentFilters.basechar = '';
         currentFilters.searchChar = '';
+        replaceLastGraphme.value = false;
         await runSearch();
     }
 };
