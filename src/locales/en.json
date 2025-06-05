@@ -1,0 +1,201 @@
+{
+  "nav": {
+    "language": "Language",
+    "switchLocale": "Change language"
+  },
+  "common": {
+    "close": "Close"
+  },
+  "theme": {
+    "switchToDark": "Switch to dark theme",
+    "switchToLight": "Switch to light theme"
+  },
+  "main": {
+    "bufferpanel_header": "Search Input",
+    "mainbuffer_label": "Enter whole words here, e.g. names or addresses",
+    "mainbuffer_alt": "Clear buffer",
+    "search_char_alt": "Filter by basechar [⏎ or Cntrl-Space]",
+    "clipboard_copy_alt": "Copy to clipboard",
+    "filterpanel_header": "Filter Panel",
+    "filtercases": "Case Filter",
+    "filtercases_alt": "Filter by character case",
+    "filterregion": "Character Set",
+    "filterregion_alt": "Filter by character set",
+    "filterresetall": "Reset All Filters",
+    "filterresetall_alt": "Reset all filters to default values",
+    "keyboardselection_header": "Keyboard Selection",
+    "add_keyboard": "Add Keyboard",
+    "add_keyboard_dialog_title": "Add New Keyboard",
+    "select_keyboard": "Select a keyboard to add",
+    "reset_keyboards": "Reset to Default",
+    "reset_keyboards_alt": "Reset to default DIN SPEC keyboard",
+    "add": "Add",
+    "cancel": "Cancel",
+    "cannot_remove_last_keyboard": "Cannot remove the last keyboard",
+    "cannot_deselect_last_keyboard": "Cannot deselect the last keyboard",
+    "multiple_base_chars_found": "Multiple base characters found: {chars}",
+    "keyboardpanel_header": "Character Selection",
+    "keyboardpanel_nochars": "No matching characters found. Try adjusting the filters.",
+    "keyboards": {
+      "din": "DIN SPEC 91379",
+      "german": "German Keyboard"
+    },
+    "cases": {
+      "standard": "Standard",
+      "capital": "Capital Letters",
+      "small": "Small Letters",
+      "mixed": "Mixed Case",
+      "standard_desc": "Standard case sensitivity",
+      "capital_desc": "Capital letters only",
+      "small_desc": "Small letters only",
+      "mixed_desc": "Mixed case letters"
+    },
+    "profiles": {
+      "__all": "All Characters",
+      "id0": "Characters + Letters",
+      "id1": "Letters Only",
+      "__all_desc": "All characters including letters, digits, etc.",
+      "id0_desc": "Mandatory/normative characters, numbers and letters",
+      "id1_desc": "Mandatory/normative letters only"
+    },
+    "clipboard_message": "Input in clipboard copied",
+    "clipboard_message_failure": "Error: Input could not be copied to clipboard.",
+    "clipboard_message_too_old": "Error: Input could not be copied to clipboard, please update your browser version."
+  },
+  "menu": {
+    "help": "Online Help",
+    "about": "About Kiwi"
+  },
+  "help": {
+    "title": "Online-Help for <em>Kiwi</em>",
+    "background": {
+      "title": "Background",
+      "paragraph1": "<a href=\"https://www.xoev.de/die_standards/lateinische_zeichen_in_unicode-4813\"><em>Latin characters in Unicode</em></a> is a standard created by the <a href=\"https://www.xoev.de/\"><em>Coordination Office for IT Standards (KOSIT)</em></a> on behalf of the <a href=\"https://www.it-planungsrat.de/\"><em>IT Planning Council</em></a> (for the Federal Republic of Germany). In summary, the standard defines what Unicode-compliant processing for the <em>German public administration</em> is. With the decision <a href=\"http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html\">2014/04</a>, the IT Planning Council at its 13th meeting defined the characterset <em>Latin characters in UNICODE</em>, which must be supported by IT procedures in the <em>Federal Republic of Germany</em>.",
+      "paragraph2": "In addition to the correct processing of <em>Latin characters in Unicode</em>, it is also important to support users in entering the required characters as easily and conveniently as possible. For this purpose, the tool <strong>Kiwi</strong> (<strong>Ki</strong>nderleicht <strong>W</strong>ortbestandteile <strong>i</strong>ntegrieren; engl. Integrate word components with ease) was created, which can be used without installation on all clients (PC, Smartphone, Tablet, etc.)."
+    },
+    "concept": {
+      "title": "Concept / Idea",
+      "paragraph1": "The idea of the Kiwi application is <em>not</em> to replace the input device, but to make the characters accessible and findable that are not easy to find on it. Every device already has an input option perfectly adapted to its typical use: keyboard, on-screen keyboard, etc.",
+      "paragraph2": "The concept for finding characters is that the user identifies the correct character through visual comparison, which does not require knowledge of pronunciation and meaning. To make the visual comparison as simple as possible, the number of possible characters can be limited by optically related characters (base characters). The integration with the application is done by means of the system clipboard, like with the usual tools like desktop calculator.",
+      "paragraph3": "In the <a href=\"#example\">example below</a>, the large number of characters is filtered by entering the base character \"s\", which are closest to the searched character \"š\". All characters that can be reached directly via the standard input device, which is usually the vast majority, are entered as usual."
+    },
+    "example": {
+      "title": "Quickstart",
+      "description": "The name \"Miloš\" is to be typed with a German keyboard on which the character \"š\" cannot be found:",
+      "steps": [
+        "In Kiwi, \"Milos\" is entered via the keyboard as usual. Here you first use the German \"s\" (only the base character, without the check mark above it).",
+        "Use the enter key (↵) or the magnifying glass icon to start a search.",
+        "The \"keyboard\" now shows different \"s\" variants. With a mouse click, the searched \"š\" is displayed in the search result selected and automatically transferred to the input field (the simple \"s\" is replaced!).",
+        "<em>Ctrl+C</em> (or the symbol with the two overlapping rectangles) will copy all the characters in the input field to the system clipboard.",
+        "With <em>Ctrl+V</em> (or the usual methods for pasting from the clipboard) the name is entered in the form field of the application."
+      ]
+    }
+  },
+  "about": {
+    "title": {
+      "text": "About",
+      "name": "Kiwi"
+    },
+    "copyright": {
+      "text": "© Copyright 2019 - 24",
+      "link": {
+        "text": "it&#64;M",
+        "url": "https://muenchen.digital/it-at-m/"
+      }
+    },
+    "license": {
+      "text": {
+        "part1": "Kiwi",
+        "part2": "is licensed under the",
+        "part3": "MIT License"
+      },
+      "title": {
+        "text": "MIT",
+        "link": {
+          "text": "Source",
+          "url": "https://mit-license.org/"
+        }
+      },
+      "content": {
+        "title": "MIT License",
+        "copyright": "Copyright (c) {year} Landeshauptstadt München | it(at)M",
+        "permission": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+        "notice": "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
+        "warranty": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+      }
+    },
+    "components": {
+      "title": "Used open source components and their licenses",
+      "list": [
+        {
+          "name": "@fontsource/roboto@4.5.1",
+          "license": "SIL Open Font License, v1.1"
+        },
+        {
+          "name": "clipboard-polyfill@3.0.3",
+          "license": "MIT"
+        },
+        {
+          "name": "core-js@3.19.1",
+          "license": "MIT"
+        },
+        {
+          "name": "deepmerge@4.2.2",
+          "license": "MIT"
+        },
+        {
+          "name": "flatted@3.2.2",
+          "license": "ISC"
+        },
+        {
+          "name": "graphemer@1.2.0",
+          "license": "MIT"
+        },
+        {
+          "name": "moment@2.29.1",
+          "license": "MIT"
+        },
+        {
+          "name": "normalize.css@8.0.1",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-class-component@7.2.6",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-i18n@8.26.7",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-property-decorator@9.1.2",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-router@3.5.3",
+          "license": "MIT"
+        },
+        {
+          "name": "vue@2.6.14",
+          "license": "MIT"
+        },
+        {
+          "name": "vuetify@2.6.1",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex-class@0.3.2",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex-persist@3.1.3",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex@3.6.2",
+          "license": "MIT"
+        }
+      ]
+    }
+  }
+} 

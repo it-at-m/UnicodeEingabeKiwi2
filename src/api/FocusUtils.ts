@@ -1,41 +1,35 @@
-
-import Vue from 'vue';
-
 export default class FocusUtils {
+  static readonly RENDER_DELAY = 100;
+  static readonly RENDER_DELAY_SHORT = 10;
 
-    static focus(elem: HTMLElement | Window, delay = -1): void {
-        const f = () => {
-          elem.focus();
-        };
+  static focus(element: HTMLElement | Window | null, delay = 0): void {
+    if (!element) return;
 
-        if (delay > 0) {
-          // Caution workaround: Some things seem to be not fully initialized at this point
-          // --> Execute things with a delay of 100 mills -- hopefully this is enough for slow browsers
-          console.debug("Focusing delayed for " + delay + "ms.");
-          setTimeout(f, delay);
+    setTimeout(() => {
+      if (element instanceof Window) {
+        element.focus();
+      } else {
+        (element as HTMLElement).focus();
+      }
+    }, delay);
+  }
 
-        } else {
-          console.debug("Focusing immediate.");
-          f();
-
-        }
+  static getHTMElem(component: any, id: string, selector = ''): HTMLElement | null {
+    const elem = document.getElementById(id);
+    if (!elem) {
+      console.debug(`Cannot find element with id="${id}".`);
+      return null;
     }
 
-    static getHTMElem(vue: Vue, refname: string, xpath = "."): HTMLElement | null {
-      // Get element with ref attribute.
-      const elem = vue.$refs[refname];
-      if (elem === undefined) {
+    if (selector) {
+      const selectedElem = elem.querySelector(selector);
+      if (!selectedElem) {
+        console.debug(`Cannot find element with selector="${selector}" in element with id="${id}".`);
         return null;
       }
-
-      // Unwrap HTML element if necessary
-      const htmlElem = (((elem as Vue).$el) ? (elem as Vue).$el : elem) as HTMLElement;
-
-      // Run if xpath if requested
-      return (xpath === ".") ? htmlElem : htmlElem.querySelector(xpath);
+      return selectedElem as HTMLElement;
     }
 
-    static readonly RENDER_DELAY = 300;  
-    static readonly RENDER_DELAY_LONG = 500;  
-    static readonly RENDER_DELAY_SHORT = 10;
-}
+    return elem;
+  }
+} 

@@ -1,0 +1,201 @@
+{
+  "nav": {
+    "language": "Sprache",
+    "switchLocale": "Sprache ändern"
+  },
+  "common": {
+    "close": "Schließen"
+  },
+  "theme": {
+    "switchToDark": "Zum dunklen Design wechseln",
+    "switchToLight": "Zum hellen Design wechseln"
+  },
+  "main": {
+    "bufferpanel_header": "Eingabebereich",
+    "mainbuffer_label": "Hier ganze Wörter eingeben, z.B. Namen oder Adressen",
+    "mainbuffer_alt": "Puffer leeren",
+    "search_char_alt": "Filtern nach Basiszeichen [⏎ oder Strg-Leerzeichen]",
+    "clipboard_copy_alt": "In die Zwischenablage kopieren",
+    "filterpanel_header": "Filterbereich",
+    "filtercases": "Groß-/Kleinschreibung",
+    "filtercases_alt": "Nach Groß-/Kleinschreibung filtern",
+    "filterregion": "Zeichensatz",
+    "filterregion_alt": "Nach Zeichensatz filtern",
+    "filterresetall": "Alle Filter zurücksetzen",
+    "filterresetall_alt": "Alle Filter auf Standardwerte zurücksetzen",
+    "keyboardselection_header": "Tastaturauswahl",
+    "add_keyboard": "Tastatur hinzufügen",
+    "add_keyboard_dialog_title": "Neue Tastatur hinzufügen",
+    "select_keyboard": "Wählen Sie eine Tastatur aus",
+    "reset_keyboards": "Auf Standard zurücksetzen",
+    "reset_keyboards_alt": "Auf Standard-DIN-SPEC-Tastatur zurücksetzen",
+    "add": "Hinzufügen",
+    "cancel": "Abbrechen",
+    "cannot_remove_last_keyboard": "Die letzte Tastatur kann nicht entfernt werden",
+    "cannot_deselect_last_keyboard": "Die letzte Tastatur kann nicht abgewählt werden",
+    "multiple_base_chars_found": "Mehrere Basiszeichen gefunden: {chars}",
+    "keyboardpanel_header": "Zeichenauswahl",
+    "keyboardpanel_nochars": "Keine passenden Zeichen gefunden. Versuchen Sie die Filter anzupassen.",
+    "keyboards": {
+      "din": "DIN SPEC 91379",
+      "german": "Deutsche Tastatur"
+    },
+    "cases": {
+      "standard": "Standard",
+      "capital": "Großbuchstaben",
+      "small": "Kleinbuchstaben",
+      "mixed": "Gemischt",
+      "standard_desc": "Standardgroß- und -kleinschreibung",
+      "capital_desc": "Nur Großbuchstaben",
+      "small_desc": "Nur Kleinbuchstaben",
+      "mixed_desc": "Gemischte Groß- und Kleinschreibung"
+    },
+    "profiles": {
+      "__all": "Alle Zeichen",
+      "id0": "Zeichen + Buchstaben",
+      "id1": "Nur Buchstaben",
+      "__all_desc": "Alle Zeichen inkl. Buchstaben, Ziffern, etc.",
+      "id0_desc": "Verpflichtende/normative Zeichen, Ziffern und Buchstaben",
+      "id1_desc": "Verpflichtende/normative Buchstaben"
+    },
+    "clipboard_message": "Eingabe in Zwischenablage kopiert.",
+    "clipboard_message_failure": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden.",
+    "clipboard_message_too_old": "Fehler: Eingabe konnte nicht in Zwischenablage kopiert werden, bitte aktualisieren Sie Ihren Browser."
+  },
+  "menu": {
+    "help": "Online-Hilfe",
+    "about": "Über Kiwi"
+  },
+  "help": {
+    "title": "Online-Hilfe für <em>Kiwi</em>",
+    "background": {
+      "title": "Hintergrund",
+      "paragraph1": "<a href=\"https://www.xoev.de/die_standards/lateinische_zeichen_in_unicode-4813\"><em>Lateinische Zeichen in Unicode</em></a> ist ein Standard, der von der <a href=\"https://www.xoev.de/\"><em>Koordinierungsstelle für IT-Standards (KOSIT)</em></a> im Auftrag des <a href=\"https://www.it-planungsrat.de/\"><em>IT-Planungsrats</em></a> erstellt wurde. Zusammengefasst wird darin für die <em>deutsche öffentliche Verwaltung</em> verbindlich definiert, was unter Unicode-konformer Verarbeitung mindestens verstanden wird. Mit der <a href=\"http://www.it-planungsrat.de/DE/Entscheidungen/2014/13_Sitzung/13_Sitzung_Entscheidungen.html\">Entscheidung 2014/04</a> hat der IT-Planungsrat in seiner 13. Sitzung den Zeichensatz <em>Lateinische Zeichen in Unicode</em> festgelegt, der von IT-Verfahren in der <em>Bundesrepublik Deutschland</em> unterstützt werden muss.",
+      "paragraph2": "Neben der korrekten Verarbeitung der Zeichen aus <em>Lateinische Zeichen in Unicode</em> ist es auch wichtig, dass die Benutzer dabei unterstützt werden, die geforderten Zeichen so einfach und komfortabel wie möglich einzugeben. Zu diesem Zweck wurde die Eingabehilfe <strong>Kiwi</strong> (<strong>Ki</strong>nderleicht <strong>W</strong>ortbestandteile <strong>i</strong>ntegrieren) erstellt, die ohne Installation auf allen Clients (PC, Smartphone, Tablet, etc.) benutzt werden kann."
+    },
+    "concept": {
+      "title": "Konzept / Idee",
+      "paragraph1": "Annahme ist, dass jedes Device (Gerät) schon die Eingabemöglichkeit für Zeichen hat, die der typischen Verwendung optimal angepasst ist: Tastatur, Bildschirmtastatur, etc. Die Idee von Kiwi ist <em>nicht</em> das (vorhandene) Eingabegerät zu ersetzen, sondern nur die Zeichen leicht(er) zugänglich und auffindbar zu machen, die auf dem (vorhandenen) Eingabegerät nicht einfach zu finden sind.",
+      "paragraph2": "Das Konzept für das Auffinden von Zeichen ist, dass der Nutzer durch visuellen Vergleich das richtige Zeichen identifiziert, wofür keine Kenntnis von Aussprache und Bedeutung notwendig ist. Damit der visuelle Vergleich möglichst einfach ist, kann man die Menge der in Frage kommenden Zeichen durch optische verwandet Zeichen (Basiszeichen) einschränken. Die Integration mit der Fachanwendung erfolgt mittels Zwischenablage, wie man das auch von Hilfsmitteln wie Taschenrechner gewohnt ist.",
+      "paragraph3": "Im <a href=\"#example\">Beispiel unten</a> werden aus der großen Menge der Zeichen durch Eingabe des Basiszeichens \"s\" die herausgefiltert, die dem gesuchten Zeichen \"š\" am nächsten kommen. Alle über das standardmäßige Eingabegerät direkt erreichbaren Zeichen, was i.d.R. die große Mehrheit ist, werden wie gewohnt eingegeben."
+    },
+    "example": {
+      "title": "Beispiel",
+      "description": "Der Name \"Miloš\" soll mit einer deutschen Tastatur erfasst werden, auf der das Zeichen \"š\" nicht zu finden ist:",
+      "steps": [
+        "In Kiwi wird \"Milos\" wie gewohnt über die Tastatur eingegeben. Hier verwendet man zunächst das normale \"s\" (nur das Basiszeichen, ohne den Haken darüber).",
+        "Mit Eingabe-Taste (↵) oder dem Lupen-Symbol wird eine Suche angestoßen.",
+        "In der \"Tastatur\" sieht man nun verschiedene \"s\"-Varianten. Mit einem Mausklick wird das gesuchte \"š\" auf der \"Tastatur\" ausgewählt und automatisch in das Eingabefeld übernommen (das einfache \"s\" wird dabei ersetzt!).",
+        "Mit <em>Strg+C</em> (oder dem Symbol mit den zwei sich überlagernden Rechtecken) werden alle Zeichen aus dem Eingabefeld von Kiwi in die Zwischenablage kopiert",
+        "Mit <em>Strg+V</em> (oder den sonst üblichen Methoden zum Einfügen aus der Zwischenablage) in das Formularfeld im Fachanwendung einfügen."
+      ]
+    }
+  },
+  "about": {
+    "title": {
+      "text": "Über",
+      "name": "Kiwi"
+    },
+    "copyright": {
+      "text": "© Copyright 2019 - 24",
+      "link": {
+        "text": "it&#64;M",
+        "url": "https://muenchen.digital/it-at-m/"
+      }
+    },
+    "license": {
+      "text": {
+        "part1": "Kiwi",
+        "part2": "ist lizenziert unter der",
+        "part3": "MIT Lizenz"
+      },
+      "title": {
+        "text": "MIT",
+        "link": {
+          "text": "Quelle",
+          "url": "https://mit-license.org/"
+        }
+      },
+      "content": {
+        "title": "MIT Lizenz",
+        "copyright": "Copyright (c) {year} Landeshauptstadt München | it(at)M",
+        "permission": "Hiermit wird unentgeltlich jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die \"Software\") erhält, die Erlaubnis erteilt, sie uneingeschränkt zu nutzen, inklusive und ohne Ausnahme mit dem Recht, sie zu verwenden, zu kopieren, zu ändern, zusammenzuführen, zu veröffentlichen, zu verbreiten, zu unterlizenzieren und/oder zu verkaufen, und Personen, denen diese Software überlassen wird, diese Rechte zu verschaffen, unter den folgenden Bedingungen:",
+        "notice": "Der obige Urheberrechtsvermerk und dieser Erlaubnisvermerk sind in allen Kopien oder Teilkopien der Software beizulegen.",
+        "warranty": "DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHEN SCHADEN ODER SONSTIGE ANSPRÜCHE HAFTBAR ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN."
+      }
+    },
+    "components": {
+      "title": "Benutzte Open-Source-Komponenten und deren Lizenzen",
+      "list": [
+        {
+          "name": "@fontsource/roboto@4.5.1",
+          "license": "SIL Open Font License, v1.1"
+        },
+        {
+          "name": "clipboard-polyfill@3.0.3",
+          "license": "MIT"
+        },
+        {
+          "name": "core-js@3.19.1",
+          "license": "MIT"
+        },
+        {
+          "name": "deepmerge@4.2.2",
+          "license": "MIT"
+        },
+        {
+          "name": "flatted@3.2.2",
+          "license": "ISC"
+        },
+        {
+          "name": "graphemer@1.2.0",
+          "license": "MIT"
+        },
+        {
+          "name": "moment@2.29.1",
+          "license": "MIT"
+        },
+        {
+          "name": "normalize.css@8.0.1",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-class-component@7.2.6",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-i18n@8.26.7",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-property-decorator@9.1.2",
+          "license": "MIT"
+        },
+        {
+          "name": "vue-router@3.5.3",
+          "license": "MIT"
+        },
+        {
+          "name": "vue@2.6.14",
+          "license": "MIT"
+        },
+        {
+          "name": "vuetify@2.6.1",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex-class@0.3.2",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex-persist@3.1.3",
+          "license": "MIT"
+        },
+        {
+          "name": "vuex@3.6.2",
+          "license": "MIT"
+        }
+      ]
+    }
+  }
+} 

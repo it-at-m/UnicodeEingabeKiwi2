@@ -1,767 +1,728 @@
+# Main.vue
 <template>
-  <div>
-    <v-container
-        fluid
-    >
-      <!-- 
-        bufferpanel
-        -->
-      <v-row
-          v-if="compactView === false"
-      >
-        <h1
-            class="v-label"
-        >
-          {{ $t("main.bufferpanel_header") }}
-        </h1>
-      </v-row>
-      <v-row
-          id="bufferpanel"
-          class="sticky"
-          align="center"
-      >
-        <v-col mb-4>
-          <v-text-field
-              id="mainbuffer"
-              ref="mainbuffer"
-              v-model="mainbuffer"
-              class="nocap"
-              :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
-              :label="$t('main.mainbuffer_label')"
-              color="black"
-              filled
-              hide-details
-              dense
-              autofocus
-              type="text"
-              background-color="white"
-              @keyup.enter.exact="searchBaseChar"
-          >
-            <template #append>
-              <v-btn
-                  id="clearbufferbutton"
-                  icon
-                  :title="$t('main.mainbuffer_alt')"
-                  @click="clearbuffer"
-              >
-                <v-icon
-                    :alt="$t('main.mainbuffer_alt')"
-                >
-                  mdi-close
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-text-field>
-        </v-col>
+    <div>
+        <v-container fluid>
+            <!-- Buffer Panel -->
+            <v-row v-if="compactView === false">
+                <h1 class="v-label">{{ $t("main.bufferpanel_header") }}</h1>
+            </v-row>
+            <v-row id="bufferpanel" class="sticky" align="center">
+                <v-col mb-4>
+                    <v-text-field id="mainbuffer" ref="mainbuffer" :model-value="inputValue" class="nocap"
+                        :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
+                        :label="$t('main.mainbuffer_label')" variant="filled" density="compact" bg-color="white"
+                        @update:model-value="updateInputValue" @keyup.enter.exact="searchBaseChar">
+                        <template #append>
+                            <v-btn id="clearbufferbutton" icon :title="$t('main.mainbuffer_alt')" @click="clearbuffer">
+                                <v-icon :icon="mdiClose"></v-icon>
+                            </v-btn>
+                            <v-btn id="searchcharbutton" icon :title="$t('main.search_char_alt')"
+                                @click="searchBaseChar" class="ml-2">
+                                <v-icon :icon="mdiMagnify"></v-icon>
+                            </v-btn>
+                            <v-btn id="copytobutton" icon :title="$t('main.clipboard_copy_alt')"
+                                @click="copyToClipboard" class="ml-2">
+                                <v-icon :icon="mdiContentCopy"></v-icon>
+                            </v-btn>
+                        </template>
+                    </v-text-field>
+                </v-col>
+            </v-row>
 
-        <v-btn
-            id="searchcharbutton"
-            icon
-            :title="$t('main.search_char_alt')"
-            @click="searchBaseChar"
-        >
-          <v-icon
-              :alt="$t('main.search_char_alt')"
-          >
-            mdi-magnify
-          </v-icon>
-        </v-btn>
-        <v-btn
-            id="copytobutton"
-            icon
-            :title="$t('main.clipboard_copy_alt')"
-            @click="copyToClipboard"
-        >
-          <v-icon
-              :alt="$t('main.clipboard_copy_alt')"
-          >
-            mdi-content-copy
-          </v-icon>
-        </v-btn>
-      </v-row>
+            <!-- Filter Panel -->
+            <v-row v-if="!compactView">
+                <h1 class="v-label">{{ $t("main.filterpanel_header") }}</h1>
+            </v-row>
+            <v-row id="filterpanel" align="baseline">
+                <v-col>
+                    <v-select id="filtercases" :model-value="currentFilters.cases" class="nocap"
+                        :label="$t('main.filtercases')" :title="$t('main.filtercases_alt')" :items="caseing"
+                        :item-title="item => $t(item.name)" item-value="id" hide-details="auto"
+                        @update:model-value="updateCase" />
+                </v-col>
+                <v-col>
+                    <v-select id="filterregion" :model-value="currentFilters.profile" class="nocap"
+                        :label="$t('main.filterregion')" :title="$t('main.filterregion_alt')" :items="profiles"
+                        :item-title="item => getProfileName(item.id)" item-value="id" hide-details="auto"
+                        @update:model-value="updateProfile" />
+                </v-col>
+                <v-col class="d-flex align-self-center">
+                    <v-btn id="resetallfilters" class="nocap hyphen" :title="$t('main.filterresetall_alt')"
+                        @click="resetAllFilters">
+                        {{ $t("main.filterresetall") }}
+                    </v-btn>
+                </v-col>
+            </v-row>
 
-      <!--
-        filter panel
-        -->
-      <v-row
-          v-if="compactView === false"
-      >
-        <h1
-            class="v-label"
-        >
-          {{ $t("main.filterpanel_header") }}
-        </h1>
-      </v-row>
-      <v-row
-          id="filterpanel"
-          align="baseline"
-      >
-        <v-col>
-          <v-select
-              id="filtercases"
-              v-model="filterCases"
-              class="nocap"
-              :label="$t('main.filtercases')"
-              :title="$t('main.filtercases_alt')"
-              :items="caseing"
-              item-text="name"
-              item-value="id"
-              return-object
-              hide-details
-              @change="filterCaseingChanged"
-          >
-            <template #item="{ item, attrs, on }">
-              <v-list-item
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                <v-list-item-content>
-                  <v-list-item-title
-                      :title="item.descr"
-                  >
-                    {{ item.name }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-          </v-select>
-        </v-col>
-        <v-col>
-          <v-select
-              id="filterregion"
-              v-model="filterProfile"
-              class="nocap"
-              :label="$t('main.filterregion')"
-              :title="$t('main.filterregion_alt')"
-              :items="profiles"
-              item-text="name"
-              item-value="id"
-              return-object
-              hide-details
-              @change="filterProfileChanged"
-          >
-            <template #item="{ item, attrs, on }">
-              <v-list-item
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                <v-list-item-content>
-                  <v-list-item-title
-                      :title="item.descr"
-                  >
-                    {{ item.name }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-          </v-select>
-        </v-col>
-        <v-col
-            v-if="featureBasechar === true"
-        >
-          <v-text-field
-              id="filterbasechar"
-              ref="filterbasechar"
-              v-model="filterBasechar"
-              readonly
-              class="nocap"
-              flat
-              hide-details
-              :label="$t('main.filterbasechar')"
-              :title="$t('main.filterbasechar_alt')"
-              dense
-              color="black"
-              background-color="#eeeeee"
-          >
-            <template #append>
-              <v-btn
-                  id="clearbasecharbutton"
-                  icon
-                  :title="$t('main.clearfilterbasecharbutton_alt')"
-                  @click="clearBasecharFilter"
-              >
-                <v-icon
-                    :alt="$t('main.clearfilterbasecharbutton_alt')"
-                >
-                  mdi-close
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-text-field>
-        </v-col>
-        <v-col>
-          <v-btn
-              id="resetallfilters"
-              class="nocap hyphen"
-              :title="$t('main.filterresetall_alt')"
-              @click="resetAllFilters"
-          >
-            {{ $t("main.filterresetall") }}
-          </v-btn>
-        </v-col>
-      </v-row>
+            <!-- Keyboard Selection Panel -->
+            <v-row v-if="compactView === false">
+                <h1 class="v-label">{{ $t("main.keyboardselection_header") }}</h1>
+            </v-row>
+            <v-row id="keyboardselectionpanel" align="center" class="mb-4">
+                <v-col>
+                    <div class="d-flex align-center flex-wrap">
+                        <v-chip
+                            v-for="(keyboard, index) in sortedAvailableKeyboards"
+                            :key="keyboard.id"
+                            :color="selectedKeyboards.includes(keyboard.id) ? 'primary' : undefined"
+                            :variant="selectedKeyboards.includes(keyboard.id) ? 'elevated' : 'outlined'"
+                            closable
+                            @click="toggleKeyboard(keyboard.id)"
+                            @click:close="removeKeyboard(keyboard.id)"
+                            :disabled="availableKeyboards.length === 1"
+                            :class="['text-body-1', 'my-2', 'mr-2', { 'ml-2': index > 0 }]"
+                        >
+                            {{ keyboard.name }}
+                        </v-chip>
+                        <v-btn
+                            variant="text"
+                            :prepend-icon="mdiPlus"
+                            @click="showAddKeyboardDialog = true"
+                            class="ma-2"
+                            density="comfortable"
+                            min-width="120"
+                        >
+                            {{ $t("main.add_keyboard") }}
+                        </v-btn>
+                        <v-btn
+                            variant="text"
+                            :prepend-icon="mdiKeyboardReturn"
+                            @click="resetKeyboards"
+                            class="ma-2"
+                            density="comfortable"
+                            min-width="120"
+                            :title="$t('main.reset_keyboards_alt')"
+                        >
+                            {{ $t("main.reset_keyboards") }}
+                        </v-btn>
+                    </div>
+                </v-col>
+            </v-row>
 
-      <!--
-        Keyboard panel
-        -->
-      <v-row
-          v-if="compactView === false"
-      >
-        <h1
-            class="v-label"
-        >
-          {{ $t("main.keyboardpanel_header") }}
-        </h1>
-      </v-row>
-      <v-row
-          v-if="keyboard.length > 0"
-          id="keyboardpanel"
-          ref="keyboardpanel"
-      >
-        <!-- Caution: Standard buttons, because vuetify and vue slow down eventhandling due to complex 
-                      dom structure too much, when the dom (here: the many keys) too much. -->
-        <div
-            v-for="c in keyboard"
-            :key="c.id"
-        >
-          <div v-if="c.info">
-            <button
-                :id="c.id"
-                type="button"
-                class="nocap key"
-                :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
-                :title="c.info"
-                tabindex="0"
-                @click="charTapped"
-            >
-              {{ c.name }}
-            </button>
-          </div>
-          <div v-else>
-            <button
-                :id="c.id"
-                type="button"
-                class="nocap key"
-                :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
-                tabindex="0"
-                @click="charTapped"
-            >
-              {{ c.name }}
-            </button>
-          </div>
-        </div>
-      </v-row>
-      <v-row v-else>
-        <p>{{ $t("main.keyboardpanel_nochars") }}</p>
-      </v-row>
-    </v-container>
+            <!-- Add Keyboard Dialog -->
+            <v-dialog v-model="showAddKeyboardDialog" max-width="500px">
+                <v-card>
+                    <v-card-title>{{ $t("main.add_keyboard_dialog_title") }}</v-card-title>
+                    <v-card-text>
+                        <v-select
+                            v-model="selectedKeyboardToAdd"
+                            :items="availableKeyboardOptions"
+                            item-title="name"
+                            item-value="id"
+                            :label="$t('main.select_keyboard')"
+                            :disabled="availableKeyboardOptions.length === 0"
+                        ></v-select>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            variant="text"
+                            @click="addKeyboard"
+                            :disabled="!selectedKeyboardToAdd || availableKeyboardOptions.length === 0"
+                        >
+                            {{ $t("main.add") }}
+                        </v-btn>
+                        <v-btn
+                            color="error"
+                            variant="text"
+                            @click="showAddKeyboardDialog = false"
+                        >
+                            {{ $t("main.cancel") }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
-    <yes-no-dialog
-        v-model="saveLeaveDialog"
-        :dialogtitle="$t('main.leavedialog_title')"
-        :dialogtext="$t('main.leavedialog_text')"
-        @no="cancel"
-        @yes="leave"
-    />
-  </div>
+            <!-- Keyboard Panel -->
+            <v-row v-if="compactView === false">
+                <h1 class="v-label">{{ $t("main.keyboardpanel_header") }}</h1>
+            </v-row>
+            <v-row v-if="keyboard.length > 0" id="keyboardpanel" ref="keyboardpanel">
+                <div v-for="(c, index) in keyboard" :key="`char-${c.id}-${index}`">
+                    <div v-if="c.info">
+                        <button :id="c.id" type="button" class="nocap key"
+                            :class="{ serifStyle: displaySerif, sansStyle: displaySans }" :title="c.info" tabindex="0"
+                            @click="charTapped">
+                            {{ c.name }}
+                        </button>
+                    </div>
+                    <div v-else>
+                        <button :id="c.id" type="button" class="nocap key"
+                            :class="{ serifStyle: displaySerif, sansStyle: displaySans }" tabindex="0"
+                            @click="charTapped">
+                            {{ c.name }}
+                        </button>
+                    </div>
+                </div>
+            </v-row>
+            <v-row v-else>
+                <p>{{ $t("main.keyboardpanel_nochars") }}</p>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
-<script lang="ts">
-import {Component, Mixins, Prop} from 'vue-property-decorator';
-import SaveLeaveMixin from "@/mixins/saveLeaveMixin";
-import YesNoDialog from "@/components/common/YesNoDialog.vue";
-import {StringLatinModelService} from "../api/StringLatinModelService";
-import Graphemer from "graphemer";
-import {KiwiError, Levels, ThreadErrorHandler} from "@/api/error";
-import FocusUtils from "@/api/FocusUtils";
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick, reactive, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useThemeStore } from '@/stores/theme';
+import type { StringLatinModelService, Character } from '@/api/StringLatinModelService';
+import { getModel } from '@/api/StringLatinModelService';
+import Graphemer from 'graphemer';
+import { KiwiError, Levels } from '@/api/error';
+import FocusUtils from '@/api/FocusUtils';
+import { mdiClose, mdiMagnify, mdiContentCopy, mdiPlus, mdiKeyboardReturn } from "@mdi/js";
 
-@Component({
-  components: {YesNoDialog}
-})
-export default class App extends Mixins(SaveLeaveMixin) {
+const props = defineProps<{
+    model: StringLatinModelService;
+}>();
 
-  @Prop({type: StringLatinModelService, required: true})
-  private readonly model!: StringLatinModelService;
+const { t, locale } = useI18n();
+const themeStore = useThemeStore();
 
-  private numSearches = 0;
+// Watch for language changes and update keyboard names
+watch(locale, () => {
+    themeStore.$patch((state) => {
+        state.availableKeyboards = state.availableKeyboards.map(keyboard => ({
+            id: keyboard.id,
+            name: keyboard.id === 'characters-DIN-SPEC-91379' 
+                ? t('main.keyboards.din') 
+                : t('main.keyboards.german')
+        }));
+    });
+});
 
-  private mainbuffer = "";
+interface KeyboardInfo {
+    id: string;
+    name: string;
+}
 
-  private mainBufferInputElem!: HTMLInputElement;
+interface LocalProfile {
+    seq: number;
+    id: string;
+    name: string;
+    descr: string;
+}
 
-  private replaceLastGraphme = false;
+interface DisplayCharacter {
+    id: string;
+    name: string;
+    info: string;
+}
 
-  private keyboard: { id: string; name: string; info: string }[] = [];
+// Centralize filter state
+const currentFilters = reactive({
+    cases: themeStore.filterCases,
+    profile: themeStore.filterProfile,
+    basechar: '',
+    searchChar: ''
+});
 
-  private profiles: { seq: number; id: string; name: string; descr: string }[] = [];
+// State
+const mainbufferValue = ref('');
+const keyboard = ref<DisplayCharacter[]>([]);
+const profiles = ref<LocalProfile[]>([]);
+const replaceLastGraphme = ref(false);
+const numSearches = ref(0);
+const splitter = new Graphemer();
 
-  readonly caseing: { seq: number; id: string; name: string; descr: string }[] = [
-    {seq: 0, id: "s", name: this.$t('main.caseing_s').toString(), descr: this.$t('main.caseing_s_alt').toString()},
-    {seq: 1, id: "g", name: this.$t('main.caseing_g').toString(), descr: this.$t('main.caseing_g_alt').toString()},
-    {seq: 2, id: "k", name: this.$t('main.caseing_k').toString(), descr: this.$t('main.caseing_k_alt').toString()},
-    {seq: 3, id: "gk", name: this.$t('main.caseing_gk').toString(), descr: this.$t('main.caseing_gk_alt').toString()},
-  ];
+// Computed
+const compactView = computed(() => themeStore.compactView);
+const automaticFocus = computed(() => themeStore.automaticFocus);
+const displaySerif = computed(() => themeStore.displaySerif);
+const displaySans = computed(() => !displaySerif.value);
+const featureBasechar = computed(() => themeStore.feature.basechar);
 
-  private readonly splitter = new Graphemer();
+const inputValue = computed(() => mainbufferValue.value);
+const updateInputValue = (value: string) => {
+    mainbufferValue.value = value;
+};
 
-  //
-  // Currently applied filters
-  //
-  private searchChar = "";
+interface CaseOption {
+    seq: number;
+    id: string;
+    name: string;
+    descr: string;
+}
 
-  private filterCases: string = this.$store.state.config.filterCases;
-  private filterProfile: string = this.$store.state.config.filterProfile;
-  private filterBasechar = "";
+const caseing: CaseOption[] = [
+    { seq: 0, id: 's', name: 'main.cases.standard', descr: 'main.cases.standard_desc' },
+    { seq: 1, id: 'g', name: 'main.cases.capital', descr: 'main.cases.capital_desc' },
+    { seq: 2, id: 'k', name: 'main.cases.small', descr: 'main.cases.small_desc' },
+    { seq: 3, id: 'gk', name: 'main.cases.mixed', descr: 'main.cases.mixed_desc' }
+];
 
+// Methods
+const getProfileName = (id: string | undefined): string => {
+    if (!id) return '';
+    const key = `main.profiles.${id}`;
+    return t(key) || id;
+};
 
-  mounted(): void {
-    console.debug("Main.vue: mounted()");
+const updateCase = (newValue: string): void => {
+    if (!newValue || newValue === currentFilters.cases) return;
+    currentFilters.cases = newValue;
+    themeStore.updateFilterCases(newValue);
+    nextTick(() => runSearch());
+};
 
-    window.addEventListener('keyup', (event: KeyboardEvent) => {
-      // Cntrl or Meta (Apple!) + c key sequence
-      if ((event.metaKey || event.ctrlKey) && event.keyCode === 67) {
-        event.preventDefault();
-        this.copyToClipboard();
-        return;
-      }
-      // Cntrl or Meta (Apple!) + space key sequence
-      if ((event.metaKey || event.ctrlKey) && event.keyCode === 32) {
-        event.preventDefault();
-        this.searchBaseChar();
-        return;
-      }
+const updateProfile = (newValue: string): void => {
+    if (!newValue || newValue === currentFilters.profile) return;
+    currentFilters.profile = newValue;
+    themeStore.updateFilterProfile(newValue);
+    nextTick(() => runSearch());
+};
+
+const resetAllFilters = (): void => {
+    Object.assign(currentFilters, {
+        cases: 's',
+        profile: '__all',
+        basechar: '',
+        searchChar: ''
     });
 
-    (this.model as StringLatinModelService).getAllProfiles().then((result) => {
-      this.profiles = result;
-    }).then(() => {
-      this.runSearch();
-    }).then(() => {
-      const inputElem = this.getMainBufferInputElem();
-      if (inputElem) {
-        this.mainBufferInputElem = inputElem;
-      } else {
-        const msg = "Cannot determine inputelement of v-text-field with id=mainbuffer.";
-        console.error(msg);
-        throw new KiwiError({message: msg});
-      }
-    }).catch(error => {
-      ThreadErrorHandler.handleError(this, error);
-    });
+    themeStore.updateFilterProfile(currentFilters.profile);
+    themeStore.updateFilterCases(currentFilters.cases);
+    nextTick(() => runSearch());
+};
 
-  }
-
-  //
-  // Computed
-  //
-  get compactView(): boolean {
-    return this.$store.state.config.compactView;
-  }
-
-  get automaticFocus(): boolean {
-    return this.$store.state.config.automaticFocus;
-  }
-
-  get filterRegion(): string {
-    return this.$store.state.config.filterRegion;
-  }
-
-  get displaySerif(): boolean {
-    return this.$store.state.config.displaySerif;
-  }
-
-  get displaySans(): boolean {
-    return (!this.displaySerif);
-  }
-
-  get featureSerif(): boolean {
-    return this.$store.state.feature.serif;
-  }
-
-  get featureBasechar(): boolean {
-    return this.$store.state.feature.basechar;
-  }
-
-  //
-  // Functions
-  //
-  charTapped(e: PointerEvent): void {
-    const c = (e.target as HTMLInputElement).innerText;
-    console.debug("Char " + c + " tapped.");
-
-    const selection = this.getBufferSelection();
-    const model = this.mainbuffer;
-
-    if (this.replaceLastGraphme === true) {
-      //
-      // Replace last grapheme even if it was not selected
-      //
-      const graphemes = this.splitter.splitGraphemes(this.mainbuffer);
-      const grapheme = graphemes.slice(-1)[0];
-      const newUctext = model.slice(0, model.length - grapheme.length) + c;
-      this.updateMainBufferAdjustCaret(newUctext, c.length - grapheme.length);
-
-    } else if (selection.start === selection.end) {
-      //
-      // Cursor-Pos. keine Selektion
-      //
-      const newUctext = (selection.end === model.length)
-          ? model + c
-          : model.slice(0, selection.start) + c + model.slice(selection.end);
-      this.updateMainBufferAdjustCaret(newUctext, c.length);
-
-    } else {
-      //
-      // Selektion
-      //
-      this.updateMainBufferAdjustCaret(model.slice(0, selection.start) + c + model.slice(selection.end), c.length);
-
-    }
-
-    this.replaceLastGraphme = false;
-
-    //
-    // Autom. focus management
-    //
-    if (this.automaticFocus) {
-      console.debug("Focusing mainbuffer.");
-      FocusUtils.focus(this.mainBufferInputElem, FocusUtils.RENDER_DELAY);
-    }
-  }
-
-  searchBaseChar(): void {
-    if (this.mainbuffer.trim() === "") {
-      return;
-    }
-
-    this.searchChar = this.getIntendedSearchChar();
-
-    (this.model as StringLatinModelService).getBasecharByChar(this.searchChar).then((selectedChar) => {
-      console.debug("searchBaseChar(): selectedChar = \"" + selectedChar + "\".");
-      if (selectedChar === "") {
-        console.debug("searchBaseChar(): No selection -- ignoring request.");
-
-      } else {
-        console.debug("searchBaseChar(): last char is filled searching for it");
-        this.filterBasechar = selectedChar;
-        this.runSearch();
-
-      }
-    });
-  }
-
-  isDirty(): boolean {
-    const dirty = (this.mainbuffer) ? true : false;
-    console.debug("isDirty(()=" + dirty);
-    return dirty;
-  }
-
-  clearbuffer(): void {
-    this.mainbuffer = "";
-  }
-
-  private getFirstKeyboardKey(): HTMLElement | null {
-    return FocusUtils.getHTMElem(this, "keyboardpanel", "div button");
-  }
-
-  private getIntendedSearchChar(): string {
-    if (this.mainbuffer.trim() === "") {
-      return "";
-    }
-
-    let grapheme = undefined;
-    const selection = this.getBufferSelection();
-    if (selection.start === selection.end) {
-      console.debug("getIntendedSearchChar(): no selection -- using last grapheme of whole text removing it.");
-
-      const graphemes = this.splitter.splitGraphemes(this.mainbuffer);
-      grapheme = graphemes.slice(-1)[0];
-      console.debug("getIntendedSearchChar(): length of last grapheme " + grapheme.length + ".");
-      this.replaceLastGraphme = true;
-
-    } else {
-      console.debug("getIntendedSearchChar(): detected selection -- using first grapheme it.");
-
-      //
-      // Here we rely on correct unicode processing of the browser:
-      // Selection needs to contain the basechar plus all combining chars...
-      //
-      const selectionText = this.mainbuffer.slice(selection.start, selection.end);
-      console.debug("getIntendedSearchChar(): selected text: \"" + selectionText + "\".");
-
-      const graphemes = this.splitter.splitGraphemes(selectionText);
-      console.debug("_getSearchChar(): length of last grapheme " + selectionText.length + ".");
-      grapheme = graphemes[0];
-      this.replaceLastGraphme = false;
-
-    }
-
-    return grapheme;
-  }
-
-  filterProfileChanged(e: { seq: number; id: string; name: string; descr: string }): void {
-    this.filterProfile = e.id;
-    console.debug("Switched to profile '" + this.filterProfile + "'.");
-    this.$store.dispatch('config/updateFilterProfile', this.filterProfile);
-    this.runSearch();
-  }
-
-  filterCaseingChanged(e: { seq: number; id: string; name: string; descr: string }): void {
-    this.filterCases = e.id;
-    console.debug("Switched to casing '" + this.filterCases + "'.");
-    this.$store.dispatch('config/updateFilterCases', this.filterCases);
-    this.runSearch();
-  }
-
-  clearBasecharFilter(): void {
-    console.debug("Switched basechar '" + this.filterBasechar + "'.");
-    this.filterBasechar = "";
-    this.runSearch();
-  }
-
-  copyToClipboard(): void {
-    this.mainBufferInputElem.select();
-    const normalized = this.mainbuffer.normalize("NFC");
-
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(normalized)
-          .then(() => {
-            this.$store.dispatch('snackbar/showMessage', {message: this.$t('main.clipboard_message_success').toString()});
-            console.log("Copied '" + normalized + "' to clipboard.");
-          })
-          .catch(() => {
-            console.log("Failed to copy to clipboard.");
-            this.$store.dispatch('snackbar/showMessage', {
-              message: this.$t('main.clipboard_message_failure').toString(),
-              level: Levels.ERROR
-            });
-          });
-    } else {
-      this.$store.dispatch('snackbar/showMessage', {
-        message: this.$t('main.clipboard_message_too_old').toString(),
-        level: Levels.ERROR
-      });
-    }
-
-    this.mainBufferInputElem.blur();
-  }
-
-  resetAllFilters(): void {
-    this.filterProfile = "id1";
-    this.filterBasechar = "";
-    this.filterCases = "s";
-
-    this.searchChar = "";
-
-    //
-    // Persistent config
-    //
-    this.$store.dispatch('config/updateFilterProfile', this.filterProfile);
-    this.$store.dispatch('config/updateFilterCases', this.filterCases);
-
-    // Update keyboard
-    this.runSearch();
-  }
-
-  private runSearch(): void {
+const runSearch = async (): Promise<void> => {
     console.debug("runSearch()");
 
-    this.mapCharCases().then((cases) => {
-      return (this.model as StringLatinModelService).getFilteredChars(this.filterProfile, this.filterBasechar, "", cases);
+    try {
+        const cases = await mapCharCases();
+        const result = await props.model.getFilteredChars(
+            currentFilters.profile,
+            currentFilters.basechar,
+            '',
+            cases
+        );
 
-    }).then((result) => {
-      this.keyboard = result;
+        // Transform Character to DisplayCharacter
+        keyboard.value = result.map(char => ({
+            id: char.id,
+            name: char.name,
+            info: char.info[locale.value] || char.info['en'] || Object.values(char.info)[0]
+        }));
 
-      // Focus (only) at application startup the mainbuffer not the keyboard
-      if (this.numSearches++ > 0) {
+        // Focus (only) at application startup the mainbuffer not the keyboard
+        if (numSearches.value++ > 0) {
+            nextTick(() => {
+                if (automaticFocus.value === true) {
+                    const firstKeyElem = getFirstKeyboardKey();
+                    if (firstKeyElem) {
+                        console.debug("Focusing first key.");
+                        FocusUtils.focus(firstKeyElem, FocusUtils.RENDER_DELAY_SHORT);
+                    }
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Failed to run search:', error);
+        keyboard.value = [];
+    }
+};
 
-        this.$nextTick(() => {
-          if (this.automaticFocus === true) {
-            const firstKeyElem = this.getFirstKeyboardKey();
-            if (firstKeyElem) {
-              console.debug("Focusing first key.");
-              -FocusUtils.focus(firstKeyElem, FocusUtils.RENDER_DELAY_SHORT);
+const mapCharCases = async (): Promise<string> => {
+    const cases = currentFilters.cases;
+    if (cases === 'g') {
+        return 'capital';
+    } else if (cases === 'k') {
+        return 'small';
+    } else if (cases === 'gk') {
+        return '';
+    } else {
+        // Default: 's' - like search char
+        if (currentFilters.searchChar) {
+            const casing = await props.model.getCaseOfChar(currentFilters.searchChar);
+            if (casing === 'capital' || casing === 'small') {
+                return casing;
             }
-          }
-        });
+        }
+        return '';
+    }
+};
 
-      }
-    });
+const searchBaseChar = async (): Promise<void> => {
+    if (!mainbufferValue.value.trim()) {
+        // Reset search when input is empty
+        currentFilters.basechar = '';
+        currentFilters.searchChar = '';
+        await runSearch();
+        return;
+    }
 
-  }
+    // Get the last character from the input
+    const lastChar = mainbufferValue.value.slice(-1);
+    if (!lastChar) {
+        // Reset search if no last character
+        currentFilters.basechar = '';
+        currentFilters.searchChar = '';
+        await runSearch();
+        return;
+    }
 
-  private getBufferSelection(): { start: number; end: number } {
-    const startIdx = this.mainBufferInputElem.selectionStart;
-    const endIdx = this.mainBufferInputElem.selectionEnd;
+    console.debug("searchBaseChar(): searching for \"" + lastChar + "\"");
+    currentFilters.searchChar = lastChar;
+
+    try {
+        const baseChars = await props.model.getBasecharByChar(currentFilters.searchChar);
+        console.debug("searchBaseChar(): baseChars = \"" + baseChars.join(', ') + "\"");
+
+        if (baseChars.length > 0) {
+            // Use the first base character for filtering, but show all in the UI
+            currentFilters.basechar = baseChars[0];
+            if (baseChars.length > 1) {
+                themeStore.showMessage({
+                    message: t('main.multiple_base_chars_found', { chars: baseChars.join(', ') }),
+                    level: Levels.INFO,
+                    timeout: 5000
+                });
+            }
+            await runSearch();
+        }
+    } catch (error) {
+        console.error("Error searching for base character:", error);
+        // Reset search on error
+        currentFilters.basechar = '';
+        currentFilters.searchChar = '';
+        await runSearch();
+    }
+};
+
+const getMainBufferInputElem = (): HTMLInputElement | null => {
+    const field = document.getElementById('mainbuffer');
+    if (!field) return null;
+    return field.querySelector('input.v-field__input') as HTMLInputElement;
+};
+
+const getBufferSelection = (): { start: number; end: number } => {
+    const inputElem = getMainBufferInputElem();
+    if (!inputElem) return { start: 0, end: 0 };
+
+    const startIdx = inputElem.selectionStart;
+    const endIdx = inputElem.selectionEnd;
 
     // Check if you've selected text
     if (startIdx === endIdx) {
-      console.debug("The position of the cursor is (" + startIdx + "/" + this.mainBufferInputElem.value.length + ")");
+        console.debug("The position of the cursor is (" + startIdx + "/" + inputElem.value.length + ")");
     } else {
-      console.debug("Detected selection [ " + startIdx + " , " + endIdx + " [ of " + this.mainBufferInputElem.value.length + " chars.");
+        console.debug("Detected selection [ " + startIdx + " , " + endIdx + " [ of " + inputElem.value.length + " chars.");
     }
 
     return {
-      start: (startIdx === null) ? 0 : startIdx,
-      end: (endIdx === null) ? 0 : endIdx,
+        start: startIdx === null ? 0 : startIdx,
+        end: endIdx === null ? 0 : endIdx,
     };
-  }
+};
 
-  private getMainBufferInputElem(): HTMLInputElement | null {
-    return FocusUtils.getHTMElem(this, "mainbuffer", "input") as HTMLInputElement;
-  }
+const copyToClipboard = async (): Promise<void> => {
+    if (!mainbufferValue.value) {
+        themeStore.showMessage({
+            message: t('main.clipboard_message_failure'),
+            level: Levels.ERROR,
+            timeout: 3000
+        });
+        return;
+    }
 
-  private updateMainBufferAdjustCaret(newValue: string, adjust: number): void {
-    //
-    // Get cursor position, set value and store cursor position
-    // after vue updated screen
-    //
-    const start = this.mainBufferInputElem.selectionStart;
-    this.mainbuffer = newValue;
-    this.$nextTick(() => {
-      // nextTick doesn't seem to wait long enough => wait additional 10 ms
-      setTimeout(() => {
-        this.mainBufferInputElem!.selectionStart = start! + adjust;
-        this.mainBufferInputElem!.selectionEnd = start! + adjust;
-      }, 10);
+    try {
+        const normalized = mainbufferValue.value.normalize('NFC');
+        if ('clipboard' in navigator) {
+            await navigator.clipboard.writeText(normalized);
+            themeStore.showMessage({
+                message: t('main.clipboard_message'),
+                level: Levels.SUCCESS,
+                timeout: 3000
+            });
+        } else {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = normalized;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                themeStore.showMessage({
+                    message: t('main.clipboard_message'),
+                    level: Levels.SUCCESS,
+                    timeout: 3000
+                });
+            } catch (err) {
+                themeStore.showMessage({
+                    message: t('main.clipboard_message_too_old'),
+                    level: Levels.ERROR,
+                    timeout: 5000
+                });
+            }
+            document.body.removeChild(textArea);
+        }
+    } catch (error) {
+        themeStore.showMessage({
+            message: t('main.clipboard_message_failure'),
+            level: Levels.ERROR,
+            timeout: 5000
+        });
+    }
+};
+
+const charTapped = (e: MouseEvent): void => {
+    const target = e.target as HTMLButtonElement;
+    const c = target.textContent || '';
+    console.debug("Char " + c + " tapped.");
+
+    const selection = getBufferSelection();
+    const model = mainbufferValue.value;
+
+    if (replaceLastGraphme.value === true) {
+        const graphemes = splitter.splitGraphemes(model);
+        const grapheme = graphemes.slice(-1)[0];
+        mainbufferValue.value = model.slice(0, model.length - grapheme.length) + c;
+    } else {
+        // Always append to the end if no selection
+        mainbufferValue.value = model + c;
+    }
+
+    replaceLastGraphme.value = false;
+
+    // Focus management
+    nextTick(() => {
+        const inputElem = getMainBufferInputElem();
+        if (inputElem && automaticFocus.value) {
+            const newPos = mainbufferValue.value.length;
+            inputElem.selectionStart = newPos;
+            inputElem.selectionEnd = newPos;
+            FocusUtils.focus(inputElem, FocusUtils.RENDER_DELAY);
+        }
+    });
+};
+
+const clearbuffer = (): void => {
+    mainbufferValue.value = '';
+    currentFilters.basechar = '';
+    currentFilters.searchChar = '';
+    nextTick(() => runSearch());
+};
+
+// Keyboard selection state
+const showAddKeyboardDialog = ref(false);
+const selectedKeyboardToAdd = ref('');
+const selectedKeyboards = computed({
+    get: () => themeStore.selectedKeyboards,
+    set: (value) => themeStore.updateSelectedKeyboards(value)
+});
+const availableKeyboards = computed({
+    get: () => themeStore.availableKeyboards,
+    set: (value) => themeStore.updateAvailableKeyboards(value)
+});
+const availableKeyboardFiles: KeyboardInfo[] = [
+    { id: 'characters-DIN-SPEC-91379', name: t('main.keyboards.din') },
+    { id: 'characters-german', name: t('main.keyboards.german') }
+];
+
+// Computed property for available keyboard options in select
+const availableKeyboardOptions = computed(() => {
+    return availableKeyboardFiles.filter(keyboard => 
+        !availableKeyboards.value.some(added => added.id === keyboard.id)
+    );
+});
+
+// Computed properties for sorted keyboards
+const sortedAvailableKeyboards = computed(() => {
+    // First, sort all keyboards alphabetically by name
+    const sorted = [...availableKeyboards.value].sort((a, b) => {
+        // If one of them is DIN SPEC, it should be first
+        if (a.id === 'characters-DIN-SPEC-91379') return -1;
+        if (b.id === 'characters-DIN-SPEC-91379') return 1;
+        // Otherwise, sort alphabetically by name
+        return a.name.localeCompare(b.name);
+    });
+    return sorted;
+});
+
+// Keyboard selection methods
+const toggleKeyboard = async (keyboardId: string): Promise<void> => {
+    if (selectedKeyboards.value.includes(keyboardId)) {
+        // Don't allow deselecting if it's the last selected keyboard
+        if (selectedKeyboards.value.length > 1) {
+            // Update store directly
+            themeStore.$patch((state) => {
+                state.selectedKeyboards = state.selectedKeyboards.filter(id => id !== keyboardId);
+            });
+        } else {
+            themeStore.showMessage({
+                message: t('main.cannot_deselect_last_keyboard'),
+                level: Levels.WARNING,
+                timeout: 3000
+            });
+            return;
+        }
+    } else {
+        // Update store directly
+        themeStore.$patch((state) => {
+            state.selectedKeyboards = [...state.selectedKeyboards, keyboardId];
+        });
+    }
+    await props.model.loadKeyboards(selectedKeyboards.value);
+    await runSearch();
+};
+
+const addKeyboard = async (): Promise<void> => {
+    if (selectedKeyboardToAdd.value && !availableKeyboards.value.find((k: KeyboardInfo) => k.id === selectedKeyboardToAdd.value)) {
+        const keyboardId = selectedKeyboardToAdd.value;
+        const keyboardName = keyboardId === 'characters-DIN-SPEC-91379' 
+            ? t('main.keyboards.din') 
+            : t('main.keyboards.german');
+        
+        // Update store directly
+        themeStore.$patch((state) => {
+            // Add the new keyboard
+            const newKeyboard = { id: keyboardId, name: keyboardName };
+            state.availableKeyboards = [...state.availableKeyboards, newKeyboard];
+            state.selectedKeyboards = [...state.selectedKeyboards, keyboardId];
+        });
+        await props.model.loadKeyboards(selectedKeyboards.value);
+        await runSearch();
+    }
+    showAddKeyboardDialog.value = false;
+    selectedKeyboardToAdd.value = '';
+};
+
+const removeKeyboard = async (keyboardId: string): Promise<void> => {
+    // Don't allow removing the last keyboard
+    if (availableKeyboards.value.length > 1) {
+        // Update store directly
+        themeStore.$patch((state) => {
+            state.availableKeyboards = state.availableKeyboards.filter((k) => k.id !== keyboardId);
+            if (state.selectedKeyboards.includes(keyboardId)) {
+                state.selectedKeyboards = state.selectedKeyboards.filter(id => id !== keyboardId);
+            }
+        });
+        await props.model.loadKeyboards(selectedKeyboards.value);
+        await runSearch();
+    } else {
+        themeStore.showMessage({
+            message: t('main.cannot_remove_last_keyboard'),
+            level: Levels.WARNING,
+            timeout: 3000
+        });
+    }
+};
+
+const getFirstKeyboardKey = (): HTMLElement | null => {
+    return document.querySelector('#keyboardpanel button');
+};
+
+const resetKeyboards = async (): Promise<void> => {
+    // Update store directly
+    themeStore.$patch((state) => {
+        state.availableKeyboards = [{ 
+            id: 'characters-DIN-SPEC-91379', 
+            name: t('main.keyboards.din') 
+        }];
+        state.selectedKeyboards = ['characters-DIN-SPEC-91379'];
+    });
+    await props.model.loadKeyboards(selectedKeyboards.value);
+    await runSearch();
+};
+
+// Initialize
+onMounted(async (): Promise<void> => {
+    // Event listeners
+    window.addEventListener('keyup', (event: KeyboardEvent) => {
+        if ((event.metaKey || event.ctrlKey) && event.keyCode === 67) {
+            event.preventDefault();
+            copyToClipboard();
+            return;
+        }
+        if ((event.metaKey || event.ctrlKey) && event.keyCode === 32) {
+            event.preventDefault();
+            searchBaseChar();
+            return;
+        }
     });
 
-  }
-
-  private async mapCharCases(): Promise<string> {
-    switch (this.filterCases) {
-      case "s": { // Derived from char searched
-        if (this.searchChar) {
-          return await (this.model as StringLatinModelService).getCaseOfChar(this.searchChar);
-
-        } else {
-          return Promise.resolve("undef");
-
+    try {
+        // Initialize available keyboards if none are stored
+        if (availableKeyboards.value.length === 0) {
+            // Update store directly with translated names
+            themeStore.$patch((state) => {
+                state.availableKeyboards = [
+                    { id: 'characters-DIN-SPEC-91379', name: t('main.keyboards.din') },
+                    { id: 'characters-german', name: t('main.keyboards.german') }
+                ];
+            });
         }
-      }
 
-      case "g": // capital
-        return Promise.resolve("capital");
+        // Load the selected keyboards
+        if (selectedKeyboards.value.length === 0) {
+            // If no keyboards are selected, select the DIN keyboard by default
+            themeStore.$patch((state) => {
+                state.selectedKeyboards = ['characters-DIN-SPEC-91379'];
+            });
+        }
+        await props.model.loadKeyboards(selectedKeyboards.value);
 
-      case "k": // small
-        return Promise.resolve("small");
-
-      default: // or both
-        return Promise.resolve("undef");
+        const result = await props.model.getAllProfiles();
+        // Transform Profile to LocalProfile
+        profiles.value = result.map(p => ({
+            seq: p.seq,
+            id: p.id,
+            name: p.names[locale.value] || p.names['en'] || Object.values(p.names)[0],
+            descr: p.descriptions[locale.value] || p.descriptions['en'] || Object.values(p.descriptions)[0]
+        }));
+        await runSearch();
+    } catch (error) {
+        console.error('Failed to initialize:', error);
+        profiles.value = [];
     }
-  }
-}
+});
 </script>
 
-<style>
-@import '../../public/shared-styles.css';
+<style scoped>
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
 
-/*
- * Common
- */
+.nocap {
+    text-transform: none !important;
+}
+
+.key {
+    margin: 2px;
+    padding: 8px 16px;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background-color: var(--vp-c-bg-soft);
+    color: var(--vp-c-text-2);
+}
+
+.key:hover {
+    background-color: var(--vp-c-gray-light-4);
+    border-color: var(--vp-c-gray);
+    box-shadow: var(--vp-shadow-1);
+}
+
+.key:focus {
+    outline: none;
+    border-color: var(--v-primary-base);
+    box-shadow: 0 0 0 2px rgba(var(--v-primary-base), 0.2);
+}
+
 .serifStyle {
-  font-family: serif !important;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .sansStyle {
-  font-family: sans-serif !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.v-label {
-  color: black !important;
-}
-
-h1 {
-  padding: 0.5em;
-}
-
-.v-main {
-  padding-top: 0px !important;
-}
-
-.v-main__wrap > .container {
-  padding-top: 0px;
-}
-
-/*
- * buffer panel
- */
-#bufferpanel {
-  border-bottom: thin solid black;
-}
-
-.sticky {
-  position: sticky;
-  top: 0px;
-  z-index: 3;
-  background: #eeeeee;
-}
-
-#bufferpanel .v-input__append-inner {
-  margin-top: 8px;
-}
-
-/*
- * filter panel
- */
-#filterpanel {
-  border-bottom: thin solid black;
-}
-
-.v-icon {
-  color: black !important;
-}
-
-/* TODO:
-   * Wie kann man dieses Klasse in v-text-field injecten?
-   * https://vuejs.org/v2/guide/class-and-style.html
-  input#mainbuffer {
-    font-family: serif !important;
-  }
-*/
-
-/*
- * keyboard panel
- */
-#keyboardpanel {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-
-button.key {
-  width: 2.5em;
-
-  /* Copy of styling from vuetify */
-  -webkit-text-size-adjust: 100%;
-  word-break: normal;
-  tab-size: 4;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-box-direction: normal;
-  margin: 4px;
-  font: inherit;
-  overflow: visible;
-  color: black;
-  -webkit-appearance: button;
-  border-style: none;
-  background-color: #f5f5f5;
-  box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
-  border-radius: 5px;
-  padding: 0.5em;
-  box-sizing: border-box;
-  outline-width: 0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button.key:focus {
-  /* Copy of styling from vuetify */
-  background: rgba(0, 0, 0, 0.3);
-}
-
-button.key:hover {
-  /* Copy of styling from vuetify */
-  background-color: #d9d9d9;
+.hyphen {
+    hyphens: auto;
 }
 </style>

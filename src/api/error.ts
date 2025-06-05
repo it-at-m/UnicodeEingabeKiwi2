@@ -1,37 +1,45 @@
+export enum Levels {
+  INFO = 'info',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  ERROR = 'error'
+}
 
-import Vue from 'vue';
-
-export const enum Levels {
-    INFO = 'info',
-    WARNING = 'warning',
-    ERROR = 'error'
+export interface KiwiErrorOptions {
+  message: string;
+  level?: Levels;
+  cause?: Error;
 }
 
 export class KiwiError extends Error {
-    level: string;
-  
-    constructor({ level = Levels.ERROR, message = "Ein unbekannter Fehler ist aufgetreten, bitte den Administrator informieren und/oder später noch einmal probieren." }: { level?: string; message?: string }) {
-		// Übergibt die verbleibenden Parameter (einschließlich Vendor spezifischer Parameter) dem Error Konstruktor
-		super(message);
-	
-		// Behält den richtigen Stack-Trace für die Stelle bei, an der unser Fehler ausgelöst wurde
-        this.stack = new Error().stack;
-	
-		// Benutzerdefinierte Informationen
-		this.level = level;
-		this.message = message;
-    }
+  level: Levels;
+  cause?: Error;
+
+  constructor(options: KiwiErrorOptions) {
+    super(options.message);
+    this.name = 'KiwiError';
+    this.level = options.level || Levels.ERROR;
+    this.cause = options.cause;
+  }
 }
 
 export class ThreadErrorHandler {
+  static handleError(component: any, error: any): void {
+    console.error('Error:', error);
+    
+    const message = error instanceof KiwiError 
+      ? error.message 
+      : 'An unexpected error occurred. Please try again later.';
+    
+    const level = error instanceof KiwiError 
+      ? error.level 
+      : Levels.ERROR;
 
-    static handleError(context: Vue, error: KiwiError): void {
-        console.error("Error: '" + error.message);
-        context.$store.dispatch("snackbar/showMessage", {
-            message: "Ein unbekannter Fehler ist aufgetreten, bitte den Administrator informieren und/oder später noch einmal probieren. <br>" + 
-                     "An unknown error has occurred, please inform the administrator and/or try again later.",
-            level: error.level
-        });
+    if (component.$store) {
+      component.$store.dispatch('snackbar/showMessage', {
+        message,
+        level
+      });
     }
-
-}
+  }
+} 

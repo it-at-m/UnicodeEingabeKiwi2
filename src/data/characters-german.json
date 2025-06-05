@@ -1,0 +1,180 @@
+{
+  "characters": [
+    {
+      "id": "a_umlaut_small",
+      "name": "ä",
+      "info": {
+        "de": "ä",
+        "en": "ä"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "a",
+          "nameCaseInsensitive": "a"
+        }
+      ],
+      "normative": true,
+      "case": "small"
+    },
+    {
+      "id": "A_umlaut_capital",
+      "name": "Ä",
+      "info": {
+        "de": "Ä",
+        "en": "Ä"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "A",
+          "nameCaseInsensitive": "a"
+        }
+      ],
+      "normative": true,
+      "case": "capital"
+    },
+    {
+      "id": "o_umlaut_small",
+      "name": "ö",
+      "info": {
+        "de": "ö",
+        "en": "ö"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "o",
+          "nameCaseInsensitive": "o"
+        }
+      ],
+      "normative": true,
+      "case": "small"
+    },
+    {
+      "id": "O_umlaut_capital",
+      "name": "Ö",
+      "info": {
+        "de": "Ö",
+        "en": "Ö"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "O",
+          "nameCaseInsensitive": "o"
+        }
+      ],
+      "normative": true,
+      "case": "capital"
+    },
+    {
+      "id": "u_umlaut_small",
+      "name": "ü",
+      "info": {
+        "de": "ü",
+        "en": "ü"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "u",
+          "nameCaseInsensitive": "u"
+        }
+      ],
+      "normative": true,
+      "case": "small"
+    },
+    {
+      "id": "U_umlaut_capital",
+      "name": "Ü",
+      "info": {
+        "de": "Ü",
+        "en": "Ü"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "U",
+          "nameCaseInsensitive": "u"
+        }
+      ],
+      "normative": true,
+      "case": "capital"
+    },
+    {
+      "id": "eszett_small",
+      "name": "ß",
+      "info": {
+        "de": "ß",
+        "en": "ß"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "s",
+          "nameCaseInsensitive": "s"
+        }
+      ],
+      "normative": true,
+      "case": "small"
+    },
+    {
+      "id": "eszett_capital",
+      "name": "ẞ",
+      "info": {
+        "de": "ẞ",
+        "en": "ẞ"
+      },
+      "profiles": [
+        "__all",
+        "id1",
+        "id0"
+      ],
+      "baseChars": [
+        {
+          "type": "real",
+          "name": "S",
+          "nameCaseInsensitive": "s"
+        }
+      ],
+      "normative": true,
+      "case": "capital"
+    }
+  ]
+} 
