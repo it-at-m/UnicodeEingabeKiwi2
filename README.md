@@ -13,7 +13,7 @@ You can find a hosted demo version at [kiwi.muenchen.de](https://kiwi.muenchen.d
 
 For professional use, we recommend installation on your own dedicated server as we can not guarantee availability of this service.
 
-## :england:󠁧 Background
+## :uk:󠁧 Background
 
 *KIWI* (**Ki**nderleicht **W**ortbestandteile **i**ntegrieren) is an input aid which is used for the convenient and efficient input of characters from the character set *Latin characters in Unicode*.
 
@@ -75,7 +75,7 @@ The following tools are recommended for development purposes:
 ## Build and Run
 
 1. `npm install`
-2. `npm run serve` 
+2. `npm run dev` 
 3. Open the URL that's shown in the terminal
 
 ## Contributing
@@ -115,7 +115,7 @@ Don't forget to give the project a star! Thanks again!
 
 # Licensing and Copyright
 
-© Copyright 2019-2024 – it@M
+© Copyright 2019-2025 – it@M
 
 *Kiwi* is licenced under [MIT](https://de.wikipedia.org/wiki/MIT-Lizenz).
 

@@ -53,6 +53,7 @@
             alt="LHM Logo"
             width="150"
             min-width="100"
+            max-width="200"
             class="ml-4 pr-5"
             :class="{ 'invert-colors': theme === 'dark' }"
             />
