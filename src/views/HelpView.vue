@@ -22,6 +22,16 @@
         </v-list>
       </v-col>
     </v-row>
+    <v-row class="mt-8">
+      <v-col class="d-flex justify-center">
+        <v-img
+          src="/images/kiwi.gif"
+          alt="Kiwi Bird Animation"
+          width="100%"
+          contain
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
