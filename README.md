@@ -1,3 +1,5 @@
+<div id="top"></div>
+
 <!-- PROJECT SHIELDS -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -119,6 +121,10 @@ Don't forget to give the project a star! Thanks again!
 
 *Kiwi* is licenced under [MIT](https://de.wikipedia.org/wiki/MIT-Lizenz).
 
+## Screenshot
+![kiwi](https://github.com/user-attachments/assets/67371dc1-6b43-460c-8380-4f45baedae6f)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 ---
 
 Further technical information can be found [here](ADR.md).
