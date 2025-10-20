@@ -31,7 +31,7 @@
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.2",
-    "@types/node": "24.2.1",
+    "@types/node": "24.8.1",
     "@vitejs/plugin-vue": "6.0.1",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.6.0",
