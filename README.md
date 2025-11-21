@@ -99,6 +99,46 @@ Don't forget to give the project a star! Thanks again!
 
 `docker run --p 8081:8081 ghcr.io/it-at-m/unicodeeingabekiwi2:main`
 
+## Helm
+
+You can deploy KIWI by using the general purpose [`refarch-templates` Helm Chart](https://artifacthub.io/packages/helm/it-at-m/refarch-templates) specifying a `frontend` module only.
+
+```bash
+# Add the it-at-m Helm repo
+helm repo add it-at-m https://it-at-m.github.io/helm-charts
+
+# Install the Chart
+helm install my-kiwi-release it-at-m/refarch-templates --values values.yaml
+```
+
+A minimal `values.yaml` could be:
+
+```yaml
+modules:
+  - name: frontend
+    image:
+      registry: ghcr.io
+      repository: it-at-m/unicodeeingabekiwi2
+      tag: "main"
+    env:
+      - name: SERVER_PORT
+        value: "8080"
+    resources:
+      limits:
+        cpu: 50m
+        memory: 512Mi
+      requests:
+        cpu: 50m
+        memory: 512Mi
+    service:
+      http: true
+
+refarch-gateway:
+  enabled: false
+```
+
+For further configuration of the deployment (e.g. adding an Ingress) please see the documentation of the [`refarch-templates` Chart](https://artifacthub.io/packages/helm/it-at-m/refarch-templates).
+
 ## Build it yourself
 
 1. `npm install`
