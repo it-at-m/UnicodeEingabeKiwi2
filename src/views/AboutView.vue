@@ -115,7 +115,14 @@
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import packageJson from "../../package.json";
+import packageJsonImport from "../../package.json";
+
+interface PackageJson {
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+}
+
+const packageJson = packageJsonImport as PackageJson;
 
 interface Dependency {
   name: string;
@@ -285,8 +292,8 @@ onMounted(() => {
     }
   };
 
-  processDependencies(packageJson.dependencies, "dependency");
-  processDependencies(packageJson.devDependencies, "devDependency");
+  processDependencies(packageJson.dependencies ?? {}, "dependency");
+  processDependencies(packageJson.devDependencies ?? {}, "devDependency");
 
   // Sort dependencies alphabetically
   sortedDependencies.value = deps.sort((a, b) => a.name.localeCompare(b.name));
