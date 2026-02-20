@@ -157,10 +157,21 @@ onMounted(async () => {
     const response = await fetch(
       "https://api.github.com/repos/it-at-m/UnicodeEingabeKiwi2/releases/latest"
     );
+    if (!response.ok) {
+      const body = await response.text();
+      console.debug("Release fetch failed", {
+        status: response.status,
+        statusText: response.statusText,
+        body: body.slice(0, 200),
+      });
+      kiwi2Version.value = "";
+      return;
+    }
     const data = await response.json();
     kiwi2Version.value = data.tag_name || "";
   } catch (error) {
     console.debug("Failed to fetch release version:", error);
+    kiwi2Version.value = "";
   }
 });
 </script>
