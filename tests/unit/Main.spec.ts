@@ -233,6 +233,7 @@ describe("Main.vue", () => {
             this.mainbufferValue = "";
             this.currentFilters.basechar = "";
             this.currentFilters.searchChar = "";
+            this.replaceLastGraphme = false;
             await this.runSearch();
           },
           async toggleKeyboard(keyboardId: string) {
@@ -499,6 +500,7 @@ describe("Main.vue", () => {
       wrapper.vm.mainbufferValue = "test";
       wrapper.vm.currentFilters.basechar = "a";
       wrapper.vm.currentFilters.searchChar = "b";
+      wrapper.vm.replaceLastGraphme = true;
 
       await wrapper.vm.clearbuffer();
       await nextTick();
@@ -506,6 +508,7 @@ describe("Main.vue", () => {
       expect(wrapper.vm.mainbufferValue).toBe("");
       expect(wrapper.vm.currentFilters.basechar).toBe("");
       expect(wrapper.vm.currentFilters.searchChar).toBe("");
+      expect(wrapper.vm.replaceLastGraphme).toBe(false);
       expect(runSearchSpy).toHaveBeenCalled();
     });
   });
