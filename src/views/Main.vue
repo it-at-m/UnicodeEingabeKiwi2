@@ -490,8 +490,9 @@ const searchBaseChar = async (): Promise<void> => {
     return;
   }
 
-  // Get the last character from the input
-  const lastChar = mainbufferValue.value.slice(-1);
+  // Get the last grapheme (handles surrogate pairs / multi-codepoint e.g. emoji)
+  const graphemes = splitter.splitGraphemes(mainbufferValue.value);
+  const lastChar = graphemes.length > 0 ? graphemes[graphemes.length - 1] : "";
   if (!lastChar) {
     // Reset search if no last character
     currentFilters.basechar = "";
