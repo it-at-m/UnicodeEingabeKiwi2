@@ -399,7 +399,8 @@ const caseing: CaseOption[] = [
 const getProfileName = (id: string | undefined): string => {
   if (!id) return "";
   const key = `main.profiles.${id}`;
-  return t(key) || id;
+  const translated = t(key);
+  return translated !== key ? translated : id;
 };
 
 const updateCase = (newValue: string): void => {
