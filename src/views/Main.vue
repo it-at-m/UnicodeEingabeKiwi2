@@ -677,14 +677,14 @@ const availableKeyboards = computed({
   get: () => themeStore.availableKeyboards,
   set: (value) => themeStore.updateAvailableKeyboards(value),
 });
-const availableKeyboardFiles: KeyboardInfo[] = [
+const availableKeyboardFiles = computed<KeyboardInfo[]>(() => [
   { id: "characters-DIN-SPEC-91379", name: t("main.keyboards.din") },
   { id: "characters-german", name: t("main.keyboards.german") },
-];
+]);
 
 // Computed property for available keyboard options in select
 const availableKeyboardOptions = computed(() => {
-  return availableKeyboardFiles.filter(
+  return availableKeyboardFiles.value.filter(
     (keyboard) =>
       !availableKeyboards.value.some((added) => added.id === keyboard.id)
   );
