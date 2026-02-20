@@ -8,7 +8,6 @@
 [![MIT License][license-shield]][license-url]
 
 # Virtual Keyboard (KIWI V2.1) #
-
 ## Demo
 
 You can find a hosted demo version at [kiwi.muenchen.de](https://kiwi.muenchen.de).
@@ -16,7 +15,7 @@ You can find a hosted demo version at [kiwi.muenchen.de](https://kiwi.muenchen.d
 For professional use, we recommend installation on your own dedicated server as we can not guarantee availability of this service.
 
 ## :uk:󠁧 Background
-
+<img width="200" align="right" alt="Kiwi-Bird-Logo" src="https://github.com/user-attachments/assets/ccd27d73-18a3-4217-aaf1-a31154f1834f" />
 *KIWI* (**Ki**nderleicht **W**ortbestandteile **i**ntegrieren) is an input aid which is used for the convenient and efficient input of characters from the character set *Latin characters in Unicode*.
 
 Characters with diacritics (e.g. Ẫ, D̂, Ģ, and M̂) or of non-German origin (e.g. ð, ø or þ) are generally not found on conventional German keyboards. KIWI makes all characters from the character set *Latin characters in UNICODE* easy to find and enter.
@@ -35,7 +34,7 @@ In August 2022, DIN SPEC 91379 was replaced by [DIN 91379:2022-08](https://en.wi
 
 
 ## :de: Hintergrund 
-
+<img width="200" align="right" alt="Kiwi-Bird-Logo" src="https://github.com/user-attachments/assets/ccd27d73-18a3-4217-aaf1-a31154f1834f" />
 *KIWI* (**Ki**nderleicht **W**ortbestandteile **i**ntegrieren) ist eine Eingabehilfe, welche der komfortablen und effizienten Eingabe von Zeichen aus dem Zeichenvorrat *Lateinische Zeichen in Unicode* dient. 
 
 Zeichen mit Diakritika (z.B. Ẫ, D̂, Ģ, und M̂) oder nicht deutschen Ursprungs (z.B. ð, ø oder þ) findet man auf herkömmlichen deutschen Tastaturen in der Regel nicht. KIWI macht alle Zeichen aus dem Zeichensatz *Lateinische Zeichen in UNICODE* leicht auffindbar und eingebbar. 
