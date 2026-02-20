@@ -344,10 +344,7 @@ const getRepositoryType = (url: string): string => {
     if (host === "bitbucket.org" || host.endsWith(".bitbucket.org"))
       return "Bitbucket";
   } catch {
-    const lower = url.toLowerCase();
-    if (lower.includes("github.com")) return "GitHub";
-    if (lower.includes("gitlab.com")) return "GitLab";
-    if (lower.includes("bitbucket.org")) return "Bitbucket";
+    // Not a valid URL or parse failed; do not use substring matching (CodeQL)
   }
   return "Repository";
 };
