@@ -12,7 +12,7 @@
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build && npm run copy-locales",
     "copy-locales": "mkdir -p dist/locales && cp -r src/locales/* dist/locales/",
-    "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
+    "lint": "prettier src/ tests/ --check && eslint . && vue-tsc --build --noEmit",
     "format": "prettier src/ tests/ --write",
     "fix": "prettier . --write && eslint . --fix"
   },
