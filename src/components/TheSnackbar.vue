@@ -7,19 +7,19 @@
     {{ themeStore.snackbar.message }}
 
     <template #actions>
-    <v-btn
+      <v-btn
         color="white"
-      variant="text"
+        variant="text"
         @click="themeStore.hideMessage()"
-    >
-        {{ $t('common.close') }}
-    </v-btn>
+      >
+        {{ $t("common.close") }}
+      </v-btn>
     </template>
   </v-snackbar>
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/stores/theme';
+import { useThemeStore } from "@/stores/theme";
 
 const themeStore = useThemeStore();
 </script>

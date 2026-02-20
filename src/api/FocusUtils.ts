@@ -14,7 +14,11 @@ export default class FocusUtils {
     }, delay);
   }
 
-  static getHTMElem(component: any, id: string, selector = ''): HTMLElement | null {
+  static getHTMElem(
+    component: any,
+    id: string,
+    selector = ""
+  ): HTMLElement | null {
     const elem = document.getElementById(id);
     if (!elem) {
       console.debug(`Cannot find element with id="${id}".`);
@@ -24,7 +28,9 @@ export default class FocusUtils {
     if (selector) {
       const selectedElem = elem.querySelector(selector);
       if (!selectedElem) {
-        console.debug(`Cannot find element with selector="${selector}" in element with id="${id}".`);
+        console.debug(
+          `Cannot find element with selector="${selector}" in element with id="${id}".`
+        );
         return null;
       }
       return selectedElem as HTMLElement;
@@ -32,4 +38,4 @@ export default class FocusUtils {
 
     return elem;
   }
-} 
+}

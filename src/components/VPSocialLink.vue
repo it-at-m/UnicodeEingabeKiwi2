@@ -14,11 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { mdiGithub } from '@mdi/js'
+import { mdiGithub } from "@mdi/js";
 
 defineProps<{
-  href: string
-}>()
+  href: string;
+}>();
 </script>
 
 <style scoped>
@@ -27,4 +27,4 @@ defineProps<{
   align-items: center;
   margin-left: 8px;
 }
-</style> 
+</style>

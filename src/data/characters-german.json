@@ -7,11 +7,7 @@
         "de": "ä",
         "en": "ä"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -29,11 +25,7 @@
         "de": "Ä",
         "en": "Ä"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -51,11 +43,7 @@
         "de": "ö",
         "en": "ö"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -73,11 +61,7 @@
         "de": "Ö",
         "en": "Ö"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -95,11 +79,7 @@
         "de": "ü",
         "en": "ü"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -117,11 +97,7 @@
         "de": "Ü",
         "en": "Ü"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -139,11 +115,7 @@
         "de": "ß",
         "en": "ß"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -161,11 +133,7 @@
         "de": "ẞ",
         "en": "ẞ"
       },
-      "profiles": [
-        "__all",
-        "id1",
-        "id0"
-      ],
+      "profiles": ["__all", "id1", "id0"],
       "baseChars": [
         {
           "type": "real",
@@ -177,4 +145,4 @@
       "case": "capital"
     }
   ]
-} 
+}

@@ -9,30 +9,37 @@
   >
     <span class="check">
       <span class="icon">
-        <sun-icon class="vpi-sun" :class="{ 'is-active': theme === 'light' }" />
-        <moon-icon class="vpi-moon" :class="{ 'is-active': theme === 'dark' }" />
+        <sun-icon
+          class="vpi-sun"
+          :class="{ 'is-active': theme === 'light' }"
+        />
+        <moon-icon
+          class="vpi-moon"
+          :class="{ 'is-active': theme === 'dark' }"
+        />
       </span>
     </span>
   </button>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import SunIcon from './icons/SunIcon.vue'
-import MoonIcon from './icons/MoonIcon.vue'
+import { computed } from "vue";
+
+import MoonIcon from "./icons/MoonIcon.vue";
+import SunIcon from "./icons/SunIcon.vue";
 
 const props = defineProps<{
-  isDark: boolean
-}>()
+  isDark: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: 'update:isDark', value: boolean): void
-}>()
+  (e: "update:isDark", value: boolean): void;
+}>();
 
-const theme = computed(() => props.isDark ? 'dark' : 'light')
+const theme = computed(() => (props.isDark ? "dark" : "light"));
 
 function toggleTheme() {
-  emit('update:isDark', !props.isDark)
+  emit("update:isDark", !props.isDark);
 }
 </script>
 
@@ -108,4 +115,4 @@ function toggleTheme() {
 .dark .VPSwitch {
   background-color: var(--vp-c-bg-soft);
 }
-</style> 
+</style>

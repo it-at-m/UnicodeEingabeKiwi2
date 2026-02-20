@@ -6,5 +6,5 @@ export const debug = {
     } catch (e) {
       // Fail silently if console is not available
     }
-  }
-}; 
+  },
+};

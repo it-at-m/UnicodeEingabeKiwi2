@@ -1,5 +1,8 @@
 <template>
-  <v-app :theme="theme" :class="{ 'dark': themeStore.isDark }">
+  <v-app
+    :theme="theme"
+    :class="{ dark: themeStore.isDark }"
+  >
     <the-snackbar />
     <v-app-bar
       :color="theme === 'light' ? 'white' : 'grey-darken-3'"
@@ -15,7 +18,10 @@
             :color="theme === 'light' ? 'primary' : 'white'"
             @click.stop="toggleDrawer()"
           />
-          <router-link to="/" class="d-flex align-center text-decoration-none">
+          <router-link
+            to="/"
+            class="d-flex align-center text-decoration-none"
+          >
             <v-img
               src="/images/Kiwi-Bird-Logo.svg"
               alt="Kiwi Logo"
@@ -24,14 +30,22 @@
               :class="{ 'invert-black-white': theme === 'dark' }"
             />
             <!-- Desktop and Tablet View -->
-            <v-toolbar-title class="text-no-wrap font-weight-bold d-none d-sm-flex">
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'">Unicode</span>
+            <v-toolbar-title
+              class="text-no-wrap font-weight-bold d-none d-sm-flex"
+            >
+              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
+                >Unicode</span
+              >
               <span class="text-secondary">Eingabe</span>
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'">Kiwi</span>
+              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
+                >Kiwi</span
+              >
             </v-toolbar-title>
             <!-- Mobile View -->
             <v-toolbar-title class="text-no-wrap font-weight-bold d-sm-none">
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'">Kiwi</span>
+              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
+                >Kiwi</span
+              >
             </v-toolbar-title>
           </router-link>
         </v-col>
@@ -44,7 +58,7 @@
             <VPSwitchAppearance
               v-model:isDark="themeStore.isDark"
               class="mr-2"
-          />
+            />
             <VPNavBarTranslations />
             <VPSocialLink :href="GITHUB_URL" />
           </div>
@@ -56,7 +70,7 @@
             max-width="200"
             class="ml-4 pr-5"
             :class="{ 'invert-colors': theme === 'dark' }"
-            />
+          />
         </v-col>
       </v-row>
     </v-app-bar>
@@ -106,41 +120,44 @@
 </template>
 
 <script setup lang="ts">
+import { mdiHelpCircle, mdiInformation } from "@mdi/js";
 import { useToggle } from "@vueuse/core";
-import { computed, ref, onMounted } from "vue";
-import { ROUTES_HELP, ROUTES_ABOUT } from "@/constants";
+import { computed, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import VPSwitchAppearance from "@/components/VPSwitchAppearance.vue";
 import VPNavBarTranslations from "@/components/VPNavBarTranslations.vue";
 import VPSocialLink from "@/components/VPSocialLink.vue";
+import VPSwitchAppearance from "@/components/VPSwitchAppearance.vue";
+import { ROUTES_ABOUT, ROUTES_HELP } from "@/constants";
 import { useThemeStore } from "@/stores/theme";
-import { mdiHelpCircle, mdiInformation } from "@mdi/js";
-import { useI18n } from 'vue-i18n'
-import { debug } from '@/utils/debug'
+import { debug } from "@/utils/debug";
 
 const [drawer, toggleDrawer] = useToggle();
 const themeStore = useThemeStore();
-const theme = computed(() => themeStore.isDark ? 'dark' : 'light');
+const theme = computed(() => (themeStore.isDark ? "dark" : "light"));
 
-const GITHUB_URL = 'https://github.com/it-at-m/UnicodeEingabeKiwi2';
-const kiwi2Version = ref('');
+const GITHUB_URL = "https://github.com/it-at-m/UnicodeEingabeKiwi2";
+const kiwi2Version = ref("");
 
-const { t, locale } = useI18n()
+const { t, locale } = useI18n();
 
 // Verify translations are working
-debug.log('App component translations', {
+debug.log("App component translations", {
   currentLocale: locale.value,
-  sampleTranslation: t('nav.language'),
-  hasTranslation: !!t('nav.language')
-})
+  sampleTranslation: t("nav.language"),
+  hasTranslation: !!t("nav.language"),
+});
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://api.github.com/repos/it-at-m/UnicodeEingabeKiwi2/releases/latest');
+    const response = await fetch(
+      "https://api.github.com/repos/it-at-m/UnicodeEingabeKiwi2/releases/latest"
+    );
     const data = await response.json();
-    kiwi2Version.value = data.tag_name || '';
+    kiwi2Version.value = data.tag_name || "";
   } catch (error) {
-    console.error('Failed to fetch release version:', error);
+    console.error("Failed to fetch release version:", error);
   }
 });
 </script>
@@ -174,8 +191,9 @@ onMounted(async () => {
 .v-list-item,
 .v-navigation-drawer,
 .v-app-bar {
-  transition: background-color 100ms ease-in-out,
-              color 100ms ease-in-out !important;
+  transition:
+    background-color 100ms ease-in-out,
+    color 100ms ease-in-out !important;
 }
 
 :root {

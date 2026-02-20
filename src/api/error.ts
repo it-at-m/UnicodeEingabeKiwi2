@@ -1,8 +1,8 @@
 export enum Levels {
-  INFO = 'info',
-  SUCCESS = 'success',
-  WARNING = 'warning',
-  ERROR = 'error'
+  INFO = "info",
+  SUCCESS = "success",
+  WARNING = "warning",
+  ERROR = "error",
 }
 
 export interface KiwiErrorOptions {
@@ -17,7 +17,7 @@ export class KiwiError extends Error {
 
   constructor(options: KiwiErrorOptions) {
     super(options.message);
-    this.name = 'KiwiError';
+    this.name = "KiwiError";
     this.level = options.level || Levels.ERROR;
     this.cause = options.cause;
   }
@@ -25,21 +25,20 @@ export class KiwiError extends Error {
 
 export class ThreadErrorHandler {
   static handleError(component: any, error: any): void {
-    console.error('Error:', error);
-    
-    const message = error instanceof KiwiError 
-      ? error.message 
-      : 'An unexpected error occurred. Please try again later.';
-    
-    const level = error instanceof KiwiError 
-      ? error.level 
-      : Levels.ERROR;
+    console.error("Error:", error);
+
+    const message =
+      error instanceof KiwiError
+        ? error.message
+        : "An unexpected error occurred. Please try again later.";
+
+    const level = error instanceof KiwiError ? error.level : Levels.ERROR;
 
     if (component.$store) {
-      component.$store.dispatch('snackbar/showMessage', {
+      component.$store.dispatch("snackbar/showMessage", {
         message,
-        level
+        level,
       });
     }
   }
-} 
+}

@@ -1,10 +1,11 @@
 import { createApp } from "vue";
-import { debug } from "@/utils/debug";
+
 import App from "@/App.vue";
-import i18n from "@/plugins/i18n";
 import { registerPlugins } from "@/plugins";
-import { loadFonts } from "@/plugins/webfontloader";
+import i18n from "@/plugins/i18n";
 import pinia from "@/plugins/pinia";
+import { loadFonts } from "@/plugins/webfontloader";
+import { debug } from "@/utils/debug";
 
 import "unfonts.css";
 
@@ -16,7 +17,7 @@ const app = createApp(App);
 app.use(i18n);
 
 // Log i18n global instance
-debug.log('i18n global instance check', {
+debug.log("i18n global instance check", {
   hasGlobal: !!i18n.global,
   currentLocale: i18n.global.locale.value,
   fallbackLocale: i18n.global.fallbackLocale.value,
