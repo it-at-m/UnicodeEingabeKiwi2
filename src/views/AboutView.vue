@@ -313,7 +313,7 @@ function getRepositoryUrl(
   if (typeof repository === "object" && repository.url) {
     return repository.url
       .replace("git+", "")
-      .replace(".git", "")
+      .replace(/\.git$/, "")
       .replace("git://", "https://")
       .replace("ssh://git@", "https://");
   }
