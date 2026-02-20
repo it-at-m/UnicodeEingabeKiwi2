@@ -23,16 +23,15 @@ export class KiwiError extends Error {
   }
 }
 
+export type ShowMessageFn = (payload: {
+  message: string;
+  level: Levels;
+  timeout?: number;
+}) => void;
+
 export function handleThreadError(
-  component: {
-    $store?: {
-      dispatch: (
-        path: string,
-        payload: { message: string; level: Levels }
-      ) => void;
-    };
-  },
-  error: unknown
+  error: unknown,
+  showMessage?: ShowMessageFn
 ): void {
   console.debug("Error:", error);
 
@@ -43,10 +42,7 @@ export function handleThreadError(
 
   const level = error instanceof KiwiError ? error.level : Levels.ERROR;
 
-  if (component.$store) {
-    component.$store.dispatch("snackbar/showMessage", {
-      message,
-      level,
-    });
+  if (showMessage) {
+    showMessage({ message, level, timeout: 3000 });
   }
 }

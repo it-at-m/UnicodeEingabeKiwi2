@@ -261,7 +261,7 @@ import Graphemer from "graphemer";
 import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { Levels } from "@/api/error";
+import { handleThreadError, Levels } from "@/api/error";
 import {
   focus as focusUtil,
   RENDER_DELAY,
@@ -455,7 +455,7 @@ const runSearch = async (): Promise<void> => {
       });
     }
   } catch (error) {
-    console.debug("Failed to run search:", error);
+    handleThreadError(error, themeStore.showMessage);
     keyboard.value = [];
   }
 };
@@ -529,7 +529,7 @@ const searchBaseChar = async (): Promise<void> => {
       await runSearch();
     }
   } catch (error) {
-    console.debug("Error searching for base character:", error);
+    handleThreadError(error, themeStore.showMessage);
     // Reset search on error
     currentFilters.basechar = "";
     currentFilters.searchChar = "";
@@ -815,7 +815,7 @@ onMounted(async (): Promise<void> => {
     rawProfiles.value = result;
     await runSearch();
   } catch (error) {
-    console.debug("Failed to initialize:", error);
+    handleThreadError(error, themeStore.showMessage);
     rawProfiles.value = [];
   }
 });

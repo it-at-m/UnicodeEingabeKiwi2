@@ -125,6 +125,7 @@ import { useToggle } from "@vueuse/core";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { handleThreadError } from "@/api/error";
 import TheSnackbar from "@/components/TheSnackbar.vue";
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-nav-bar-translations */
 import VPNavBarTranslations from "@/components/VPNavBarTranslations.vue";
@@ -170,7 +171,7 @@ onMounted(async () => {
     const data = await response.json();
     kiwi2Version.value = data.tag_name || "";
   } catch (error) {
-    console.debug("Failed to fetch release version:", error);
+    handleThreadError(error, themeStore.showMessage);
     kiwi2Version.value = "";
   }
 });
