@@ -301,6 +301,14 @@ interface LocalProfile {
   descr: string;
 }
 
+/** Raw profile from model (names/descriptions by locale) for reactive locale display */
+interface RawProfile {
+  seq: number;
+  id: string;
+  names: Record<string, string>;
+  descriptions: Record<string, string>;
+}
+
 interface DisplayCharacter {
   id: string;
   name: string;
@@ -318,7 +326,7 @@ const currentFilters = reactive({
 // State
 const mainbufferValue = ref("");
 const keyboard = ref<DisplayCharacter[]>([]);
-const profiles = ref<LocalProfile[]>([]);
+const rawProfiles = ref<RawProfile[]>([]);
 const replaceLastGraphme = ref(false);
 const numSearches = ref(0);
 const splitter = new Graphemer();
@@ -333,6 +341,21 @@ const inputValue = computed(() => mainbufferValue.value);
 const updateInputValue = (value: string) => {
   mainbufferValue.value = value;
 };
+
+// Derive display profiles from raw data and locale so names update on language switch
+const profiles = computed<LocalProfile[]>(() =>
+  rawProfiles.value.map((p) => ({
+    seq: p.seq,
+    id: p.id,
+    name:
+      p.names[locale.value] || p.names["en"] || Object.values(p.names)[0] || "",
+    descr:
+      p.descriptions[locale.value] ||
+      p.descriptions["en"] ||
+      Object.values(p.descriptions)[0] ||
+      "",
+  }))
+);
 
 interface CaseOption {
   seq: number;
@@ -817,20 +840,11 @@ onMounted(async (): Promise<void> => {
     await props.model.loadKeyboards(selectedKeyboards.value);
 
     const result = await props.model.getAllProfiles();
-    // Transform Profile to LocalProfile
-    profiles.value = result.map((p) => ({
-      seq: p.seq,
-      id: p.id,
-      name: p.names[locale.value] || p.names["en"] || Object.values(p.names)[0],
-      descr:
-        p.descriptions[locale.value] ||
-        p.descriptions["en"] ||
-        Object.values(p.descriptions)[0],
-    }));
+    rawProfiles.value = result;
     await runSearch();
   } catch (error) {
     console.debug("Failed to initialize:", error);
-    profiles.value = [];
+    rawProfiles.value = [];
   }
 });
 </script>
