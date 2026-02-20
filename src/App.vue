@@ -9,11 +9,7 @@
       elevation="1"
     >
       <v-row align="center">
-        <v-col
-          cols="8"
-          sm="9"
-          class="d-flex align-center"
-        >
+        <v-col class="d-flex align-center">
           <v-app-bar-nav-icon
             :color="theme === 'light' ? 'primary' : 'white'"
             @click.stop="toggleDrawer()"
@@ -29,7 +25,6 @@
               class="mr-2"
               :class="{ 'invert-black-white': theme === 'dark' }"
             />
-            <!-- Desktop and Tablet View -->
             <v-toolbar-title
               class="text-no-wrap font-weight-bold d-none d-sm-flex"
             >
@@ -41,7 +36,6 @@
                 >Kiwi</span
               >
             </v-toolbar-title>
-            <!-- Mobile View -->
             <v-toolbar-title class="text-no-wrap font-weight-bold d-sm-none">
               <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
                 >Kiwi</span
@@ -51,7 +45,7 @@
         </v-col>
         <v-col
           cols="auto"
-          class="d-flex align-center flex-shrink-0"
+          class="d-none d-md-flex align-center justify-end"
         >
           <VPSwitchAppearance
             :is-dark="themeStore.isDark"
@@ -60,15 +54,13 @@
           />
           <VPNavBarTranslations />
           <VPSocialLink :href="GITHUB_URL" />
-        </v-col>
-        <v-col class="d-flex align-center justify-end flex-shrink-0">
           <v-img
             src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
             alt="LHM Logo"
             width="150"
             min-width="100"
             max-width="200"
-            class="ml-4 pr-5"
+            class="ml-4 pr-3"
             :class="{ 'invert-colors': theme === 'dark' }"
           />
         </v-col>
