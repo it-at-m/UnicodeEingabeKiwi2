@@ -4,7 +4,6 @@ import { fileURLToPath, URL } from "node:url";
 import vue from "@vitejs/plugin-vue";
 import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
-import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
@@ -30,37 +29,36 @@ export default defineConfig(({ mode }) => {
           ],
         },
       }),
-      vueDevTools(),
     ],
     build: {
-      minify: 'esbuild',
+      minify: "esbuild",
       rollupOptions: {
         input: {
-          main: './index.html',
-          en: './src/locales/en.json',
-          de: './src/locales/de.json'
+          main: "./index.html",
+          en: "./src/locales/en.json",
+          de: "./src/locales/de.json",
         },
         output: {
           entryFileNames: (chunkInfo) => {
-            if (chunkInfo.name === 'en' || chunkInfo.name === 'de') {
-              return 'assets/i18n/[name].[hash].json';
+            if (chunkInfo.name === "en" || chunkInfo.name === "de") {
+              return "assets/i18n/[name].[hash].json";
             }
-            return 'assets/[name].[hash].js';
+            return "assets/[name].[hash].js";
           },
-          chunkFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: "assets/[name].[hash].js",
           assetFileNames: (assetInfo) => {
-            if (assetInfo.name && assetInfo.name.endsWith('.json')) {
-              return 'assets/i18n/[name].[hash][extname]';
+            if (assetInfo.name && assetInfo.name.endsWith(".json")) {
+              return "assets/i18n/[name].[hash][extname]";
             }
-            return 'assets/[name].[hash][extname]';
-          }
-        }
+            return "assets/[name].[hash][extname]";
+          },
+        },
       },
       assetsInlineLimit: 0, // Ensure assets are properly handled
-      sourcemap: true // Help with debugging
+      sourcemap: true, // Help with debugging
     },
     optimizeDeps: {
-      include: ['vue-i18n']
+      include: ["vue-i18n"],
     },
     server: {
       host: true,

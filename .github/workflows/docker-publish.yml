@@ -7,11 +7,11 @@ name: Docker
 
 on:
   schedule:
-    - cron: '42 3 * * 2'
+    - cron: "42 3 * * 2"
   push:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: ["v*.*.*"]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -19,9 +19,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
-
 jobs:
-
   build:
     runs-on: ubuntu-latest
     permissions:
@@ -43,6 +41,10 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Run unit tests
+        run: npm test
       - name: Build with npm
         run: |
           npm run build
@@ -54,7 +56,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@d58896d6a1865668819e1d91763c7751a165e159 # v3.9.2
         with:
-          cosign-release: 'v2.2.0'
+          cosign-release: "v2.2.0"
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
