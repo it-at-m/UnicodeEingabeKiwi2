@@ -34,7 +34,7 @@ const mockModel = {
   getAllProfiles: vi.fn(),
 };
 
-vi.mock("@/services/StringLatinModelService", () => ({
+vi.mock("@/api/StringLatinModelService", () => ({
   default: vi.fn(() => mockModel),
 }));
 
