@@ -51,10 +51,10 @@ jobs:
           touch ./dist/.nojekyll
 
       # Install the cosign tool except on PR
-      # v3.0.4 installer (github.com URL); v2.2.0 binary (v3 verification fails: TUF invalid key)
+      # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@v3.0.4
+        uses: sigstore/cosign-installer@d58896d6a1865668819e1d91763c7751a165e159 # v3.9.2
         with:
           cosign-release: "v2.2.0"
 
