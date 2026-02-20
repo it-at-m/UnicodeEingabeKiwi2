@@ -51,10 +51,10 @@ jobs:
           touch ./dist/.nojekyll
 
       # Install the cosign tool except on PR
-      # https://github.com/sigstore/cosign-installer
+      # https://github.com/sigstore/cosign-installer (v3.0.4 fixes download URL to github.com)
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@d58896d6a1865668819e1d91763c7751a165e159 # v3.9.2
+        uses: sigstore/cosign-installer@v3.0.4
         with:
           cosign-release: "v3.0.4"
 
