@@ -544,40 +544,6 @@ const getMainBufferInputElem = (): HTMLInputElement | null => {
   return field.querySelector("input.v-field__input") as HTMLInputElement;
 };
 
-const getBufferSelection = (): { start: number; end: number } => {
-  const inputElem = getMainBufferInputElem();
-  if (!inputElem) return { start: 0, end: 0 };
-
-  const startIdx = inputElem.selectionStart;
-  const endIdx = inputElem.selectionEnd;
-
-  // Check if you've selected text
-  if (startIdx === endIdx) {
-    console.debug(
-      "The position of the cursor is (" +
-        startIdx +
-        "/" +
-        inputElem.value.length +
-        ")"
-    );
-  } else {
-    console.debug(
-      "Detected selection [ " +
-        startIdx +
-        " , " +
-        endIdx +
-        " [ of " +
-        inputElem.value.length +
-        " chars."
-    );
-  }
-
-  return {
-    start: startIdx === null ? 0 : startIdx,
-    end: endIdx === null ? 0 : endIdx,
-  };
-};
-
 const copyToClipboard = async (): Promise<void> => {
   if (!mainbufferValue.value) {
     themeStore.showMessage({
@@ -759,9 +725,12 @@ const addKeyboard = async (): Promise<void> => {
 };
 
 const removeKeyboard = async (keyboardId: string): Promise<void> => {
-  // Don't allow removing the last keyboard
-  if (availableKeyboards.value.length > 1) {
-    // Update store directly
+  const isLastSelected =
+    selectedKeyboards.value.includes(keyboardId) &&
+    selectedKeyboards.value.length === 1;
+  const canRemove = availableKeyboards.value.length > 1 && !isLastSelected;
+
+  if (canRemove) {
     themeStore.$patch((state) => {
       state.availableKeyboards = state.availableKeyboards.filter(
         (k) => k.id !== keyboardId
@@ -776,7 +745,9 @@ const removeKeyboard = async (keyboardId: string): Promise<void> => {
     await runSearch();
   } else {
     themeStore.showMessage({
-      message: t("main.cannot_remove_last_keyboard"),
+      message: isLastSelected
+        ? t("main.cannot_deselect_last_keyboard")
+        : t("main.cannot_remove_last_keyboard"),
       level: Levels.WARNING,
       timeout: 3000,
     });
