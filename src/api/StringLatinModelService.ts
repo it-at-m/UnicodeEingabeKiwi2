@@ -100,21 +100,21 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
   }
 
   private initializeCharacters(): void {
-    // Load default keyboard data
-    this.characters = (characterDataDIN as CharacterData).characters;
+    // Load default keyboard data (copy to avoid mutating shared import)
+    this.characters = [...(characterDataDIN as CharacterData).characters];
   }
 
   private getKeyboardData(keyboardId: string): Character[] {
     switch (keyboardId) {
       case "characters-DIN-SPEC-91379":
-        return (characterDataDIN as CharacterData).characters;
+        return [...(characterDataDIN as CharacterData).characters];
       case "characters-german":
-        return (characterDataGerman as CharacterData).characters;
+        return [...(characterDataGerman as CharacterData).characters];
       default:
         console.debug(
           `Unknown keyboard ID: ${keyboardId}, falling back to DIN keyboard`
         );
-        return (characterDataDIN as CharacterData).characters;
+        return [...(characterDataDIN as CharacterData).characters];
     }
   }
 
