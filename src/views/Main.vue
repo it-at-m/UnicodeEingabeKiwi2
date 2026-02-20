@@ -856,7 +856,6 @@ onUnmounted(() => {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
-  transition: all 0.2s;
   background-color: var(--vp-c-bg-soft);
   color: var(--vp-c-text-2);
 }
@@ -883,5 +882,10 @@ onUnmounted(() => {
 
 .hyphen {
   hyphens: auto;
+}
+
+/* Limit repaint/layout when theme or content updates (many keys) */
+#keyboardpanel {
+  contain: layout paint;
 }
 </style>

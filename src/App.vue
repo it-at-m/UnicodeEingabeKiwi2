@@ -50,18 +50,18 @@
           </router-link>
         </v-col>
         <v-col
-          cols="4"
-          sm="3"
-          class="d-flex align-center justify-end"
+          cols="auto"
+          class="d-flex align-center flex-shrink-0"
         >
-          <div class="d-none d-sm-flex align-center">
-            <vp-switch-appearance
-              v-model:is-dark="themeStore.isDark"
-              class="mr-2"
-            />
-            <vp-nav-bar-translations />
-            <vp-social-link :href="GITHUB_URL" />
-          </div>
+          <VPSwitchAppearance
+            :is-dark="themeStore.isDark"
+            @update:is-dark="setThemeDark"
+            class="mr-2"
+          />
+          <VPNavBarTranslations />
+          <VPSocialLink :href="GITHUB_URL" />
+        </v-col>
+        <v-col class="d-flex align-center justify-end flex-shrink-0">
           <v-img
             src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
             alt="LHM Logo"
@@ -91,12 +91,13 @@
         <v-divider class="my-2" />
         <v-list-item>
           <div class="d-flex align-center px-2">
-            <vp-switch-appearance
-              v-model:is-dark="themeStore.isDark"
+            <VPSwitchAppearance
+              :is-dark="themeStore.isDark"
+              @update:is-dark="setThemeDark"
               class="mr-2"
             />
-            <vp-nav-bar-translations />
-            <vp-social-link :href="GITHUB_URL" />
+            <VPNavBarTranslations />
+            <VPSocialLink :href="GITHUB_URL" />
           </div>
         </v-list-item>
         <v-divider class="my-2" />
@@ -127,11 +128,8 @@ import { useI18n } from "vue-i18n";
 
 import { handleThreadError } from "@/api/error";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-nav-bar-translations */
 import VPNavBarTranslations from "@/components/VPNavBarTranslations.vue";
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-social-link */
 import VPSocialLink from "@/components/VPSocialLink.vue";
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-switch-appearance */
 import VPSwitchAppearance from "@/components/VPSwitchAppearance.vue";
 import { ROUTES_ABOUT, ROUTES_HELP } from "@/constants";
 import { useThemeStore } from "@/stores/theme";
@@ -140,6 +138,13 @@ import { debug } from "@/utils/debug";
 const [drawer, toggleDrawer] = useToggle();
 const themeStore = useThemeStore();
 const theme = computed(() => (themeStore.isDark ? "dark" : "light"));
+
+// Defer theme update to next frame so click returns immediately; avoids blocking when many keys re-render
+function setThemeDark(value: boolean) {
+  requestAnimationFrame(() => {
+    themeStore.isDark = value;
+  });
+}
 
 const GITHUB_URL = "https://github.com/it-at-m/UnicodeEingabeKiwi2";
 const kiwi2Version = ref("");
@@ -198,17 +203,14 @@ onMounted(async () => {
   filter: invert(1) hue-rotate(0deg) brightness(100%) saturate(0%);
 }
 
-/* Specific transitions for themed elements */
+/* Theme transition on main layout */
 .v-application,
-.v-card,
-.v-btn:not(.v-btn--icon),
-.v-list,
-.v-list-item,
-.v-navigation-drawer,
-.v-app-bar {
+.v-app-bar,
+.v-main,
+.v-navigation-drawer {
   transition:
     background-color 100ms ease-in-out,
-    color 100ms ease-in-out !important;
+    color 100ms ease-in-out;
 }
 
 :root {
