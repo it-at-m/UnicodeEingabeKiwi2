@@ -211,12 +211,23 @@ describe("Main.vue", () => {
             }
           },
           charTapped(event: { target: { textContent: string } }) {
-            const char = event.target.textContent;
+            const char = event.target.textContent ?? "";
+            const model = this.mainbufferValue;
             if (this.replaceLastGraphme) {
-              this.mainbufferValue = this.mainbufferValue.slice(0, -1) + char;
+              const graphemer = new Graphemer();
+              const graphemes = graphemer.splitGraphemes(model);
+              const grapheme = graphemes.slice(-1)[0];
+              if (graphemes.length === 0 || grapheme === undefined) {
+                this.replaceLastGraphme = false;
+                this.mainbufferValue = model + char;
+              } else {
+                this.mainbufferValue =
+                  model.slice(0, model.length - grapheme.length) + char;
+              }
             } else {
-              this.mainbufferValue += char;
+              this.mainbufferValue = model + char;
             }
+            this.replaceLastGraphme = false;
           },
           async clearbuffer() {
             this.mainbufferValue = "";
