@@ -42,13 +42,11 @@ interface IStringLatinModelService {
   getBasecharByChar(char: string): Promise<string[]>;
   getCaseOfChar(char: string): Promise<string>;
   getModelProperties(): Promise<{ dataversion: string; name: string }>;
-  setLanguage(lang: string): void;
   loadKeyboards(keyboardIds: string[]): Promise<void>;
 }
 
 // Implementation
 class StringLatinModelServiceImpl implements IStringLatinModelService {
-  private currentLang = "en";
   private readonly modelProperties = {
     name: "DIN 91379:2022-08",
     dataversion: "DIN-202208",
@@ -343,10 +341,6 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
 
   async getModelProperties(): Promise<{ dataversion: string; name: string }> {
     return this.modelProperties;
-  }
-
-  setLanguage(lang: string): void {
-    this.currentLang = lang;
   }
 }
 
