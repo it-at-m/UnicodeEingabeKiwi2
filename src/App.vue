@@ -55,12 +55,12 @@
           class="d-flex align-center justify-end"
         >
           <div class="d-none d-sm-flex align-center">
-            <VPSwitchAppearance
-              v-model:isDark="themeStore.isDark"
+            <vp-switch-appearance
+              v-model:is-dark="themeStore.isDark"
               class="mr-2"
             />
-            <VPNavBarTranslations />
-            <VPSocialLink :href="GITHUB_URL" />
+            <vp-nav-bar-translations />
+            <vp-social-link :href="GITHUB_URL" />
           </div>
           <v-img
             src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
@@ -80,23 +80,23 @@
           <template #prepend>
             <v-icon :icon="mdiHelpCircle"></v-icon>
           </template>
-          <v-list-item-title v-text="$t('menu.help')"></v-list-item-title>
+          <v-list-item-title>{{ $t("menu.help") }}</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ name: ROUTES_ABOUT }">
           <template #prepend>
             <v-icon :icon="mdiInformation"></v-icon>
           </template>
-          <v-list-item-title v-text="$t('menu.about')"></v-list-item-title>
+          <v-list-item-title>{{ $t("menu.about") }}</v-list-item-title>
         </v-list-item>
         <v-divider class="my-2" />
         <v-list-item>
           <div class="d-flex align-center px-2">
-            <VPSwitchAppearance
-              v-model:isDark="themeStore.isDark"
+            <vp-switch-appearance
+              v-model:is-dark="themeStore.isDark"
               class="mr-2"
             />
-            <VPNavBarTranslations />
-            <VPSocialLink :href="GITHUB_URL" />
+            <vp-nav-bar-translations />
+            <vp-social-link :href="GITHUB_URL" />
           </div>
         </v-list-item>
         <v-divider class="my-2" />
@@ -126,8 +126,11 @@ import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import TheSnackbar from "@/components/TheSnackbar.vue";
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-nav-bar-translations */
 import VPNavBarTranslations from "@/components/VPNavBarTranslations.vue";
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-social-link */
 import VPSocialLink from "@/components/VPSocialLink.vue";
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in template as vp-switch-appearance */
 import VPSwitchAppearance from "@/components/VPSwitchAppearance.vue";
 import { ROUTES_ABOUT, ROUTES_HELP } from "@/constants";
 import { useThemeStore } from "@/stores/theme";
@@ -157,7 +160,7 @@ onMounted(async () => {
     const data = await response.json();
     kiwi2Version.value = data.tag_name || "";
   } catch (error) {
-    console.error("Failed to fetch release version:", error);
+    console.debug("Failed to fetch release version:", error);
   }
 });
 </script>

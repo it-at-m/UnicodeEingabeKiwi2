@@ -7,21 +7,21 @@ function ensureLocalStorage() {
   if (g.localStorage?.getItem && typeof g.localStorage.getItem === "function")
     return;
 
-  const storage: Record<string, string> = {};
+  const storage = new Map<string, string>();
   g.localStorage = {
-    getItem: (key: string) => storage[key] ?? null,
+    getItem: (key: string) => storage.get(key) ?? null,
     setItem: (key: string, value: string) => {
-      storage[key] = value;
+      storage.set(key, value);
     },
     removeItem: (key: string) => {
-      delete storage[key];
+      storage.delete(key);
     },
     clear: () => {
-      for (const k of Object.keys(storage)) delete storage[k];
+      storage.clear();
     },
-    key: (i: number) => Object.keys(storage)[i] ?? null,
+    key: (i: number) => [...storage.keys()][i] ?? null,
     get length() {
-      return Object.keys(storage).length;
+      return storage.size;
     },
   };
 }

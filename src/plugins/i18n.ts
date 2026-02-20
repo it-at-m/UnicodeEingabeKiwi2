@@ -11,7 +11,10 @@ const enMessages = JSON.parse(en);
 const deMessages = JSON.parse(de);
 
 // Function to flatten messages object
-function flattenMessages(obj: any, prefix = ""): Record<string, string> {
+function flattenMessages(
+  obj: Record<string, unknown>,
+  prefix = ""
+): Record<string, string> {
   return Object.keys(obj).reduce((acc: Record<string, string>, key: string) => {
     const pre = prefix.length ? prefix + "." : "";
     if (
@@ -19,9 +22,12 @@ function flattenMessages(obj: any, prefix = ""): Record<string, string> {
       obj[key] !== null &&
       !Array.isArray(obj[key])
     ) {
-      Object.assign(acc, flattenMessages(obj[key], pre + key));
+      Object.assign(
+        acc,
+        flattenMessages(obj[key] as Record<string, unknown>, pre + key)
+      );
     } else {
-      acc[pre + key] = obj[key];
+      acc[pre + key] = String(obj[key]);
     }
     return acc;
   }, {});

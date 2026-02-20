@@ -23,22 +23,30 @@ export class KiwiError extends Error {
   }
 }
 
-export class ThreadErrorHandler {
-  static handleError(component: any, error: any): void {
-    console.error("Error:", error);
+export function handleThreadError(
+  component: {
+    $store?: {
+      dispatch: (
+        path: string,
+        payload: { message: string; level: Levels }
+      ) => void;
+    };
+  },
+  error: unknown
+): void {
+  console.debug("Error:", error);
 
-    const message =
-      error instanceof KiwiError
-        ? error.message
-        : "An unexpected error occurred. Please try again later.";
+  const message =
+    error instanceof KiwiError
+      ? error.message
+      : "An unexpected error occurred. Please try again later.";
 
-    const level = error instanceof KiwiError ? error.level : Levels.ERROR;
+  const level = error instanceof KiwiError ? error.level : Levels.ERROR;
 
-    if (component.$store) {
-      component.$store.dispatch("snackbar/showMessage", {
-        message,
-        level,
-      });
-    }
+  if (component.$store) {
+    component.$store.dispatch("snackbar/showMessage", {
+      message,
+      level,
+    });
   }
 }

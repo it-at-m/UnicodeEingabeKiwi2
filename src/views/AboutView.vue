@@ -293,17 +293,17 @@ onMounted(() => {
 });
 
 // Function to get the repository URL from package.json repository field
-const getRepositoryUrl = (repository: any): string | undefined => {
+function getRepositoryUrl(
+  repository: string | { url?: string } | undefined
+): string | undefined {
   if (!repository) return undefined;
   if (typeof repository === "string") {
-    // Handle shorthand "owner/repo" format
     if (repository.includes("/") && !repository.includes("://")) {
       return `https://github.com/${repository}`;
     }
     return repository;
   }
   if (typeof repository === "object" && repository.url) {
-    // Clean up repository URL
     return repository.url
       .replace("git+", "")
       .replace(".git", "")
@@ -311,15 +311,18 @@ const getRepositoryUrl = (repository: any): string | undefined => {
       .replace("ssh://git@", "https://");
   }
   return undefined;
-};
+}
 
 // Function to get the package URL
 const getPackageUrl = (dep: Dependency): string => {
   // If homepage is specified, use it
   if (dep.homepage) return dep.homepage;
 
-  // If repository URL exists, use it
-  if (dep.repository) return dep.repository;
+  // If repository URL exists, use it (normalize from string or object)
+  if (dep.repository) {
+    const url = getRepositoryUrl(dep.repository);
+    if (url) return url;
+  }
 
   // Fallback to npm
   if (dep.name.startsWith("@")) {

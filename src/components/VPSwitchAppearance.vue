@@ -32,9 +32,8 @@ const props = defineProps<{
   isDark: boolean;
 }>();
 
-const emit = defineEmits<{
-  (e: "update:isDark", value: boolean): void;
-}>();
+type Emit = (e: "update:isDark", value: boolean) => void;
+const emit = defineEmits<Emit>();
 
 const theme = computed(() => (props.isDark ? "dark" : "light"));
 

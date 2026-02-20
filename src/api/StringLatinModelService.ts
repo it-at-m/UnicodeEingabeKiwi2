@@ -5,8 +5,8 @@ import characterDataGerman from "@/data/characters-german.json";
 interface Profile {
   seq: number;
   id: string;
-  names: { [lang: string]: string };
-  descriptions: { [lang: string]: string };
+  names: Record<string, string>;
+  descriptions: Record<string, string>;
 }
 
 interface BaseChar {
@@ -18,7 +18,7 @@ interface BaseChar {
 interface Character {
   id: string;
   name: string;
-  info: { [lang: string]: string };
+  info: Record<string, string>;
   profiles: string[];
   baseChars: BaseChar[];
   normative: boolean;
@@ -48,7 +48,7 @@ interface IStringLatinModelService {
 
 // Implementation
 class StringLatinModelServiceImpl implements IStringLatinModelService {
-  private currentLang: string = "en";
+  private currentLang = "en";
   private readonly modelProperties = {
     name: "DIN 91379:2022-08",
     dataversion: "DIN-202208",
@@ -111,7 +111,7 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
       case "characters-german":
         return (characterDataGerman as CharacterData).characters;
       default:
-        console.warn(
+        console.debug(
           `Unknown keyboard ID: ${keyboardId}, falling back to DIN keyboard`
         );
         return (characterDataDIN as CharacterData).characters;

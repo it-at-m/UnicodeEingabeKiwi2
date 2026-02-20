@@ -1,4 +1,3 @@
-# Main.vue
 <template>
   <div>
     <v-container fluid>
@@ -249,10 +248,7 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  Character,
-  StringLatinModelService,
-} from "@/api/StringLatinModelService";
+import type { StringLatinModelService } from "@/api/StringLatinModelService";
 
 import {
   mdiClose,
@@ -265,9 +261,12 @@ import Graphemer from "graphemer";
 import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { KiwiError, Levels } from "@/api/error";
-import FocusUtils from "@/api/FocusUtils";
-import { getModel } from "@/api/StringLatinModelService";
+import { Levels } from "@/api/error";
+import {
+  focus as focusUtil,
+  RENDER_DELAY,
+  RENDER_DELAY_SHORT,
+} from "@/api/FocusUtils";
 import { useThemeStore } from "@/stores/theme";
 
 const props = defineProps<{
@@ -329,7 +328,6 @@ const compactView = computed(() => themeStore.compactView);
 const automaticFocus = computed(() => themeStore.automaticFocus);
 const displaySerif = computed(() => themeStore.displaySerif);
 const displaySans = computed(() => !displaySerif.value);
-const featureBasechar = computed(() => themeStore.feature.basechar);
 
 const inputValue = computed(() => mainbufferValue.value);
 const updateInputValue = (value: string) => {
@@ -428,13 +426,13 @@ const runSearch = async (): Promise<void> => {
           const firstKeyElem = getFirstKeyboardKey();
           if (firstKeyElem) {
             console.debug("Focusing first key.");
-            FocusUtils.focus(firstKeyElem, FocusUtils.RENDER_DELAY_SHORT);
+            focusUtil(firstKeyElem, RENDER_DELAY_SHORT);
           }
         }
       });
     }
   } catch (error) {
-    console.error("Failed to run search:", error);
+    console.debug("Failed to run search:", error);
     keyboard.value = [];
   }
 };
@@ -507,7 +505,7 @@ const searchBaseChar = async (): Promise<void> => {
       await runSearch();
     }
   } catch (error) {
-    console.error("Error searching for base character:", error);
+    console.debug("Error searching for base character:", error);
     // Reset search on error
     currentFilters.basechar = "";
     currentFilters.searchChar = "";
@@ -588,7 +586,7 @@ const copyToClipboard = async (): Promise<void> => {
           level: Levels.SUCCESS,
           timeout: 3000,
         });
-      } catch (err) {
+      } catch {
         themeStore.showMessage({
           message: t("main.clipboard_message_too_old"),
           level: Levels.ERROR,
@@ -597,7 +595,7 @@ const copyToClipboard = async (): Promise<void> => {
       }
       document.body.removeChild(textArea);
     }
-  } catch (error) {
+  } catch {
     themeStore.showMessage({
       message: t("main.clipboard_message_failure"),
       level: Levels.ERROR,
@@ -611,7 +609,7 @@ const charTapped = (e: MouseEvent): void => {
   const c = target.textContent || "";
   console.debug("Char " + c + " tapped.");
 
-  const selection = getBufferSelection();
+  getBufferSelection(); // ensure selection state for replace/append
   const model = mainbufferValue.value;
 
   if (replaceLastGraphme.value === true) {
@@ -632,7 +630,7 @@ const charTapped = (e: MouseEvent): void => {
       const newPos = mainbufferValue.value.length;
       inputElem.selectionStart = newPos;
       inputElem.selectionEnd = newPos;
-      FocusUtils.focus(inputElem, FocusUtils.RENDER_DELAY);
+      focusUtil(inputElem, RENDER_DELAY);
     }
   });
 };
@@ -831,7 +829,7 @@ onMounted(async (): Promise<void> => {
     }));
     await runSearch();
   } catch (error) {
-    console.error("Failed to initialize:", error);
+    console.debug("Failed to initialize:", error);
     profiles.value = [];
   }
 });

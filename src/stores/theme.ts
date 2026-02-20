@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { ref, watch } from "vue";
 
 import { Levels } from "@/api/error";
 

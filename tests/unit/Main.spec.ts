@@ -86,7 +86,8 @@ Object.assign(navigator, {
   },
 });
 
-// Mock console.error
+// Mock console.error (allowed in tests for assertions)
+/* eslint-disable-next-line no-console */
 console.error = vi.fn();
 
 describe("Main.vue", () => {
@@ -150,6 +151,7 @@ describe("Main.vue", () => {
               const chars = await mockModel.getFilteredChars();
               this.keyboards = chars || [];
             } catch (error) {
+              /* eslint-disable-next-line no-console */
               console.error("Error fetching characters:", error);
               this.keyboards = [];
             }
@@ -196,6 +198,7 @@ describe("Main.vue", () => {
                 type: "success",
               });
             } catch (error) {
+              /* eslint-disable-next-line no-console */
               console.error("Failed to copy text:", error);
               themeStore.showMessage({
                 text: "main.error.clipboard",
@@ -364,7 +367,7 @@ describe("Main.vue", () => {
       await wrapper.vm.runSearch();
 
       expect(wrapper.vm.keyboards).toEqual([]);
-      expect(console.error).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalled(); // eslint-disable-line no-console
     });
   });
 
