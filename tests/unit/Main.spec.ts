@@ -1,4 +1,5 @@
 import { mount } from "@vue/test-utils";
+import Graphemer from "graphemer";
 import { createPinia } from "pinia";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick } from "vue";
@@ -175,7 +176,10 @@ describe("Main.vue", () => {
               return;
             }
 
-            const searchChar = this.mainbufferValue.slice(-1);
+            const graphemer = new Graphemer();
+            const graphemes = graphemer.splitGraphemes(this.mainbufferValue);
+            const searchChar =
+              graphemes.length > 0 ? graphemes[graphemes.length - 1] : "";
             const baseChars = await mockModel.getBasecharByChar(searchChar);
 
             this.currentFilters.searchChar = searchChar;
