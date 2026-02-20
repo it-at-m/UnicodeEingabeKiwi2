@@ -1,5 +1,3 @@
-import type { ComponentPublicInstance } from "vue";
-
 export const RENDER_DELAY = 100;
 export const RENDER_DELAY_SHORT = 10;
 
@@ -15,11 +13,7 @@ export function focus(element: HTMLElement | Window | null, delay = 0): void {
   }, delay);
 }
 
-export function getHTMElem(
-  _component: ComponentPublicInstance | null,
-  id: string,
-  selector = ""
-): HTMLElement | null {
+export function getHTMElem(id: string, selector = ""): HTMLElement | null {
   const elem = document.getElementById(id);
   if (!elem) {
     console.debug(`Cannot find element with id="${id}".`);
