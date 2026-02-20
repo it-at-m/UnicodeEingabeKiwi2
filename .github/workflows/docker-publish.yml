@@ -51,12 +51,12 @@ jobs:
           touch ./dist/.nojekyll
 
       # Install the cosign tool except on PR
-      # https://github.com/sigstore/cosign-installer (v3.0.4 fixes download URL to github.com)
+      # v3.0.4 installer (github.com URL); v2.2.0 binary (v3 verification fails: TUF invalid key)
       - name: Install cosign
         if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@v3.0.4
         with:
-          cosign-release: "v3.0.4"
+          cosign-release: "v2.2.0"
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
