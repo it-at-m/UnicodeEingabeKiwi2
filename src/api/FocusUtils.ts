@@ -21,7 +21,16 @@ export function getHTMElem(id: string, selector = ""): HTMLElement | null {
   }
 
   if (selector) {
-    const selectedElem = elem.querySelector(selector);
+    let selectedElem: Element | null;
+    try {
+      selectedElem = elem.querySelector(selector);
+    } catch (e) {
+      console.debug(
+        `Invalid selector="${selector}" for element with id="${id}".`,
+        e
+      );
+      return null;
+    }
     if (!selectedElem) {
       console.debug(
         `Cannot find element with selector="${selector}" in element with id="${id}".`
