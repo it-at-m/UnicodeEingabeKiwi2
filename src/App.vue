@@ -3,7 +3,7 @@
     :theme="theme"
     :class="{ dark: themeStore.isDark }"
   >
-    <the-snackbar />
+    <TheSnackbar />
     <v-app-bar
       :color="theme === 'light' ? 'white' : 'grey-darken-3'"
       elevation="1"

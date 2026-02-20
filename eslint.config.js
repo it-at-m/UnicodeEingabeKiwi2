@@ -35,5 +35,11 @@ export default defineConfigWithVueTs(
     rules: {
       "vue/multi-word-component-names": "off",
     },
+  },
+  {
+    files: ["src/App.vue"],
+    rules: {
+      "vue/component-name-in-template-casing": ["error", "PascalCase"],
+    },
   }
 );
