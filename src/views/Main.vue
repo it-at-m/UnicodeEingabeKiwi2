@@ -10,7 +10,7 @@
         class="sticky"
         align="center"
       >
-        <v-col mb-4>
+        <v-col class="mb-4">
           <v-text-field
             id="mainbuffer"
             ref="mainbuffer"
