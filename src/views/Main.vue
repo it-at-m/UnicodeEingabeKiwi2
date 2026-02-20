@@ -628,6 +628,7 @@ const clearbuffer = (): void => {
   mainbufferValue.value = "";
   currentFilters.basechar = "";
   currentFilters.searchChar = "";
+  replaceLastGraphme.value = false;
   nextTick(() => runSearch());
 };
 
