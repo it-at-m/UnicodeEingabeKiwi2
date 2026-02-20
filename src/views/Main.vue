@@ -633,7 +633,6 @@ const charTapped = (e: MouseEvent): void => {
   const c = target.textContent || "";
   console.debug("Char " + c + " tapped.");
 
-  getBufferSelection(); // ensure selection state for replace/append
   const model = mainbufferValue.value;
 
   if (replaceLastGraphme.value === true) {
