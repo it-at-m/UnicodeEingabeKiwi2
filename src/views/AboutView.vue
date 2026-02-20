@@ -333,9 +333,19 @@ const getPackageUrl = (dep: Dependency): string => {
 
 // Function to get a friendly name for the repository type
 const getRepositoryType = (url: string): string => {
-  if (url.includes("github.com")) return "GitHub";
-  if (url.includes("gitlab.com")) return "GitLab";
-  if (url.includes("bitbucket.org")) return "Bitbucket";
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    if (host === "github.com" || host.endsWith(".github.com")) return "GitHub";
+    if (host === "gitlab.com" || host.endsWith(".gitlab.com")) return "GitLab";
+    if (host === "bitbucket.org" || host.endsWith(".bitbucket.org"))
+      return "Bitbucket";
+  } catch {
+    const lower = url.toLowerCase();
+    if (lower.includes("github.com")) return "GitHub";
+    if (lower.includes("gitlab.com")) return "GitLab";
+    if (lower.includes("bitbucket.org")) return "Bitbucket";
+  }
   return "Repository";
 };
 </script>
