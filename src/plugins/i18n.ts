@@ -10,27 +10,32 @@ const storedLanguage = localStorage.getItem("language") || "de";
 const enMessages = JSON.parse(en);
 const deMessages = JSON.parse(de);
 
-// Function to flatten messages object
+// Function to flatten messages object (preserves arrays so e.g. help.example.steps works in v-for)
 function flattenMessages(
   obj: Record<string, unknown>,
   prefix = ""
-): Record<string, string> {
-  return Object.keys(obj).reduce((acc: Record<string, string>, key: string) => {
-    const pre = prefix.length ? prefix + "." : "";
-    if (
-      typeof obj[key] === "object" &&
-      obj[key] !== null &&
-      !Array.isArray(obj[key])
-    ) {
-      Object.assign(
-        acc,
-        flattenMessages(obj[key] as Record<string, unknown>, pre + key)
-      );
-    } else {
-      acc[pre + key] = String(obj[key]);
-    }
-    return acc;
-  }, {});
+): Record<string, string | string[]> {
+  return Object.keys(obj).reduce(
+    (acc: Record<string, string | string[]>, key: string) => {
+      const pre = prefix.length ? prefix + "." : "";
+      if (
+        typeof obj[key] === "object" &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        Object.assign(
+          acc,
+          flattenMessages(obj[key] as Record<string, unknown>, pre + key)
+        );
+      } else {
+        acc[pre + key] = Array.isArray(obj[key])
+          ? (obj[key] as string[])
+          : String(obj[key]);
+      }
+      return acc;
+    },
+    {}
+  );
 }
 
 // Flatten messages
@@ -51,8 +56,6 @@ const i18n = createI18n({
   warnHtmlMessage: false,
   missingWarn: false,
   fallbackWarn: false,
-  silentTranslationWarn: true,
-  silentFallbackWarn: true,
 });
 
 export default i18n;
