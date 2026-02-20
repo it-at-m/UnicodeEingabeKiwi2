@@ -126,7 +126,7 @@ describe("Main.vue", () => {
         methods: {
           async getProfileName(id: string | undefined) {
             if (!id) return "";
-            return `main.profiles.${id}`;
+            return id;
           },
           async updateCase(newCase: string) {
             if (this.currentFilters.cases === newCase) return;
@@ -291,7 +291,7 @@ describe("Main.vue", () => {
 
     test("returns id if translation not found", async () => {
       const result = await wrapper.vm.getProfileName("test_id");
-      expect(result).toBe("main.profiles.test_id");
+      expect(result).toBe("test_id");
     });
   });
 
