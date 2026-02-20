@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="mainViewRef">
     <v-container fluid>
       <!-- Buffer Panel -->
       <v-row v-if="compactView === false">
@@ -258,7 +258,15 @@ import {
   mdiPlus,
 } from "@mdi/js";
 import Graphemer from "graphemer";
-import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  watch,
+} from "vue";
 import { useI18n } from "vue-i18n";
 
 import { handleThreadError, Levels } from "@/api/error";
@@ -330,6 +338,7 @@ const rawProfiles = ref<RawProfile[]>([]);
 const replaceLastGraphme = ref(false);
 const numSearches = ref(0);
 const splitter = new Graphemer();
+const mainViewRef = ref<HTMLElement | null>(null);
 
 // Computed
 const compactView = computed(() => themeStore.compactView);
@@ -775,20 +784,24 @@ const resetKeyboards = async (): Promise<void> => {
 };
 
 // Initialize
+const onGlobalKeyup = (event: KeyboardEvent): void => {
+  const inside = mainViewRef.value?.contains(event.target as Node);
+  if (!inside) return;
+
+  if ((event.metaKey || event.ctrlKey) && event.key === "c") {
+    event.preventDefault();
+    copyToClipboard();
+    return;
+  }
+  if ((event.metaKey || event.ctrlKey) && event.key === " ") {
+    event.preventDefault();
+    searchBaseChar();
+    return;
+  }
+};
+
 onMounted(async (): Promise<void> => {
-  // Event listeners
-  window.addEventListener("keyup", (event: KeyboardEvent) => {
-    if ((event.metaKey || event.ctrlKey) && event.keyCode === 67) {
-      event.preventDefault();
-      copyToClipboard();
-      return;
-    }
-    if ((event.metaKey || event.ctrlKey) && event.keyCode === 32) {
-      event.preventDefault();
-      searchBaseChar();
-      return;
-    }
-  });
+  window.addEventListener("keyup", onGlobalKeyup);
 
   try {
     // Initialize available keyboards if none are stored
@@ -818,6 +831,10 @@ onMounted(async (): Promise<void> => {
     handleThreadError(error, themeStore.showMessage);
     rawProfiles.value = [];
   }
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keyup", onGlobalKeyup);
 });
 </script>
 
