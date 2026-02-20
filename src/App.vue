@@ -54,15 +54,22 @@
           />
           <VPNavBarTranslations />
           <VPSocialLink :href="GITHUB_URL" />
-          <v-img
-            src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
-            alt="LHM Logo"
-            width="150"
-            min-width="100"
-            max-width="200"
-            class="ml-4 pr-3"
-            :class="{ 'invert-colors': theme === 'dark' }"
-          />
+          <a
+            href="https://www.muenchen.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="d-flex"
+          >
+            <v-img
+              src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
+              alt="LHM Logo"
+              width="150"
+              min-width="100"
+              max-width="200"
+              class="ml-4 pr-3"
+              :class="{ 'invert-colors': theme === 'dark' }"
+            />
+          </a>
         </v-col>
       </v-row>
     </v-app-bar>
