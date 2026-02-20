@@ -613,7 +613,13 @@ const charTapped = (e: MouseEvent): void => {
   if (replaceLastGraphme.value === true) {
     const graphemes = splitter.splitGraphemes(model);
     const grapheme = graphemes.slice(-1)[0];
-    mainbufferValue.value = model.slice(0, model.length - grapheme.length) + c;
+    if (graphemes.length === 0 || grapheme === undefined) {
+      replaceLastGraphme.value = false;
+      mainbufferValue.value = model + c;
+    } else {
+      mainbufferValue.value =
+        model.slice(0, model.length - grapheme.length) + c;
+    }
   } else {
     // Always append to the end if no selection
     mainbufferValue.value = model + c;
