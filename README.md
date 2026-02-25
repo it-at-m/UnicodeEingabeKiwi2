@@ -107,7 +107,7 @@ You can deploy KIWI by using the general purpose [`refarch-templates` Helm Chart
 helm repo add it-at-m https://it-at-m.github.io/helm-charts
 
 # Install the Chart
-helm install my-kiwi-release it-at-m/refarch-templates --values values.yaml
+helm upgrade --install my-kiwi-release it-at-m/refarch-templates --values values.yaml
 ```
 
 A minimal `values.yaml` could be:
