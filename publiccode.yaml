@@ -1,0 +1,107 @@
+publiccodeYmlVersion: "0.2"
+
+name: KIWI
+url: "https://github.com/it-at-m/UnicodeEingabeKiwi2.git"
+landingURL: "https://kiwi.muenchen.de"
+softwareVersion: "2.0.1"
+logo: "public/images/Kiwi-Bird-Logo.svg"
+
+platforms:
+  - web
+
+categories:
+  - office
+
+developmentStatus: stable
+
+softwareType: "standalone/web"
+
+intendedAudience:
+  scope:
+    - government
+    - local-authorities
+  countries:
+    - DE
+
+description:
+  en:
+    localisedName: KIWI Virtual Keyboard
+    shortDescription: >
+      Input aid for convenient entry of Latin characters in Unicode (DIN 91379),
+      for names, addresses and diacritics not found on conventional keyboards.
+    longDescription: >
+      KIWI (**Ki**nderleicht **W**ortbestandteile **i**ntegrieren - “integrating word
+      components with ease”) is an input aid for the convenient and efficient input
+      of characters from the character set *Latin characters in Unicode*.
+
+      Characters with diacritics (e.g. Ẫ, D̂, Ģ, M̂) or of non-German origin (e.g. ð, ø, þ)
+      are generally not found on conventional German keyboards. KIWI makes all characters
+      from the character set *Latin characters in Unicode* easy to find and enter.
+
+      In KIWI, names with diacritical characters can be entered using a conventional
+      keyboard and then copied into any application. The character set is particularly
+      relevant for names of natural and legal persons and for addresses in German
+      public administration.
+
+      The standard *Latin characters in Unicode* is maintained by the Coordination
+      Office for IT Standards (KOSIT) on behalf of the IT Planning Council and is
+      defined in DIN 91379. A hosted demo is available at [kiwi.muenchen.de](https://kiwi.muenchen.de).
+    documentation: "https://github.com/it-at-m/UnicodeEingabeKiwi2#readme"
+    features:
+      - Input of Latin characters in Unicode (DIN 91379) via virtual keyboard
+      - Support for diacritics and characters not on conventional German keyboards
+      - Copy & paste into any application (e.g. names, addresses)
+      - Designed for German public administration
+      - Available in German and English; deployable via Docker or Helm
+
+  de:
+    localisedName: KIWI Virtuelle Tastatur
+    shortDescription: >
+      Eingabehilfe für die komfortable Eingabe lateinischer Zeichen in Unicode
+      (DIN 91379), für Namen, Adressen und Diakritika.
+    longDescription: >
+      KIWI (**Ki**nderleicht **W**ortbestandteile **i**ntegrieren) ist eine
+      Eingabehilfe für die komfortable und effiziente Eingabe von Zeichen aus dem
+      Zeichenvorrat *Lateinische Zeichen in Unicode*.
+
+      Zeichen mit Diakritika (z.B. Ẫ, D̂, Ģ, M̂) oder nicht deutschen Ursprungs
+      (z.B. ð, ø, þ) findet man auf herkömmlichen deutschen Tastaturen in der
+      Regel nicht. KIWI macht alle Zeichen aus dem Zeichensatz *Lateinische Zeichen
+      in UNICODE* leicht auffindbar und eingebar.
+
+      In KIWI können mittels herkömmlicher Tastatur z.B. Namen mit diakritischen
+      Zeichen einfach eingegeben und dann per Copy & Paste in beliebige Anwendungen
+      übernommen werden. Der Zeichensatz ist insbesondere für Namen natürlicher und
+      juristischer Personen sowie bei Adressen in der deutschen öffentlichen
+      Verwaltung relevant.
+
+      Der Standard *Lateinische Zeichen in Unicode* wird von der Koordinierungsstelle
+      für IT-Standards (KOSIT) im Auftrag des IT-Planungsrats gepflegt und in der
+      DIN 91379 definiert. Eine Demo ist unter [kiwi.muenchen.de](https://kiwi.muenchen.de) verfügbar.
+    documentation: "https://github.com/it-at-m/UnicodeEingabeKiwi2#readme"
+    features:
+      - Eingabe lateinischer Zeichen in Unicode (DIN 91379) über virtuelle Tastatur
+      - Unterstützung von Diakritika und Zeichen außerhalb der deutschen Tastatur
+      - Copy & Paste in beliebige Anwendungen (z.B. Namen, Adressen)
+      - Ausgerichtet auf die deutsche öffentliche Verwaltung
+      - Verfügbar auf Deutsch und Englisch; Bereitstellung per Docker oder Helm
+
+legal:
+  license: MIT
+  mainCopyrightOwner: it@M
+
+maintenance:
+  type: "community"
+  contacts:
+    - name: "See repository"
+      affiliation: "it@M (Landeshauptstadt München)"
+
+organisation:
+  uri: "https://github.com/it-at-m"
+  name: it@M
+
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - en
+    - de
