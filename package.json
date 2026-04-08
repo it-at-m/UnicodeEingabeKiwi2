@@ -17,7 +17,7 @@
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@fontsource/roboto": "5.2.9",
+    "@fontsource/roboto": "5.2.10",
     "@types/webfontloader": "^1.6.38",
     "@vueuse/core": "14.2.1",
     "pinia": "3.0.4",
