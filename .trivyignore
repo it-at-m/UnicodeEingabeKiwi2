@@ -1,0 +1,4 @@
+# Trivy ignore file
+# Add vulnerability IDs only with justification and an expiry date.
+# Example:
+# CVE-2024-12345 # Temporary ignore until upstream fix (remove by 2026-06-30)
