@@ -2,6 +2,10 @@ name: trivy
 
 on:
   pull_request:
+  push:
+    branches:
+      - "main"
+      - "dev"
   schedule:
     - cron: "0 3 * * *" # Daily at 03:00 UTC
 
