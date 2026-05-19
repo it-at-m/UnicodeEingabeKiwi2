@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-
-  "baseBranches": ["dev"],
-
-  "timezone": "Europe/Berlin",
-  "schedule": ["0 4 * * 6"]
+  "extends": [
+    "github>it-at-m/.github//renovate-configs/renovate-config.json5"
+  ]
 }
