@@ -19,7 +19,7 @@
   "dependencies": {
     "@fontsource/roboto": "5.2.10",
     "@types/webfontloader": "^1.6.38",
-    "@vueuse/core": "14.2.1",
+    "@vueuse/core": "14.3.0",
     "graphemer": "1.4.0",
     "pinia": "3.0.4",
     "pinia-plugin-persistedstate": "^4.3.0",
