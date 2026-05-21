@@ -1,5 +1,4 @@
 import { mount } from "@vue/test-utils";
-import Graphemer from "graphemer";
 import { createPinia } from "pinia";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick } from "vue";
@@ -7,6 +6,8 @@ import { createI18n } from "vue-i18n";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+
+import Graphemer from "@/utils/graphemer";
 
 interface Keyboard {
   id: string;

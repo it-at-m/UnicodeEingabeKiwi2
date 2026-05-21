@@ -257,7 +257,6 @@ import {
   mdiMagnify,
   mdiPlus,
 } from "@mdi/js";
-import Graphemer from "graphemer";
 import {
   computed,
   nextTick,
@@ -276,6 +275,7 @@ import {
   RENDER_DELAY_SHORT,
 } from "@/api/FocusUtils";
 import { useThemeStore } from "@/stores/theme";
+import Graphemer from "@/utils/graphemer";
 
 const props = defineProps<{
   model: StringLatinModelService;

@@ -58,7 +58,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: true, // Help with debugging
     },
     optimizeDeps: {
-      include: ["vue-i18n"],
+      include: ["vue-i18n", "graphemer"],
     },
     server: {
       host: true,
