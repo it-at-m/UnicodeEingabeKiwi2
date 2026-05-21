@@ -43,7 +43,7 @@
     "esbuild": "0.28.0",
     "eslint": "10.4.0",
     "eslint-plugin-vue": "10.9.0",
-    "jsdom": "26.1.0",
+    "jsdom": "29.1.1",
     "prettier": "3.8.1",
     "typescript": "6.0.3",
     "unplugin-fonts": "2.0.0",
