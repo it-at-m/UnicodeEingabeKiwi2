@@ -297,6 +297,10 @@ onMounted(async () => {
   gap: 4px;
 }
 
+.drawer-tools .VPSocialLink {
+  margin-left: 0;
+}
+
 .drawer-lhm-section {
   display: none;
 }
