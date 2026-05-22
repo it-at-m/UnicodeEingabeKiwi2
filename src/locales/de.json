@@ -68,6 +68,11 @@
     "about": "Über Kiwi",
     "opensource": "Open Source"
   },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Die angeforderte Seite existiert nicht.",
+    "back": "Zur Startseite"
+  },
   "help": {
     "title": "Online-Hilfe für <em>Kiwi</em>",
     "background": {
@@ -213,6 +218,7 @@
     "title": "Unicode Eingabe Kiwi – Virtuelle Unicode-Tastatur (DIN 91379)",
     "titleHelp": "Online-Hilfe – Unicode Eingabe Kiwi",
     "titleAbout": "Über Kiwi – Unicode Eingabe Kiwi",
+    "titleNotFound": "Seite nicht gefunden – Unicode Eingabe Kiwi",
     "description": "KIWI: Virtuelle Unicode-Tastatur für lateinische Zeichen, Diakritika und Sonderzeichen nach DIN 91379. Eingabehilfe der Landeshauptstadt München (Vue.js).",
     "keywords": "Suche, Sprache, Unicode, Vue.js, Übersetzung, Vue, Sonderzeichen, Unicode-Zeichen, virtuelle Tastatur, Kiwi, Unicode-Symbole, Texteingabe, Unicode-Unterstützung, Bund, DIN 91379, DIN91379, it-at-m-refarch, München, Stadt, search, language, unicode, vuejs, translation, special-characters, unicode-characters, virtual-keyboard, unicode-symbols, text-input, unicode-support, munich, münchen, city"
   }

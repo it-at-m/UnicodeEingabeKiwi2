@@ -1,6 +1,7 @@
 export const ROUTES_HOME = "home";
 export const ROUTES_HELP = "help";
 export const ROUTES_ABOUT = "about";
+export const ROUTES_NOT_FOUND = "not-found";
 
 export const URL_GITHUB_REPO =
   "https://github.com/it-at-m/UnicodeEingabeKiwi2/";

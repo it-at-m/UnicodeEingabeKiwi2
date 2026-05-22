@@ -1,8 +1,8 @@
 import type { ComposerTranslation } from "vue-i18n";
 
-import { ROUTES_ABOUT, ROUTES_HELP } from "@/constants";
+import { ROUTES_ABOUT, ROUTES_HELP, ROUTES_NOT_FOUND } from "@/constants";
 
-export type SeoPage = "home" | "help" | "about";
+export type SeoPage = "home" | "help" | "about" | "notFound";
 
 function setMetaName(name: string, content: string): void {
   let el = document.querySelector(`meta[name="${name}"]`);
@@ -27,6 +27,7 @@ function setMetaProperty(property: string, content: string): void {
 function titleKey(page: SeoPage): string {
   if (page === "help") return "seo.titleHelp";
   if (page === "about") return "seo.titleAbout";
+  if (page === "notFound") return "seo.titleNotFound";
   return "seo.title";
 }
 
@@ -35,6 +36,7 @@ export function routeNameToSeoPage(
 ): SeoPage {
   if (routeName === ROUTES_HELP) return "help";
   if (routeName === ROUTES_ABOUT) return "about";
+  if (routeName === ROUTES_NOT_FOUND) return "notFound";
   return "home";
 }
 
