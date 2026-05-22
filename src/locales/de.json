@@ -13,6 +13,7 @@
   "main": {
     "bufferpanel_header": "Eingabebereich",
     "mainbuffer_label": "Hier ganze Wörter eingeben, z.B. Namen oder Adressen",
+    "mainbuffer_label_short": "Wörter eingeben, z.B. Name",
     "mainbuffer_alt": "Puffer leeren",
     "search_char_alt": "Filtern nach Basiszeichen [⏎ oder Strg-Leerzeichen]",
     "clipboard_copy_alt": "In die Zwischenablage kopieren",
@@ -64,7 +65,8 @@
   },
   "menu": {
     "help": "Online-Hilfe",
-    "about": "Über Kiwi"
+    "about": "Über Kiwi",
+    "opensource": "Open Source"
   },
   "help": {
     "title": "Online-Hilfe für <em>Kiwi</em>",
@@ -89,7 +91,16 @@
         "Mit <em>Strg+C</em> (oder dem Symbol mit den zwei sich überlagernden Rechtecken) werden alle Zeichen aus dem Eingabefeld von Kiwi in die Zwischenablage kopiert",
         "Mit <em>Strg+V</em> (oder den sonst üblichen Methoden zum Einfügen aus der Zwischenablage) in das Formularfeld im Fachanwendung einfügen."
       ]
+    },
+    "links": {
+      "title": "Links",
+      "opensource": "Kiwi auf Open Source München",
+      "github": "Fehlermeldungen und Feature Requests auf GitHub"
     }
+  },
+  "settings": {
+    "din_spec": "DIN SPEC 91379 (Wikipedia)",
+    "github_alt": "Fehlermeldungen und Feature Requests auf GitHub"
   },
   "about": {
     "title": {

@@ -7,73 +7,81 @@
     <v-app-bar
       :color="theme === 'light' ? 'white' : 'grey-darken-3'"
       elevation="1"
+      class="app-bar"
     >
-      <v-row align="center">
-        <v-col class="d-flex align-center">
-          <v-app-bar-nav-icon
-            :color="theme === 'light' ? 'primary' : 'white'"
-            @click.stop="toggleDrawer()"
-          />
-          <router-link
-            to="/"
-            class="d-flex align-center text-decoration-none"
+      <v-app-bar-nav-icon
+        :color="theme === 'light' ? 'primary' : 'white'"
+        @click.stop="toggleDrawer()"
+      />
+      <router-link
+        to="/"
+        class="app-bar__brand text-decoration-none"
+      >
+        <v-img
+          src="/images/Kiwi-Bird-Logo.svg"
+          alt="Kiwi Logo"
+          width="40"
+          height="40"
+          max-width="40"
+          class="app-bar__logo mr-2"
+          :class="{ 'invert-black-white': theme === 'dark' }"
+        />
+        <div class="app-bar__title text-no-wrap font-weight-bold">
+          <span
+            class="app-bar__title-full"
+            :class="theme === 'light' ? 'text-primary' : 'text-white'"
           >
-            <v-img
-              src="/images/Kiwi-Bird-Logo.svg"
-              alt="Kiwi Logo"
-              max-width="40"
-              class="mr-2"
-              :class="{ 'invert-black-white': theme === 'dark' }"
-            />
-            <v-toolbar-title
-              class="text-no-wrap font-weight-bold d-none d-sm-flex"
-            >
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
-                >Unicode</span
-              >
-              <span class="text-secondary">Eingabe</span>
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
-                >Kiwi</span
-              >
-            </v-toolbar-title>
-            <v-toolbar-title class="text-no-wrap font-weight-bold d-sm-none">
-              <span :class="theme === 'light' ? 'text-primary' : 'text-white'"
-                >Kiwi</span
-              >
-            </v-toolbar-title>
-          </router-link>
-        </v-col>
-        <v-col
-          cols="auto"
-          class="d-none d-md-flex align-center justify-end"
+            <span>Unicode</span>
+            <span class="text-secondary">Eingabe</span>
+            <span>Kiwi</span>
+          </span>
+          <span
+            class="app-bar__title-short"
+            :class="theme === 'light' ? 'text-primary' : 'text-white'"
+            >Kiwi</span
+          >
+        </div>
+      </router-link>
+      <v-spacer class="app-bar__spacer" />
+      <div class="app-bar__actions">
+        <VPSwitchAppearance
+          class="mr-2"
+          :is-dark="themeStore.isDark"
+          @update:is-dark="setThemeDark"
+        />
+        <VPNavBarTranslations />
+        <VPSocialLink
+          :href="URL_DIN_SPEC_91379_WIKI"
+          :icon="mdiWikipedia"
+          :title="$t('settings.din_spec')"
+        />
+        <VPSocialLink
+          :href="URL_GITHUB_REPO"
+          :title="$t('settings.github_alt')"
+        />
+        <a
+          href="https://www.muenchen.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="app-bar__lhm-link"
         >
-          <VPSwitchAppearance
-            :is-dark="themeStore.isDark"
-            @update:is-dark="setThemeDark"
-            class="mr-2"
+          <v-img
+            src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
+            alt="LHM Logo"
+            width="150"
+            min-width="100"
+            max-width="200"
+            class="ml-2"
+            :class="{ 'invert-colors': theme === 'dark' }"
           />
-          <VPNavBarTranslations />
-          <VPSocialLink :href="GITHUB_URL" />
-          <a
-            href="https://www.muenchen.de/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="d-flex"
-          >
-            <v-img
-              src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
-              alt="LHM Logo"
-              width="150"
-              min-width="100"
-              max-width="200"
-              class="ml-4 pr-3"
-              :class="{ 'invert-colors': theme === 'dark' }"
-            />
-          </a>
-        </v-col>
-      </v-row>
+        </a>
+      </div>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer">
+    <v-navigation-drawer
+      v-model="drawer"
+      class="app-drawer"
+      :width="270"
+    >
       <v-list>
         <v-list-item :to="{ name: ROUTES_HELP }">
           <template #prepend>
@@ -87,19 +95,54 @@
           </template>
           <v-list-item-title>{{ $t("menu.about") }}</v-list-item-title>
         </v-list-item>
-        <v-divider class="my-2" />
-        <v-list-item>
-          <div class="d-flex align-center px-2">
+        <v-list-item
+          :href="opensourceUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <template #prepend>
+            <v-icon :icon="mdiCodeBraces" />
+          </template>
+          <v-list-item-title>{{ $t("menu.opensource") }}</v-list-item-title>
+        </v-list-item>
+        <v-divider class="drawer-divider-mobile my-2" />
+        <v-list-item class="drawer-mobile-only">
+          <div class="drawer-tools">
             <VPSwitchAppearance
               :is-dark="themeStore.isDark"
               @update:is-dark="setThemeDark"
-              class="mr-2"
             />
             <VPNavBarTranslations />
-            <VPSocialLink :href="GITHUB_URL" />
+            <VPSocialLink
+              :href="URL_DIN_SPEC_91379_WIKI"
+              :icon="mdiWikipedia"
+              :title="$t('settings.din_spec')"
+            />
+            <VPSocialLink
+              :href="URL_GITHUB_REPO"
+              :title="$t('settings.github_alt')"
+            />
           </div>
         </v-list-item>
-        <v-divider class="my-2" />
+        <div class="drawer-lhm-section drawer-mobile-only">
+          <v-divider />
+          <a
+            href="https://www.muenchen.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="drawer-lhm-link"
+          >
+            <v-img
+              src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
+              alt="LHM Logo"
+              width="148"
+              max-width="148"
+              :class="{ 'invert-colors': theme === 'dark' }"
+            />
+          </a>
+          <v-divider />
+        </div>
+        <v-divider class="drawer-version-divider my-2" />
         <v-list-item>
           <div class="d-flex justify-center align-center px-2 text-disabled">
             {{ kiwi2Version }}
@@ -120,7 +163,12 @@
 </template>
 
 <script setup lang="ts">
-import { mdiHelpCircle, mdiInformation } from "@mdi/js";
+import {
+  mdiCodeBraces,
+  mdiHelpCircle,
+  mdiInformation,
+  mdiWikipedia,
+} from "@mdi/js";
 import { useToggle } from "@vueuse/core";
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -130,7 +178,14 @@ import TheSnackbar from "@/components/TheSnackbar.vue";
 import VPNavBarTranslations from "@/components/VPNavBarTranslations.vue";
 import VPSocialLink from "@/components/VPSocialLink.vue";
 import VPSwitchAppearance from "@/components/VPSwitchAppearance.vue";
-import { ROUTES_ABOUT, ROUTES_HELP } from "@/constants";
+import {
+  ROUTES_ABOUT,
+  ROUTES_HELP,
+  URL_DIN_SPEC_91379_WIKI,
+  URL_GITHUB_REPO,
+  URL_OPENSOURCE_KIWI_DE,
+  URL_OPENSOURCE_KIWI_EN,
+} from "@/constants";
 import { useThemeStore } from "@/stores/theme";
 import { debug } from "@/utils/debug";
 
@@ -145,10 +200,12 @@ function setThemeDark(value: boolean) {
   });
 }
 
-const GITHUB_URL = "https://github.com/it-at-m/UnicodeEingabeKiwi2";
 const kiwi2Version = ref("");
 
 const { t, locale } = useI18n();
+const opensourceUrl = computed(() =>
+  locale.value === "de" ? URL_OPENSOURCE_KIWI_DE : URL_OPENSOURCE_KIWI_EN
+);
 
 // Verify translations are working
 debug.log("App component translations", {
@@ -186,12 +243,106 @@ onMounted(async () => {
   background-color: white;
 }
 
-.v-toolbar-title {
-  white-space: nowrap;
+.app-bar__brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.v-toolbar-title__placeholder {
-  width: 300px !important;
+.app-bar__logo {
+  flex: 0 0 40px;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+}
+
+.app-bar__title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.app-bar__title-short {
+  display: none;
+}
+
+.app-bar__actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.app-bar__lhm-link {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.drawer-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.drawer-lhm-section {
+  display: none;
+}
+
+.drawer-lhm-section .v-divider {
+  margin: 0;
+}
+
+.drawer-lhm-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 14px 12px;
+  text-decoration: none;
+}
+
+.drawer-lhm-link .v-img {
+  flex: 0 0 auto;
+}
+
+.drawer-mobile-only,
+.drawer-divider-mobile {
+  display: none;
+}
+
+@media (max-width: 775px) {
+  .app-bar__title-full {
+    display: none;
+  }
+
+  .app-bar__title-short {
+    display: inline;
+  }
+}
+
+@media (max-width: 650px) {
+  .app-bar__spacer,
+  .app-bar__actions {
+    display: none;
+  }
+
+  .drawer-mobile-only {
+    display: list-item;
+  }
+
+  .drawer-divider-mobile {
+    display: block;
+  }
+
+  .drawer-lhm-section {
+    display: block;
+  }
+
+  .drawer-version-divider {
+    display: none;
+  }
 }
 
 .invert-colors {

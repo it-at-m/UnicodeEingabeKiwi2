@@ -2,69 +2,110 @@
   <div ref="mainViewRef">
     <v-container fluid>
       <!-- Buffer Panel -->
-      <v-row v-if="compactView === false">
+      <v-row>
         <h1 class="v-label">{{ $t("main.bufferpanel_header") }}</h1>
       </v-row>
       <v-row
         id="bufferpanel"
-        class="sticky"
+        :class="{ sticky: showBufferFieldAppend }"
         align="center"
       >
-        <v-col class="mb-4">
+        <v-col class="mb-4 buffer-panel">
           <v-text-field
             id="mainbuffer"
             ref="mainbuffer"
             :model-value="inputValue"
-            class="nocap"
-            :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
-            :label="$t('main.mainbuffer_label')"
+            class="nocap buffer-panel__field sansStyle"
+            :label="bufferLabel"
             variant="filled"
-            density="compact"
+            :density="bufferFieldDensity"
             bg-color="white"
             @update:model-value="updateInputValue"
             @keyup.enter.exact="searchBaseChar"
           >
-            <template #append>
-              <v-btn
-                id="clearbufferbutton"
-                icon
-                :title="$t('main.mainbuffer_alt')"
-                @click="clearbuffer"
-              >
-                <v-icon :icon="mdiClose"></v-icon>
-              </v-btn>
-              <v-btn
-                id="searchcharbutton"
-                icon
-                :title="$t('main.search_char_alt')"
-                @click="searchBaseChar"
-                class="ml-2"
-              >
-                <v-icon :icon="mdiMagnify"></v-icon>
-              </v-btn>
-              <v-btn
-                id="copytobutton"
-                icon
-                :title="$t('main.clipboard_copy_alt')"
-                @click="copyToClipboard"
-                class="ml-2"
-              >
-                <v-icon :icon="mdiContentCopy"></v-icon>
-              </v-btn>
+            <template
+              v-if="showBufferFieldAppend"
+              #append
+            >
+              <div class="buffer-panel__append">
+                <v-btn
+                  id="clearbufferbutton"
+                  icon
+                  :title="$t('main.mainbuffer_alt')"
+                  @click="clearbuffer"
+                >
+                  <v-icon :icon="mdiClose"></v-icon>
+                </v-btn>
+                <v-btn
+                  id="searchcharbutton"
+                  icon
+                  :title="$t('main.search_char_alt')"
+                  @click="searchBaseChar"
+                >
+                  <v-icon :icon="mdiMagnify"></v-icon>
+                </v-btn>
+                <v-btn
+                  id="copytobutton"
+                  icon
+                  :title="$t('main.clipboard_copy_alt')"
+                  @click="copyToClipboard"
+                >
+                  <v-icon :icon="mdiContentCopy"></v-icon>
+                </v-btn>
+              </div>
             </template>
           </v-text-field>
+          <div
+            v-show="!showBufferFieldAppend"
+            class="buffer-panel__actions-mobile d-flex"
+          >
+            <v-btn
+              id="clearbufferbutton"
+              variant="outlined"
+              density="compact"
+              class="buffer-panel__action-btn"
+              :title="$t('main.mainbuffer_alt')"
+              @click="clearbuffer"
+            >
+              <v-icon :icon="mdiClose" />
+            </v-btn>
+            <v-btn
+              id="searchcharbutton"
+              variant="outlined"
+              density="compact"
+              class="buffer-panel__action-btn"
+              :title="$t('main.search_char_alt')"
+              @click="searchBaseChar"
+            >
+              <v-icon :icon="mdiMagnify" />
+            </v-btn>
+            <v-btn
+              id="copytobutton"
+              variant="outlined"
+              density="compact"
+              class="buffer-panel__action-btn"
+              :title="$t('main.clipboard_copy_alt')"
+              @click="copyToClipboard"
+            >
+              <v-icon :icon="mdiContentCopy" />
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
 
       <!-- Filter Panel -->
-      <v-row v-if="!compactView">
+      <v-row>
         <h1 class="v-label">{{ $t("main.filterpanel_header") }}</h1>
       </v-row>
       <v-row
         id="filterpanel"
+        class="filter-panel"
         align="baseline"
       >
-        <v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-select
             id="filtercases"
             :model-value="currentFilters.cases"
@@ -78,7 +119,10 @@
             @update:model-value="updateCase"
           />
         </v-col>
-        <v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-select
             id="filterregion"
             :model-value="currentFilters.profile"
@@ -92,10 +136,14 @@
             @update:model-value="updateProfile"
           />
         </v-col>
-        <v-col class="d-flex align-self-center">
+        <v-col
+          cols="12"
+          md="4"
+          class="filter-panel__actions d-flex align-self-center"
+        >
           <v-btn
             id="resetallfilters"
-            class="nocap hyphen"
+            class="filter-panel__reset nocap hyphen"
             :title="$t('main.filterresetall_alt')"
             @click="resetAllFilters"
           >
@@ -105,7 +153,7 @@
       </v-row>
 
       <!-- Keyboard Selection Panel -->
-      <v-row v-if="compactView === false">
+      <v-row>
         <h1 class="v-label">{{ $t("main.keyboardselection_header") }}</h1>
       </v-row>
       <v-row
@@ -201,13 +249,14 @@
       </v-dialog>
 
       <!-- Keyboard Panel -->
-      <v-row v-if="compactView === false">
+      <v-row>
         <h1 class="v-label">{{ $t("main.keyboardpanel_header") }}</h1>
       </v-row>
       <v-row
         v-if="keyboard.length > 0"
         id="keyboardpanel"
         ref="keyboardpanel"
+        no-gutters
       >
         <div
           v-for="(c, index) in keyboard"
@@ -217,8 +266,7 @@
             <button
               :id="c.id"
               type="button"
-              class="nocap key"
-              :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
+              class="nocap key sansStyle"
               :title="c.info"
               tabindex="0"
               @click="charTapped"
@@ -230,8 +278,7 @@
             <button
               :id="c.id"
               type="button"
-              class="nocap key"
-              :class="{ serifStyle: displaySerif, sansStyle: displaySans }"
+              class="nocap key sansStyle"
               tabindex="0"
               @click="charTapped"
             >
@@ -267,6 +314,7 @@ import {
   watch,
 } from "vue";
 import { useI18n } from "vue-i18n";
+import { useDisplay } from "vuetify";
 
 import { handleThreadError, Levels } from "@/api/error";
 import {
@@ -283,6 +331,17 @@ const props = defineProps<{
 
 const { t, locale } = useI18n();
 const themeStore = useThemeStore();
+const display = useDisplay();
+const showBufferFieldAppend = computed(() => display.width.value > 500);
+const showBufferLabelShort = computed(() => display.width.value <= 700);
+const bufferLabel = computed(() =>
+  showBufferLabelShort.value
+    ? t("main.mainbuffer_label_short")
+    : t("main.mainbuffer_label")
+);
+const bufferFieldDensity = computed(() =>
+  showBufferFieldAppend.value ? "compact" : "comfortable"
+);
 
 // Watch for language changes and update keyboard names
 watch(locale, () => {
@@ -339,12 +398,6 @@ const replaceLastGraphme = ref(false);
 const numSearches = ref(0);
 const splitter = new Graphemer();
 const mainViewRef = ref<HTMLElement | null>(null);
-
-// Computed
-const compactView = computed(() => themeStore.compactView);
-const automaticFocus = computed(() => themeStore.automaticFocus);
-const displaySerif = computed(() => themeStore.displaySerif);
-const displaySans = computed(() => !displaySerif.value);
 
 const inputValue = computed(() => mainbufferValue.value);
 const updateInputValue = (value: string) => {
@@ -455,12 +508,10 @@ const runSearch = async (): Promise<void> => {
     // Focus (only) at application startup the mainbuffer not the keyboard
     if (numSearches.value++ > 0) {
       nextTick(() => {
-        if (automaticFocus.value === true) {
-          const firstKeyElem = getFirstKeyboardKey();
-          if (firstKeyElem) {
-            console.debug("Focusing first key.");
-            focusUtil(firstKeyElem, RENDER_DELAY_SHORT);
-          }
+        const firstKeyElem = getFirstKeyboardKey();
+        if (firstKeyElem) {
+          console.debug("Focusing first key.");
+          focusUtil(firstKeyElem, RENDER_DELAY_SHORT);
         }
       });
     }
@@ -631,7 +682,7 @@ const charTapped = (e: MouseEvent): void => {
   // Focus management
   nextTick(() => {
     const inputElem = getMainBufferInputElem();
-    if (inputElem && automaticFocus.value) {
+    if (inputElem) {
       const newPos = mainbufferValue.value.length;
       inputElem.selectionStart = newPos;
       inputElem.selectionEnd = newPos;
@@ -879,16 +930,48 @@ onUnmounted(() => {
   box-shadow: 0 0 0 2px rgba(var(--v-primary-base), 0.2);
 }
 
-.serifStyle {
-  font-family: "Times New Roman", Times, serif;
-}
-
 .sansStyle {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .hyphen {
   hyphens: auto;
+}
+
+.buffer-panel__append {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buffer-panel__actions-mobile {
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@media (max-width: 500px) {
+  #bufferpanel .buffer-panel {
+    padding-right: 0;
+  }
+
+  .buffer-panel__action-btn {
+    flex: 1;
+    min-width: 0;
+    min-height: 48px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 959px) {
+  .filter-panel__actions {
+    align-self: stretch !important;
+  }
+
+  .filter-panel__reset {
+    width: 100%;
+  }
 }
 
 /* Limit repaint/layout when theme or content updates (many keys) */

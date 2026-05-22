@@ -5,10 +5,11 @@
       class="text-none"
       icon
       :href="href"
+      :title="title"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <v-icon :icon="mdiGithub" />
+      <v-icon :icon="icon" />
     </v-btn>
   </div>
 </template>
@@ -16,9 +17,17 @@
 <script setup lang="ts">
 import { mdiGithub } from "@mdi/js";
 
-defineProps<{
-  href: string;
-}>();
+withDefaults(
+  defineProps<{
+    href: string;
+    icon?: string;
+    title?: string;
+  }>(),
+  {
+    icon: mdiGithub,
+    title: "",
+  }
+);
 </script>
 
 <style scoped>

@@ -1,17 +1,24 @@
 <template>
   <div class="VPNavBarTranslations">
     <v-menu>
-      <template v-slot:activator="{ props }">
-        <v-btn
-          v-bind="props"
-          variant="text"
-          class="text-none"
-          :prepend-icon="mdiTranslate"
+      <template #activator="{ props: menuProps }">
+        <button
+          type="button"
+          class="locale-activator"
+          v-bind="menuProps"
+          :title="$t('nav.switchLocale')"
         >
-          {{ currentLocale === "de" ? "DE" : "EN" }}
-        </v-btn>
+          <v-icon
+            :icon="mdiTranslate"
+            size="20"
+            class="locale-activator__icon"
+          />
+          <span class="locale-activator__label">{{
+            currentLocale === "de" ? "DE" : "EN"
+          }}</span>
+        </button>
       </template>
-      <v-list>
+      <v-list density="compact">
         <v-list-item
           v-for="locale in availableLocales"
           :key="locale.code"
@@ -72,5 +79,42 @@ function switchLocale(localeCode: string) {
   display: flex;
   align-items: center;
   margin-left: 8px;
+}
+
+/* Plain button avoids Vuetify 4 v-btn hover transforms on the translate icon */
+.locale-activator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 40px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  vertical-align: middle;
+}
+
+.locale-activator:hover {
+  background: rgba(var(--v-theme-on-surface), 0.08);
+}
+
+.locale-activator__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.locale-activator__icon {
+  flex-shrink: 0;
+}
+
+.locale-activator__icon :deep(.v-icon__svg),
+.locale-activator__icon :deep(svg) {
+  transform: none !important;
+  transition: none !important;
 }
 </style>

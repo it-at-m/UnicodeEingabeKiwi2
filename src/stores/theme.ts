@@ -10,9 +10,6 @@ interface Message {
 
 interface ThemeState {
   isDark: boolean;
-  compactView: boolean;
-  automaticFocus: boolean;
-  displaySerif: boolean;
   filterCases: string;
   filterProfile: string;
   selectedKeyboards: string[];
@@ -31,9 +28,6 @@ interface ThemeState {
 export const useThemeStore = defineStore("theme", {
   state: (): ThemeState => ({
     isDark: false,
-    compactView: false,
-    automaticFocus: true,
-    displaySerif: false,
     filterCases: "s",
     filterProfile: "__all",
     selectedKeyboards: ["characters-DIN-SPEC-91379"],
@@ -54,18 +48,6 @@ export const useThemeStore = defineStore("theme", {
   actions: {
     toggleDark() {
       this.isDark = !this.isDark;
-    },
-
-    updateCompactView(value: boolean) {
-      this.compactView = value;
-    },
-
-    updateAutomaticFocus(value: boolean) {
-      this.automaticFocus = value;
-    },
-
-    updateDisplaySerif(value: boolean) {
-      this.displaySerif = value;
     },
 
     updateFilterCases(value: string) {

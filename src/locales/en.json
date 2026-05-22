@@ -13,6 +13,7 @@
   "main": {
     "bufferpanel_header": "Search Input",
     "mainbuffer_label": "Enter whole words here, e.g. names or addresses",
+    "mainbuffer_label_short": "Enter words, e.g. name",
     "mainbuffer_alt": "Clear buffer",
     "search_char_alt": "Filter by basechar [⏎ or Cntrl-Space]",
     "clipboard_copy_alt": "Copy to clipboard",
@@ -64,7 +65,8 @@
   },
   "menu": {
     "help": "Online Help",
-    "about": "About Kiwi"
+    "about": "About Kiwi",
+    "opensource": "Open Source"
   },
   "help": {
     "title": "Online-Help for <em>Kiwi</em>",
@@ -89,7 +91,16 @@
         "<em>Ctrl+C</em> (or the symbol with the two overlapping rectangles) will copy all the characters in the input field to the system clipboard.",
         "With <em>Ctrl+V</em> (or the usual methods for pasting from the clipboard) the name is entered in the form field of the application."
       ]
+    },
+    "links": {
+      "title": "Links",
+      "opensource": "Kiwi on Open Source Munich",
+      "github": "Bug reports and feature requests on GitHub"
     }
+  },
+  "settings": {
+    "din_spec": "DIN SPEC 91379 (Wikipedia)",
+    "github_alt": "Bug reports and feature requests on GitHub"
   },
   "about": {
     "title": {
