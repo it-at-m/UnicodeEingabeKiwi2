@@ -208,5 +208,12 @@
         }
       ]
     }
+  },
+  "seo": {
+    "title": "Unicode Input Kiwi – Virtual Unicode Keyboard (DIN 91379)",
+    "titleHelp": "Online Help – Unicode Input Kiwi",
+    "titleAbout": "About Kiwi – Unicode Input Kiwi",
+    "description": "KIWI: Virtual Unicode keyboard for Latin characters, diacritics and special characters (DIN 91379). Input aid by the City of Munich – Vue.js web app.",
+    "keywords": "search, language, unicode, vuejs, translation, vue, special-characters, unicode-characters, virtual-keyboard, kiwi, unicode-symbols, text-input, unicode-support, bund, din-91379, din91379, it-at-m-refarch, munich, münchen, city, stadt, unicode input, diacritics, munich administration, DIN 91379"
   }
 }

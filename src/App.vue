@@ -170,8 +170,9 @@ import {
   mdiWikipedia,
 } from "@mdi/js";
 import { useToggle } from "@vueuse/core";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRoute } from "vue-router";
 
 import { handleThreadError } from "@/api/error";
 import TheSnackbar from "@/components/TheSnackbar.vue";
@@ -188,6 +189,7 @@ import {
 } from "@/constants";
 import { useThemeStore } from "@/stores/theme";
 import { debug } from "@/utils/debug";
+import { applySeo, routeNameToSeoPage } from "@/utils/seo";
 
 const [drawer, toggleDrawer] = useToggle();
 const themeStore = useThemeStore();
@@ -202,9 +204,18 @@ function setThemeDark(value: boolean) {
 
 const kiwi2Version = ref("");
 
+const route = useRoute();
 const { t, locale } = useI18n();
 const opensourceUrl = computed(() =>
   locale.value === "de" ? URL_OPENSOURCE_KIWI_DE : URL_OPENSOURCE_KIWI_EN
+);
+
+watch(
+  [locale, () => route.name],
+  () => {
+    applySeo(locale.value, routeNameToSeoPage(route.name), t);
+  },
+  { immediate: true }
 );
 
 // Verify translations are working
