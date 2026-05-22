@@ -2,7 +2,7 @@
   <div ref="mainViewRef">
     <v-container fluid>
       <!-- Buffer Panel -->
-      <v-row>
+      <v-row v-if="!compactView">
         <h1 class="v-label">{{ $t("main.bufferpanel_header") }}</h1>
       </v-row>
       <v-row
@@ -94,7 +94,7 @@
       </v-row>
 
       <!-- Filter Panel -->
-      <v-row>
+      <v-row v-if="!compactView">
         <h1 class="v-label">{{ $t("main.filterpanel_header") }}</h1>
       </v-row>
       <v-row
@@ -153,7 +153,7 @@
       </v-row>
 
       <!-- Keyboard Selection Panel -->
-      <v-row>
+      <v-row v-if="!compactView">
         <h1 class="v-label">{{ $t("main.keyboardselection_header") }}</h1>
       </v-row>
       <v-row
@@ -249,7 +249,7 @@
       </v-dialog>
 
       <!-- Keyboard Panel -->
-      <v-row>
+      <v-row v-if="!compactView">
         <h1 class="v-label">{{ $t("main.keyboardpanel_header") }}</h1>
       </v-row>
       <v-row
@@ -332,6 +332,8 @@ const props = defineProps<{
 const { t, locale } = useI18n();
 const themeStore = useThemeStore();
 const display = useDisplay();
+/** Always compact; section headings hidden (settings toggle removed). */
+const compactView = true;
 const showBufferFieldAppend = computed(() => display.width.value > 500);
 const showBufferLabelShort = computed(() => display.width.value <= 700);
 const bufferLabel = computed(() =>
