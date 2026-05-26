@@ -34,7 +34,7 @@ export interface DinLocaleFile {
   id: string;
   names: Record<string, string>;
   countryCodes: string[];
-  characters: Array<{ id: string }>;
+  characters: { id: string }[];
 }
 
 export const DIN_LOCALE_INDEX = localeIndex;
