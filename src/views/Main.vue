@@ -557,8 +557,9 @@ const runSearch = async (): Promise<void> => {
         Object.values(char.info)[0],
     }));
 
-    // Focus (only) at application startup the mainbuffer not the keyboard
-    if (numSearches.value++ > 0) {
+    // After a base-character search, focus the first matching key for quick selection.
+    // Do not steal focus when the buffer/search is empty (e.g. filter changes, clear).
+    if (numSearches.value++ > 0 && currentFilters.basechar) {
       nextTick(() => {
         const firstKeyElem = getFirstKeyboardKey();
         if (firstKeyElem) {
