@@ -22,6 +22,10 @@
     "filtercases_alt": "Nach Groß-/Kleinschreibung filtern",
     "filterregion": "Zeichensatz",
     "filterregion_alt": "Nach Zeichensatz filtern",
+    "filterlanguage": "Sprache (DIN)",
+    "filterlanguage_alt": "Nach Sprache/Region laut DIN-Anhang filtern",
+    "filterlanguage_all": "Alle Sprachen",
+    "filterlanguage_all_desc": "Kein Sprachfilter (gesamter geladener DIN-Zeichensatz)",
     "filterresetall": "Alle Filter zurücksetzen",
     "filterresetall_alt": "Alle Filter auf Standardwerte zurücksetzen",
     "keyboardselection_header": "Tastaturauswahl",
@@ -29,7 +33,7 @@
     "add_keyboard_dialog_title": "Neue Tastatur hinzufügen",
     "select_keyboard": "Wählen Sie eine Tastatur aus",
     "reset_keyboards": "Auf Standard zurücksetzen",
-    "reset_keyboards_alt": "Auf Standard-DIN-SPEC-Tastatur zurücksetzen",
+    "reset_keyboards_alt": "Auf DIN-91379-Tastatur zurücksetzen",
     "add": "Hinzufügen",
     "cancel": "Abbrechen",
     "cannot_remove_last_keyboard": "Die letzte Tastatur kann nicht entfernt werden",
@@ -38,8 +42,7 @@
     "keyboardpanel_header": "Zeichenauswahl",
     "keyboardpanel_nochars": "Keine passenden Zeichen gefunden. Versuchen Sie die Filter anzupassen.",
     "keyboards": {
-      "din": "DIN SPEC 91379",
-      "german": "Deutsche Tastatur"
+      "din": "DIN 91379:2022-08"
     },
     "cases": {
       "standard": "Standard",
@@ -104,7 +107,7 @@
     }
   },
   "settings": {
-    "din_spec": "DIN SPEC 91379 (Wikipedia)",
+    "din_spec": "DIN 91379 (Wikipedia)",
     "github_alt": "Fehlermeldungen und Feature Requests auf GitHub"
   },
   "about": {

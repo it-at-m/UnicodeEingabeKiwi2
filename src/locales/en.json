@@ -22,6 +22,10 @@
     "filtercases_alt": "Filter by character case",
     "filterregion": "Character Set",
     "filterregion_alt": "Filter by character set",
+    "filterlanguage": "Language (DIN)",
+    "filterlanguage_alt": "Filter by language/region from DIN annex",
+    "filterlanguage_all": "All languages",
+    "filterlanguage_all_desc": "No language filter (full loaded DIN set)",
     "filterresetall": "Reset All Filters",
     "filterresetall_alt": "Reset all filters to default values",
     "keyboardselection_header": "Keyboard Selection",
@@ -29,7 +33,7 @@
     "add_keyboard_dialog_title": "Add New Keyboard",
     "select_keyboard": "Select a keyboard to add",
     "reset_keyboards": "Reset to Default",
-    "reset_keyboards_alt": "Reset to default DIN SPEC keyboard",
+    "reset_keyboards_alt": "Reset to default DIN 91379 keyboard",
     "add": "Add",
     "cancel": "Cancel",
     "cannot_remove_last_keyboard": "Cannot remove the last keyboard",
@@ -38,8 +42,7 @@
     "keyboardpanel_header": "Character Selection",
     "keyboardpanel_nochars": "No matching characters found. Try adjusting the filters.",
     "keyboards": {
-      "din": "DIN SPEC 91379",
-      "german": "German Keyboard"
+      "din": "DIN 91379:2022-08"
     },
     "cases": {
       "standard": "Standard",
@@ -104,7 +107,7 @@
     }
   },
   "settings": {
-    "din_spec": "DIN SPEC 91379 (Wikipedia)",
+    "din_spec": "DIN 91379 (Wikipedia)",
     "github_alt": "Bug reports and feature requests on GitHub"
   },
   "about": {

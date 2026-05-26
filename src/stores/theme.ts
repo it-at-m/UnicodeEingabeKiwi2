@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { Levels } from "@/api/error";
+import { KEYBOARD_DIN_91379_ID } from "@/constants";
 
 interface Message {
   message: string;
@@ -12,6 +13,8 @@ interface ThemeState {
   isDark: boolean;
   filterCases: string;
   filterProfile: string;
+  /** DIN annex locale profile id, e.g. locale-de; empty = all languages */
+  filterLocale: string;
   selectedKeyboards: string[];
   availableKeyboards: { id: string; name: string }[];
   feature: {
@@ -30,9 +33,10 @@ export const useThemeStore = defineStore("theme", {
     isDark: false,
     filterCases: "s",
     filterProfile: "__all",
-    selectedKeyboards: ["characters-DIN-SPEC-91379"],
+    filterLocale: "",
+    selectedKeyboards: [KEYBOARD_DIN_91379_ID],
     availableKeyboards: [
-      { id: "characters-DIN-SPEC-91379", name: "DIN SPEC 91379" },
+      { id: KEYBOARD_DIN_91379_ID, name: "DIN 91379:2022-08" },
     ],
     feature: {
       basechar: true,
@@ -56,6 +60,10 @@ export const useThemeStore = defineStore("theme", {
 
     updateFilterProfile(value: string) {
       this.filterProfile = value;
+    },
+
+    updateFilterLocale(value: string) {
+      this.filterLocale = value;
     },
 
     updateSelectedKeyboards(value: string[]) {
