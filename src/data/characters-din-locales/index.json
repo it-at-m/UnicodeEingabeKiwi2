@@ -1,0 +1,240 @@
+{
+  "source": "DIN SPEC 91379 annex countries column (String.Latin+ 1.2 xlsx)",
+  "master": "characters-DIN-SPEC-91379.json",
+  "locales": [
+    {
+      "id": "locale-de",
+      "file": "characters-din-locales/de.json",
+      "countries": ["DE"],
+      "names": {
+        "de": "Deutsch (DIN)",
+        "en": "German (DIN)"
+      }
+    },
+    {
+      "id": "locale-at",
+      "file": "characters-din-locales/at.json",
+      "countries": ["AT"],
+      "names": {
+        "de": "Österreich (DIN)",
+        "en": "Austrian German (DIN)"
+      }
+    },
+    {
+      "id": "locale-fr",
+      "file": "characters-din-locales/fr.json",
+      "countries": ["FR"],
+      "names": {
+        "de": "Französisch (DIN)",
+        "en": "French (DIN)"
+      }
+    },
+    {
+      "id": "locale-es",
+      "file": "characters-din-locales/es.json",
+      "countries": ["ES"],
+      "names": {
+        "de": "Spanisch (DIN)",
+        "en": "Spanish (DIN)"
+      }
+    },
+    {
+      "id": "locale-it",
+      "file": "characters-din-locales/it.json",
+      "countries": ["IT"],
+      "names": {
+        "de": "Italienisch (DIN)",
+        "en": "Italian (DIN)"
+      }
+    },
+    {
+      "id": "locale-nl",
+      "file": "characters-din-locales/nl.json",
+      "countries": ["NL"],
+      "names": {
+        "de": "Niederländisch (DIN)",
+        "en": "Dutch (DIN)"
+      }
+    },
+    {
+      "id": "locale-pl",
+      "file": "characters-din-locales/pl.json",
+      "countries": ["PL"],
+      "names": {
+        "de": "Polnisch (DIN)",
+        "en": "Polish (DIN)"
+      }
+    },
+    {
+      "id": "locale-cs",
+      "file": "characters-din-locales/cs.json",
+      "countries": ["CZ"],
+      "names": {
+        "de": "Tschechisch (DIN)",
+        "en": "Czech (DIN)"
+      }
+    },
+    {
+      "id": "locale-sk",
+      "file": "characters-din-locales/sk.json",
+      "countries": ["SK"],
+      "names": {
+        "de": "Slowakisch (DIN)",
+        "en": "Slovak (DIN)"
+      }
+    },
+    {
+      "id": "locale-hu",
+      "file": "characters-din-locales/hu.json",
+      "countries": ["HU"],
+      "names": {
+        "de": "Ungarisch (DIN)",
+        "en": "Hungarian (DIN)"
+      }
+    },
+    {
+      "id": "locale-ro",
+      "file": "characters-din-locales/ro.json",
+      "countries": ["RO"],
+      "names": {
+        "de": "Rumänisch (DIN)",
+        "en": "Romanian (DIN)"
+      }
+    },
+    {
+      "id": "locale-hr",
+      "file": "characters-din-locales/hr.json",
+      "countries": ["HR"],
+      "names": {
+        "de": "Kroatisch (DIN)",
+        "en": "Croatian (DIN)"
+      }
+    },
+    {
+      "id": "locale-sl",
+      "file": "characters-din-locales/sl.json",
+      "countries": ["SI"],
+      "names": {
+        "de": "Slowenisch (DIN)",
+        "en": "Slovenian (DIN)"
+      }
+    },
+    {
+      "id": "locale-et",
+      "file": "characters-din-locales/et.json",
+      "countries": ["EE"],
+      "names": {
+        "de": "Estnisch (DIN)",
+        "en": "Estonian (DIN)"
+      }
+    },
+    {
+      "id": "locale-lv",
+      "file": "characters-din-locales/lv.json",
+      "countries": ["LV"],
+      "names": {
+        "de": "Lettisch (DIN)",
+        "en": "Latvian (DIN)"
+      }
+    },
+    {
+      "id": "locale-lt",
+      "file": "characters-din-locales/lt.json",
+      "countries": ["LT"],
+      "names": {
+        "de": "Litauisch (DIN)",
+        "en": "Lithuanian (DIN)"
+      }
+    },
+    {
+      "id": "locale-fi",
+      "file": "characters-din-locales/fi.json",
+      "countries": ["FI"],
+      "names": {
+        "de": "Finnisch (DIN)",
+        "en": "Finnish (DIN)"
+      }
+    },
+    {
+      "id": "locale-se",
+      "file": "characters-din-locales/se.json",
+      "countries": ["SE"],
+      "names": {
+        "de": "Schwedisch (DIN)",
+        "en": "Swedish (DIN)"
+      }
+    },
+    {
+      "id": "locale-da",
+      "file": "characters-din-locales/da.json",
+      "countries": ["DK"],
+      "names": {
+        "de": "Dänisch (DIN)",
+        "en": "Danish (DIN)"
+      }
+    },
+    {
+      "id": "locale-no",
+      "file": "characters-din-locales/no.json",
+      "countries": ["NO"],
+      "names": {
+        "de": "Norwegisch (DIN)",
+        "en": "Norwegian (DIN)"
+      }
+    },
+    {
+      "id": "locale-is",
+      "file": "characters-din-locales/is.json",
+      "countries": ["IS"],
+      "names": {
+        "de": "Isländisch (DIN)",
+        "en": "Icelandic (DIN)"
+      }
+    },
+    {
+      "id": "locale-pt",
+      "file": "characters-din-locales/pt.json",
+      "countries": ["PT"],
+      "names": {
+        "de": "Portugiesisch (DIN)",
+        "en": "Portuguese (DIN)"
+      }
+    },
+    {
+      "id": "locale-mt",
+      "file": "characters-din-locales/mt.json",
+      "countries": ["MT"],
+      "names": {
+        "de": "Maltesisch (DIN)",
+        "en": "Maltese (DIN)"
+      }
+    },
+    {
+      "id": "locale-tr",
+      "file": "characters-din-locales/tr.json",
+      "countries": ["TR"],
+      "names": {
+        "de": "Türkisch (DIN)",
+        "en": "Turkish (DIN)"
+      }
+    },
+    {
+      "id": "locale-ie",
+      "file": "characters-din-locales/ie.json",
+      "countries": ["IE"],
+      "names": {
+        "de": "Irisch (DIN)",
+        "en": "Irish (DIN)"
+      }
+    },
+    {
+      "id": "locale-wel",
+      "file": "characters-din-locales/wel.json",
+      "countries": ["UK-WEL"],
+      "names": {
+        "de": "Walisisch (DIN)",
+        "en": "Welsh (DIN)"
+      }
+    }
+  ]
+}

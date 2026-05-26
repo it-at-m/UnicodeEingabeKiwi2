@@ -1,6 +1,11 @@
 // Types and interfaces
+import { KEYBOARD_DIN_91379_ID } from "@/constants";
 import characterDataDIN from "@/data/characters-DIN-SPEC-91379.json";
-import characterDataGerman from "@/data/characters-german.json";
+import {
+  buildDinLocaleIdSets,
+  DIN_LOCALE_FILES,
+  isDinLocaleProfile,
+} from "@/data/dinLocales";
 
 interface Profile {
   seq: number;
@@ -37,8 +42,10 @@ interface IStringLatinModelService {
     basechar: string,
     type: string,
     cases: string,
-    onlyNormative?: boolean
+    onlyNormative?: boolean,
+    localeProfileId?: string
   ): Promise<Character[]>;
+  getLocaleProfiles(): Promise<Profile[]>;
   getBasecharByChar(char: string): Promise<string[]>;
   getCaseOfChar(char: string): Promise<string>;
   getModelProperties(): Promise<{ dataversion: string; name: string }>;
@@ -52,7 +59,7 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
     dataversion: "DIN-202208",
   };
 
-  private readonly profiles: Profile[] = [
+  private readonly baseProfiles: Profile[] = [
     {
       seq: 0,
       id: "__all",
@@ -86,10 +93,31 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
       },
       descriptions: {
         de: "Verpflichtende/normative Buchstaben",
-        en: "Mandatory/normative characters",
+        en: "Mandatory/normative letters",
       },
     },
   ];
+
+  private readonly localeProfiles: Profile[] = Object.values(DIN_LOCALE_FILES)
+    .map((file, index) => ({
+      seq: 100 + index,
+      id: file.id,
+      names: file.names,
+      descriptions: {
+        de: `Buchstaben für ${file.names.de ?? file.id} (DIN-Anhang Länder)`,
+        en: `Letters for ${file.names.en ?? file.id} (DIN annex countries)`,
+      },
+    }))
+    .sort((a, b) =>
+      (a.names.de ?? a.names.en ?? a.id).localeCompare(
+        b.names.de ?? b.names.en ?? b.id,
+        "de"
+      )
+    );
+
+  private readonly profiles: Profile[] = this.baseProfiles;
+
+  private readonly localeCharacterIds = buildDinLocaleIdSets();
 
   private characters: Character[] = [];
 
@@ -104,10 +132,15 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
 
   private getKeyboardData(keyboardId: string): Character[] {
     switch (keyboardId) {
-      case "characters-DIN-SPEC-91379":
-        return [...(characterDataDIN as CharacterData).characters];
+      case KEYBOARD_DIN_91379_ID:
       case "characters-german":
-        return [...(characterDataGerman as CharacterData).characters];
+        // Legacy: German 8-key keyboard removed; use DIN keyboard + Sprache (DIN) filter
+        if (keyboardId === "characters-german") {
+          console.debug(
+            "characters-german is deprecated; using DIN 91379 keyboard"
+          );
+        }
+        return [...(characterDataDIN as CharacterData).characters];
       default:
         console.debug(
           `Unknown keyboard ID: ${keyboardId}, falling back to DIN keyboard`
@@ -144,7 +177,7 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
     if (keyboardIds.length === 0) {
       // If no keyboards selected, use the default DIN keyboard
       this.characters = this.sortCharacters(
-        this.getKeyboardData("characters-DIN-SPEC-91379")
+        this.getKeyboardData(KEYBOARD_DIN_91379_ID)
       );
       return;
     }
@@ -175,6 +208,10 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
     return this.profiles;
   }
 
+  async getLocaleProfiles(): Promise<Profile[]> {
+    return this.localeProfiles;
+  }
+
   private normalizeForComparison(str: string): string {
     // Normalize to NFC form and remove variation selectors
     return str.normalize("NFC").replace(/[\uFE00-\uFE0F]/g, "");
@@ -185,15 +222,23 @@ class StringLatinModelServiceImpl implements IStringLatinModelService {
     basechar: string,
     type: string,
     cases: string,
-    onlyNormative = true
+    onlyNormative = true,
+    localeProfileId = ""
   ): Promise<Character[]> {
     let filteredChars = [...this.characters];
 
-    // Filter by profile
     if (profileId !== "__all") {
       filteredChars = filteredChars.filter((char) =>
         char.profiles.includes(profileId)
       );
+    }
+
+    // Language/region filter (separate JSON per locale; master DIN unchanged)
+    if (localeProfileId && isDinLocaleProfile(localeProfileId)) {
+      const allowedIds = this.localeCharacterIds.get(localeProfileId);
+      if (allowedIds) {
+        filteredChars = filteredChars.filter((char) => allowedIds.has(char.id));
+      }
     }
 
     // Filter by normative status

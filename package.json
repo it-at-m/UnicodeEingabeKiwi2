@@ -12,6 +12,7 @@
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build && npm run copy-locales",
     "copy-locales": "mkdir -p dist/locales && cp -r src/locales/* dist/locales/",
+    "generate:din-locales": "python3 scripts/generate-din-locale-files.py",
     "lint": "prettier src/ tests/ --check && eslint . && vue-tsc --noEmit",
     "format": "prettier src/ tests/ --write",
     "fix": "prettier . --write && eslint . --fix"

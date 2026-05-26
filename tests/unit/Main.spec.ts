@@ -34,6 +34,7 @@ const mockModel = {
   getBasecharByChar: vi.fn(),
   loadKeyboards: vi.fn(),
   getAllProfiles: vi.fn(),
+  getLocaleProfiles: vi.fn().mockResolvedValue([]),
 };
 
 vi.mock("@/api/StringLatinModelService", () => ({

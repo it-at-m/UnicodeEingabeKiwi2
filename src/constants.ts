@@ -9,8 +9,14 @@ export const URL_OPENSOURCE_KIWI_DE =
   "https://opensource.muenchen.de/de/software/kiwi.html";
 export const URL_OPENSOURCE_KIWI_EN =
   "https://opensource.muenchen.de/software/kiwi.html";
+/** @deprecated Use URL_DIN_91379_WIKI */
 export const URL_DIN_SPEC_91379_WIKI =
-  "https://de.wikipedia.org/wiki/DIN_SPEC_91379";
+  "https://de.wikipedia.org/wiki/DIN_91379";
+
+export const URL_DIN_91379_WIKI = URL_DIN_SPEC_91379_WIKI;
+
+/** Internal id (legacy filename); dataset implements DIN 91379:2022-08 */
+export const KEYBOARD_DIN_91379_ID = "characters-DIN-SPEC-91379";
 
 export const SNACKBAR_DEFAULT_TIMEOUT = 5000;
 

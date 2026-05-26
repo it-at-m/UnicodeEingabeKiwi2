@@ -93,7 +93,7 @@
         </v-col>
       </v-row>
 
-      <!-- Filter Panel -->
+      <!-- Filter Panel (always visible; headings only in non-compact layout) -->
       <v-row v-if="!compactView">
         <h1 class="v-label">{{ $t("main.filterpanel_header") }}</h1>
       </v-row>
@@ -104,7 +104,8 @@
       >
         <v-col
           cols="12"
-          md="4"
+          sm="6"
+          md="3"
         >
           <v-select
             id="filtercases"
@@ -121,7 +122,8 @@
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          sm="6"
+          md="3"
         >
           <v-select
             id="filterregion"
@@ -130,7 +132,7 @@
             :label="$t('main.filterregion')"
             :title="$t('main.filterregion_alt')"
             :items="profiles"
-            :item-title="(item) => getProfileName(item.id)"
+            :item-title="(item) => item.name"
             item-value="id"
             hide-details="auto"
             @update:model-value="updateProfile"
@@ -138,7 +140,27 @@
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          sm="6"
+          md="3"
+        >
+          <v-select
+            id="filterlocale"
+            :model-value="currentFilters.locale"
+            class="nocap"
+            :label="$t('main.filterlanguage')"
+            :title="$t('main.filterlanguage_alt')"
+            :items="localeProfiles"
+            :item-title="(item) => item.name"
+            item-value="id"
+            :menu-props="{ maxHeight: 360 }"
+            hide-details="auto"
+            @update:model-value="updateLocale"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+          md="3"
           class="filter-panel__actions d-flex align-self-center"
         >
           <v-btn
@@ -183,6 +205,7 @@
               {{ keyboard.name }}
             </v-chip>
             <v-btn
+              v-if="availableKeyboardOptions.length > 0"
               variant="text"
               :prepend-icon="mdiPlus"
               @click="showAddKeyboardDialog = true"
@@ -322,6 +345,7 @@ import {
   RENDER_DELAY,
   RENDER_DELAY_SHORT,
 } from "@/api/FocusUtils";
+import { KEYBOARD_DIN_91379_ID } from "@/constants";
 import { useThemeStore } from "@/stores/theme";
 import Graphemer from "@/utils/graphemer";
 
@@ -345,16 +369,14 @@ const bufferFieldDensity = computed(() =>
   showBufferFieldAppend.value ? "compact" : "comfortable"
 );
 
-// Watch for language changes and update keyboard names
+// Watch for language changes and update DIN keyboard label
 watch(locale, () => {
   themeStore.$patch((state) => {
-    state.availableKeyboards = state.availableKeyboards.map((keyboard) => ({
-      id: keyboard.id,
-      name:
-        keyboard.id === "characters-DIN-SPEC-91379"
-          ? t("main.keyboards.din")
-          : t("main.keyboards.german"),
-    }));
+    state.availableKeyboards = state.availableKeyboards.map((keyboard) =>
+      keyboard.id === KEYBOARD_DIN_91379_ID
+        ? { id: keyboard.id, name: t("main.keyboards.din") }
+        : keyboard
+    );
   });
 });
 
@@ -388,6 +410,7 @@ interface DisplayCharacter {
 const currentFilters = reactive({
   cases: themeStore.filterCases,
   profile: themeStore.filterProfile,
+  locale: themeStore.filterLocale,
   basechar: "",
   searchChar: "",
 });
@@ -396,6 +419,7 @@ const currentFilters = reactive({
 const mainbufferValue = ref("");
 const keyboard = ref<DisplayCharacter[]>([]);
 const rawProfiles = ref<RawProfile[]>([]);
+const rawLocaleProfiles = ref<RawProfile[]>([]);
 const replaceLastGraphme = ref(false);
 const numSearches = ref(0);
 const splitter = new Graphemer();
@@ -420,6 +444,27 @@ const profiles = computed<LocalProfile[]>(() =>
       "",
   }))
 );
+
+const localeProfiles = computed<LocalProfile[]>(() => {
+  const allLanguages: LocalProfile = {
+    seq: 0,
+    id: "",
+    name: t("main.filterlanguage_all"),
+    descr: t("main.filterlanguage_all_desc"),
+  };
+  const mapped = rawLocaleProfiles.value.map((p) => ({
+    seq: p.seq,
+    id: p.id,
+    name:
+      p.names[locale.value] || p.names["en"] || Object.values(p.names)[0] || "",
+    descr:
+      p.descriptions[locale.value] ||
+      p.descriptions["en"] ||
+      Object.values(p.descriptions)[0] ||
+      "",
+  }));
+  return [allLanguages, ...mapped];
+});
 
 interface CaseOption {
   seq: number;
@@ -451,13 +496,6 @@ const caseing: CaseOption[] = [
 ];
 
 // Methods
-const getProfileName = (id: string | undefined): string => {
-  if (!id) return "";
-  const key = `main.profiles.${id}`;
-  const translated = t(key);
-  return translated !== key ? translated : id;
-};
-
 const updateCase = (newValue: string): void => {
   if (!newValue || newValue === currentFilters.cases) return;
   currentFilters.cases = newValue;
@@ -472,16 +510,26 @@ const updateProfile = (newValue: string): void => {
   nextTick(() => runSearch());
 };
 
+const updateLocale = (newValue: string): void => {
+  const value = newValue ?? "";
+  if (value === currentFilters.locale) return;
+  currentFilters.locale = value;
+  themeStore.updateFilterLocale(value);
+  nextTick(() => runSearch());
+};
+
 const resetAllFilters = (): void => {
   Object.assign(currentFilters, {
     cases: "s",
     profile: "__all",
+    locale: "",
     basechar: "",
     searchChar: "",
   });
 
   themeStore.updateFilterProfile(currentFilters.profile);
   themeStore.updateFilterCases(currentFilters.cases);
+  themeStore.updateFilterLocale(currentFilters.locale);
   nextTick(() => runSearch());
 };
 
@@ -494,7 +542,9 @@ const runSearch = async (): Promise<void> => {
       currentFilters.profile,
       currentFilters.basechar,
       "",
-      cases
+      cases,
+      true,
+      currentFilters.locale
     );
 
     // Transform Character to DisplayCharacter
@@ -712,9 +762,9 @@ const availableKeyboards = computed({
   get: () => themeStore.availableKeyboards,
   set: (value) => themeStore.updateAvailableKeyboards(value),
 });
+/** Optional extra keyboards (DIN 91379:2022-08 is always the primary dataset). */
 const availableKeyboardFiles = computed<KeyboardInfo[]>(() => [
-  { id: "characters-DIN-SPEC-91379", name: t("main.keyboards.din") },
-  { id: "characters-german", name: t("main.keyboards.german") },
+  { id: KEYBOARD_DIN_91379_ID, name: t("main.keyboards.din") },
 ]);
 
 // Computed property for available keyboard options in select
@@ -730,8 +780,8 @@ const sortedAvailableKeyboards = computed(() => {
   // First, sort all keyboards alphabetically by name
   const sorted = [...availableKeyboards.value].sort((a, b) => {
     // If one of them is DIN SPEC, it should be first
-    if (a.id === "characters-DIN-SPEC-91379") return -1;
-    if (b.id === "characters-DIN-SPEC-91379") return 1;
+    if (a.id === KEYBOARD_DIN_91379_ID) return -1;
+    if (b.id === KEYBOARD_DIN_91379_ID) return 1;
     // Otherwise, sort alphabetically by name
     return a.name.localeCompare(b.name);
   });
@@ -775,10 +825,7 @@ const addKeyboard = async (): Promise<void> => {
     )
   ) {
     const keyboardId = selectedKeyboardToAdd.value;
-    const keyboardName =
-      keyboardId === "characters-DIN-SPEC-91379"
-        ? t("main.keyboards.din")
-        : t("main.keyboards.german");
+    const keyboardName = t("main.keyboards.din");
 
     // Update store directly
     themeStore.$patch((state) => {
@@ -832,12 +879,9 @@ const resetKeyboards = async (): Promise<void> => {
   // Update store directly
   themeStore.$patch((state) => {
     state.availableKeyboards = [
-      {
-        id: "characters-DIN-SPEC-91379",
-        name: t("main.keyboards.din"),
-      },
+      { id: KEYBOARD_DIN_91379_ID, name: t("main.keyboards.din") },
     ];
-    state.selectedKeyboards = ["characters-DIN-SPEC-91379"];
+    state.selectedKeyboards = [KEYBOARD_DIN_91379_ID];
   });
   await props.model.loadKeyboards(selectedKeyboards.value);
   await runSearch();
@@ -864,32 +908,56 @@ onMounted(async (): Promise<void> => {
   window.addEventListener("keyup", onGlobalKeyup);
 
   try {
-    // Initialize available keyboards if none are stored
-    if (availableKeyboards.value.length === 0) {
-      // Update store directly with translated names
-      themeStore.$patch((state) => {
+    // Migrate legacy state: single DIN 91379 keyboard (no separate German keyboard)
+    themeStore.$patch((state) => {
+      const hadGermanKeyboard =
+        state.selectedKeyboards.includes("characters-german") ||
+        state.availableKeyboards.some((k) => k.id === "characters-german");
+      const dinName = t("main.keyboards.din");
+      state.selectedKeyboards = [
+        ...new Set(
+          state.selectedKeyboards
+            .filter((id) => id !== "characters-german")
+            .map((id) =>
+              id === "characters-german" ? KEYBOARD_DIN_91379_ID : id
+            )
+        ),
+      ];
+      if (state.selectedKeyboards.length === 0) {
+        state.selectedKeyboards = [KEYBOARD_DIN_91379_ID];
+      }
+      state.availableKeyboards = state.availableKeyboards
+        .filter((k) => k.id !== "characters-german")
+        .map((k) =>
+          k.id === KEYBOARD_DIN_91379_ID ? { id: k.id, name: dinName } : k
+        );
+      if (
+        !state.availableKeyboards.some((k) => k.id === KEYBOARD_DIN_91379_ID)
+      ) {
         state.availableKeyboards = [
-          { id: "characters-DIN-SPEC-91379", name: t("main.keyboards.din") },
-          { id: "characters-german", name: t("main.keyboards.german") },
+          { id: KEYBOARD_DIN_91379_ID, name: dinName },
         ];
-      });
-    }
+      }
+      // Former "Deutsche Tastatur" users → German DIN language filter
+      if (!state.filterLocale && hadGermanKeyboard) {
+        state.filterLocale = "locale-de";
+        currentFilters.locale = "locale-de";
+      }
+    });
 
-    // Load the selected keyboards
-    if (selectedKeyboards.value.length === 0) {
-      // If no keyboards are selected, select the DIN keyboard by default
-      themeStore.$patch((state) => {
-        state.selectedKeyboards = ["characters-DIN-SPEC-91379"];
-      });
-    }
     await props.model.loadKeyboards(selectedKeyboards.value);
 
-    const result = await props.model.getAllProfiles();
-    rawProfiles.value = result;
+    const [normProfiles, languageProfiles] = await Promise.all([
+      props.model.getAllProfiles(),
+      props.model.getLocaleProfiles(),
+    ]);
+    rawProfiles.value = normProfiles;
+    rawLocaleProfiles.value = languageProfiles;
     await runSearch();
   } catch (error) {
     handleThreadError(error, themeStore.showMessage);
     rawProfiles.value = [];
+    rawLocaleProfiles.value = [];
   }
 });
 
