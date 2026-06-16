@@ -1,0 +1,30 @@
+#!/bin/sh
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+. "$(dirname "$0")/validate-commit-message.sh"
+
+commit_msg=$(head -n 1 "$1")
+staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+
+echo "Running commit message check..."
+validate_commit_message "$commit_msg" || exit 1
+
+if echo "$staged_files" | grep -qE '^(src/|tests/)|(^|/)(eslint\.config\.js|vite\.config\.ts|vitest\.config\.ts|tsconfig.*\.json)$'; then
+  echo "Running frontend lint check..."
+  if ! npm run lint; then
+    printf "${RED}✗ Lint failed. Please fix the errors before committing.${NC}\n"
+    echo "  npm run fix"
+    exit 1
+  fi
+  printf "${GREEN}✓ Frontend lint OK.${NC}\n"
+
+  echo "Running frontend unit tests..."
+  if ! npm test; then
+    printf "${RED}✗ Unit tests failed. Please fix the errors before committing.${NC}\n"
+    exit 1
+  fi
+  printf "${GREEN}✓ Frontend unit tests OK.${NC}\n"
+fi
