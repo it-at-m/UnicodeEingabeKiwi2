@@ -31,6 +31,9 @@
     "vuetify": "4.1.1",
     "webfontloader": "1.6.28"
   },
+  "overrides": {
+    "undici": "7.28.0"
+  },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@mdi/js": "7.4.47",
