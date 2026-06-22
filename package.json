@@ -48,7 +48,7 @@
     "esbuild": "0.28.1",
     "eslint": "10.5.0",
     "eslint-plugin-vue": "10.9.2",
-    "husky": "^9.1.7",
+    "husky": "9.1.7",
     "jsdom": "29.1.1",
     "prettier": "3.8.4",
     "typescript": "6.0.3",
