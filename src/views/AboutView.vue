@@ -39,8 +39,7 @@
 
 {{ licenseContent.notice }}
 
-{{ licenseContent.warranty }}</pre
-          >
+{{ licenseContent.warranty }}</pre>
         </v-card>
 
         <h2 class="text-h4 mb-4">{{ t("about.components.title") }}</h2>
