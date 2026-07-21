@@ -19,7 +19,7 @@
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@fontsource/roboto": "5.2.10",
+    "@fontsource/roboto": "5.3.0",
     "@types/webfontloader": "1.6.38",
     "@vueuse/core": "14.3.0",
     "graphemer": "1.4.0",
