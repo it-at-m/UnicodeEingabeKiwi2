@@ -23,7 +23,7 @@
     "@types/webfontloader": "1.6.38",
     "@vueuse/core": "14.3.0",
     "graphemer": "1.4.0",
-    "pinia": "3.0.4",
+    "pinia": "4.0.2",
     "pinia-plugin-persistedstate": "4.7.1",
     "vue": "3.5.40",
     "vue-i18n": "11.4.6",
