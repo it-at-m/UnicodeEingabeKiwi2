@@ -34,7 +34,7 @@
   "overrides": {
     "undici": "7.28.0",
     "minimatch@9": {
-      "brace-expansion": "2.1.2"
+      "brace-expansion": "3.0.2"
     }
   },
   "devDependencies": {
