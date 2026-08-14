@@ -25,6 +25,16 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
+    env:
+      # action-npm-release runs `npm version` before `git config`. These keep
+      # that step from failing, and stop npm from committing so the action's
+      # follow-up commit is not a no-op.
+      HUSKY: "0"
+      npm_config_git_tag_version: "false"
+      GIT_AUTHOR_NAME: GitHub Actions
+      GIT_AUTHOR_EMAIL: github-actions@github.com
+      GIT_COMMITTER_NAME: GitHub Actions
+      GIT_COMMITTER_EMAIL: github-actions@github.com
     outputs:
       ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
