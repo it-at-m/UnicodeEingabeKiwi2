@@ -25,26 +25,39 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-    env:
-      # action-npm-release runs `npm version` before `git config`. These keep
-      # that step from failing, and stop npm from committing so the action's
-      # follow-up commit is not a no-op.
-      HUSKY: "0"
-      npm_config_git_tag_version: "false"
-      GIT_AUTHOR_NAME: GitHub Actions
-      GIT_AUTHOR_EMAIL: github-actions@github.com
-      GIT_COMMITTER_NAME: GitHub Actions
-      GIT_COMMITTER_EMAIL: github-actions@github.com
     outputs:
       ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
     steps:
-      - id: npm_release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      # action-npm-release pushes the bump to the workflow branch. `dev` only
+      # allows the Kiwi team to push, so GitHub Actions is rejected. Bump on a
+      # release branch and open a PR instead.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
-          app-path: "" # root package.json
           node-version: "24"
-          releaseVersion: ${{ inputs.release-version }}
+          cache: npm
+      - id: npm_release
+        name: Bump version and open PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HUSKY: "0"
+          RELEASE_VERSION: ${{ inputs.release-version }}
+          BASE_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          NEW_VERSION="$(npm version "$RELEASE_VERSION" --no-git-tag-version)"
+          echo "ARTIFACT_VERSION=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+          git add package.json package-lock.json
+          git commit -m "chore(GH): bump version to ${NEW_VERSION}"
+          BRANCH="release/${NEW_VERSION}"
+          git switch -c "$BRANCH"
+          git push -u origin "HEAD:refs/heads/${BRANCH}"
+          gh pr create --base "$BASE_REF" --head "$BRANCH" \
+            --title "chore(GH): bump version to ${NEW_VERSION}" \
+            --body "Automated version bump from Release NPM."
       - id: node
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
         with:
