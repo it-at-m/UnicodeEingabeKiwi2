@@ -47,7 +47,7 @@
     "@vue/eslint-config-typescript": "14.9.0",
     "@vue/test-utils": "2.4.11",
     "@vue/tsconfig": "0.9.1",
-    "esbuild": "0.28.1",
+    "esbuild": "0.28.2",
     "eslint": "10.8.0",
     "eslint-plugin-vue": "10.10.0",
     "husky": "9.1.7",
