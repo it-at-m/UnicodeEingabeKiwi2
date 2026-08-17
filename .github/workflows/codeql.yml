@@ -35,9 +35,9 @@ jobs:
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
       python: ${{ steps.filter.outputs.python }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
 
   codeql-java:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
         build-path:
           - "." # Path to Java project(s) to build, when enabled
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -68,7 +68,7 @@ jobs:
     needs: codeql-check-changed-files
     if: github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true'
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -81,7 +81,7 @@ jobs:
     needs: codeql-check-changed-files
     if: false
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}
