@@ -45,7 +45,7 @@ jobs:
       contents: read
       security-events: write
     needs: codeql-check-changed-files
-    if: false
+    if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
     strategy:
       fail-fast: false
       matrix:
@@ -79,7 +79,7 @@ jobs:
       contents: read
       security-events: write
     needs: codeql-check-changed-files
-    if: false
+    if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
