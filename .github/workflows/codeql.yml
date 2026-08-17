@@ -1,16 +1,8 @@
 name: codeql
 
 env:
-  # Whether to analyze Java code or not (only set to true if repo has Java source code)
-  analyze-java: false
-  # Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
-  java-buildmode: autobuild
-  # Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
-  java-version: 21
   # Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
   analyze-javascript-typescript-vue: true
-  # Whether to analyze Python code or not (only set to true if repo has Python source code)
-  analyze-python: false
   # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
   analysis-query: security-and-quality
 
@@ -31,34 +23,11 @@ jobs:
       contents: read
       pull-requests: read
     outputs:
-      java: ${{ steps.filter.outputs.java }}
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
-      python: ${{ steps.filter.outputs.python }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
-
-  codeql-java:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    needs: codeql-check-changed-files
-    if: false
-    strategy:
-      fail-fast: false
-      matrix:
-        build-path:
-          - "." # Path to Java project(s) to build, when enabled
-    steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
-        with:
-          codeql-language: java-kotlin
-          codeql-buildmode: ${{ env.java-buildmode }}
-          codeql-query: ${{ env.analysis-query }}
-          java-version: ${{ env.java-version }}
-          path: ${{ matrix.build-path }}
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
 
   codeql-javascript-typescript-vue:
     runs-on: ubuntu-latest
@@ -68,20 +37,7 @@ jobs:
     needs: codeql-check-changed-files
     if: github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true'
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           codeql-language: javascript-typescript
-          codeql-query: ${{ env.analysis-query }}
-
-  codeql-python:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    needs: codeql-check-changed-files
-    if: false
-    steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
-        with:
-          codeql-language: python
           codeql-query: ${{ env.analysis-query }}
