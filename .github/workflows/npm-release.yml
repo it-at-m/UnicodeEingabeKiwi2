@@ -59,7 +59,7 @@ jobs:
             --title "chore(GH): bump version to ${NEW_VERSION}" \
             --body "Automated version bump from Release NPM."
       - id: node
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: ""
           node-version: "24"
@@ -76,7 +76,7 @@ jobs:
       packages: write
       contents: read
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           path: ""
           image-name: kiwi
@@ -94,7 +94,7 @@ jobs:
       contents: write
     steps:
       - name: Create GitHub Release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           tag-name: ${{ needs.release.outputs.ARTIFACT_VERSION }}
