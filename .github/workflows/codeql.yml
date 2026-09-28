@@ -25,9 +25,9 @@ jobs:
     outputs:
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
 
   codeql-javascript-typescript-vue:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
     needs: codeql-check-changed-files
     if: github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true'
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
