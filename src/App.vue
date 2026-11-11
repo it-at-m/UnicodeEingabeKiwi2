@@ -66,7 +66,7 @@
           class="app-bar__lhm-link"
         >
           <v-img
-            src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
+            :src="URL_LHM_LOGO"
             alt="LHM Logo"
             width="150"
             min-width="100"
@@ -133,7 +133,7 @@
             class="drawer-lhm-link"
           >
             <v-img
-              src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
+              :src="URL_LHM_LOGO"
               alt="LHM Logo"
               width="148"
               max-width="148"
@@ -184,6 +184,7 @@ import {
   ROUTES_HELP,
   URL_DIN_SPEC_91379_WIKI,
   URL_GITHUB_REPO,
+  URL_LHM_LOGO,
   URL_OPENSOURCE_KIWI_DE,
   URL_OPENSOURCE_KIWI_EN,
 } from "@/constants";

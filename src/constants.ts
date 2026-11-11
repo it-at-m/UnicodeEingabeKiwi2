@@ -5,6 +5,8 @@ export const ROUTES_NOT_FOUND = "not-found";
 
 export const URL_GITHUB_REPO =
   "https://github.com/it-at-m/UnicodeEingabeKiwi2/";
+export const URL_LHM_LOGO =
+  "https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg";
 export const URL_OPENSOURCE_KIWI_DE =
   "https://opensource.muenchen.de/de/software/kiwi.html";
 export const URL_OPENSOURCE_KIWI_EN =
