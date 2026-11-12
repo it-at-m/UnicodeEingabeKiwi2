@@ -32,7 +32,7 @@
     "webfontloader": "1.6.28"
   },
   "overrides": {
-    "glob": "14.0.2",
+    "glob": "14.0.4",
     "minimatch": "11.0.1"
   },
   "devDependencies": {
