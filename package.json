@@ -33,7 +33,7 @@
   },
   "overrides": {
     "glob": "14.0.4",
-    "minimatch": "11.0.1"
+    "minimatch": "11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
