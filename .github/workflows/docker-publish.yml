@@ -14,8 +14,8 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  # Keep branch/tag builds in the same GHCR package as manual releases.
+  IMAGE_NAME: ${{ github.repository_owner }}/unicodeeingabekiwi2
 
 jobs:
   build:
