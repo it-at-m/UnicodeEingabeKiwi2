@@ -51,7 +51,7 @@
     "eslint-plugin-vue": "10.12.1",
     "husky": "9.1.7",
     "jsdom": "31.0.1",
-    "prettier": "3.9.10",
+    "prettier": "3.10.1",
     "@typescript/native": "npm:typescript@7.0.2",
     "typescript": "npm:@typescript/typescript6@6.0.3",
     "unplugin-fonts": "2.1.0",
